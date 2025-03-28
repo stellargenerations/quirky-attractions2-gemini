@@ -1,0 +1,66 @@
+---
+layout: layout.njk
+pagination:
+    data: attractions # Use the data fetched in _data/attractions.js
+    size: 1          # Create one page per item in the 'attractions' array
+    alias: attraction # Each item will be available as 'attraction' in this template
+    addAllPagesToCollections: true # Optional: makes these pages available in collections
+# Create a URL like /attractions/salvation-mountain/
+permalink: "attractions/{{ attraction.slug }}/index.html"
+# Set the title and breadcrumb for each generated page
+eleventyComputed:
+  title: "{{ attraction.name }}"
+  breadcrumbTitle: "{{ attraction.name }}"
+  breadcrumbAttraction: "{{ attraction.name }}" # Pass attraction name for breadcrumb logic
+  breadcrumbAttractionSlug: "{{ attraction.slug }}" # Pass slug for linking back if needed
+  description: "Learn more about {{ attraction.name }}, a quirky attraction located in {{ attraction.locationCity }}, {{ attraction.state }}."
+---
+
+<article class="attraction-detail container">
+    {# Use breadcrumbTitle which is computed above #}
+    {# {% set breadcrumbTitle = attraction.name %} Already set in eleventyComputed #}
+
+    <h2>{{ attraction.name }}</h2>
+
+    <div class="attraction-meta">
+        <span class="location">Location: {{ attraction.locationCity }}, {{ attraction.state }}</span>
+        {% if attraction.categories.length %}
+        <span class="categories">Categories:
+            {% for category in attraction.categories %}
+                {# Link back to the category page #}
+                <a href="/categories/{{ category | slugify }}/">{{ category }}</a>{% if not loop.last %}, {% endif %}
+            {% endfor %}
+        </span>
+        {% endif %}
+    </div>
+
+    <figure class="attraction-image">
+        <img src="{{ attraction.imageUrl }}" alt="{{ attraction.imageAlt }}" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <figcaption style="display: none; color: red;">Image failed to load.</figcaption> {# Error message #}
+    </figure>
+
+    <div class="attraction-description">
+        <h3>About {{ attraction.name }}</h3>
+        <p>{{ attraction.description | safe }}</p> {# Use safe filter if description might contain HTML #}
+    </div>
+
+    {% if attraction.websiteLink %}
+    <div class="attraction-website">
+        <a href="{{ attraction.websiteLink }}" target="_blank" rel="noopener noreferrer">Visit Website</a>
+    </div>
+    {% endif %}
+
+    {# Optional: Add a small map showing just this location #}
+    {# <div id="single-location-map" style="height: 300px; margin-top: 20px;"></div> #}
+    {# <script> #}
+    {#  // Basic Leaflet map initialization for single location #}
+    {#  var map = L.map('single-location-map').setView([{{ attraction.lat }}, {{ attraction.lon }}], 13); #}
+    {#  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { #}
+    {#      maxZoom: 19, #}
+    {#      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>' #}
+    {#  }).addTo(map); #}
+    {#  L.marker([{{ attraction.lat }}, {{ attraction.lon }}]).addTo(map) #}
+    {#      .bindPopup("{{ attraction.name | replace('"', '\\"') }}").openPopup(); #}
+    {# </script> #}
+
+</article>

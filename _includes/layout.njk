@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title or "Quirky Roadside Attractions USA" }}</title>
+    <meta name="description" content="{{ description or 'Explore unique and quirky roadside attractions across the United States.' }}">
+
+    <link rel="stylesheet" href="/css/leaflet.css" />
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+</head>
+<body>
+    {% include "header.njk" %}
+
+    {% include "breadcrumbs.njk" %}
+
+    <main id="main-content">
+        {{ content | safe }} {# This is where page-specific content goes #}
+    </main>
+
+    {% include "footer.njk" %}
+
+    {# We load the main map script only if it's needed for the page #}
+    {% if loadMapScript %}
+        <script>
+            // Pass data fetched by 11ty to the client-side JavaScript
+            // Make sure 'attractions' is available in the page's context
+            var attractionsData = {{ attractions | jsonDump | safe }};
+            // Pass category colors if defined (optional)
+            // var categoryColors = { "Folk Art": "#ff0000", ... };
+        </script>
+        <script src="/js/main.js"></script>
+    {% endif %}
+
+</body>
+</html>

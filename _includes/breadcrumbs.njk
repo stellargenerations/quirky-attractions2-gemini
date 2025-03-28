@@ -1,0 +1,18 @@
+<nav aria-label="Breadcrumb" class="breadcrumbs">
+    <div class="container">
+        <ol>
+            <li><a href="/">Home</a></li>
+            {% if breadcrumbTitle %}
+                <li><span aria-current="page">{{ breadcrumbTitle }}</span></li>
+            {% endif %}
+             {% if breadcrumbCategory %}
+                <li><a href="/categories/">Categories</a></li>
+                <li><span aria-current="page">{{ breadcrumbCategory }}</span></li>
+            {% endif %}
+             {% if breadcrumbAttraction %}
+                 <li><a href="/#attraction-{{ breadcrumbAttractionSlug }}">Attractions</a></li>
+                 <li><span aria-current="page">{{ breadcrumbAttraction }}</span></li>
+            {% endif %}
+        </ol>
+    </div>
+</nav>

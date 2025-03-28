@@ -1,0 +1,61 @@
+---
+layout: layout.njk
+title: Home - Quirky Roadside Attractions USA
+loadMapScript: true
+description: Discover and filter quirky roadside attractions across the United States on an interactive map and list.
+---
+
+{# The rest of your index.njk template content below #}
+
+{# Set breadcrumb data for the layout #}
+{% set breadcrumbTitle = "" %} {# Home doesn't need a title crumb #}
+
+<div class="map-container">
+    <div id="map">
+        <p class="map-loading">Loading Map...</p> {# Fallback text #}
+    </div>
+    <button id="zoom-out-btn" title="Zoom out to show entire USA">Show All USA</button>
+</div>
+
+<div class="container controls-list-container">
+    <section class="filters" aria-labelledby="filter-heading">
+        <h2 id="filter-heading">Filter Attractions</h2>
+        <div class="filter-controls">
+            <div class="filter-group">
+                <label for="category-filter">By Category:</label>
+                <select id="category-filter" name="category">
+                    <option value="">All Categories</option>
+                    {# Dynamically populate categories from data #}
+                    {% for category in attractions | getAllCategories %}
+                        <option value="{{ category }}">{{ category }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="state-filter">By State:</label>
+                <select id="state-filter" name="state">
+                    <option value="">All States</option>
+                    {# Dynamically populate states from data #}
+                    {% for state in attractions | getAllStates %}
+                        <option value="{{ state }}">{{ state }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </section>
+
+    <section class="list-view" aria-labelledby="list-heading">
+        <h2 id="list-heading">Attractions List</h2>
+        <div id="list-view-content" class="card-container">
+            {# Attractions list will be populated by JavaScript #}
+            <p class="list-loading">Loading attractions...</p>
+        </div>
+         <p id="no-results" class="no-results-message" style="display: none;">No attractions match the current filters.</p>
+    </section>
+
+     <article class="about-website">
+        <h2>About This Site</h2>
+        <p>Welcome to Quirky Roadside Attractions USA! This site is dedicated to showcasing the unusual, the wonderful, and the downright weird places you can find just off the highways and byways of America. From giant balls of twine to mysterious houses and unique art installations, we aim to inspire your next road trip adventure.</p>
+        <p>Use the interactive map and filters above to explore attractions by category or state. Click on a map marker or list item to learn more about each fascinating location.</p>
+    </article>
+</div>
