@@ -69,11 +69,9 @@ module.exports = function(eleventyConfig) {
     eleventyConfig.addShortcode("year", () => `${new Date().getFullYear()}`);
 
     // --- Computed Data ---
-    // Define computed data, specifically for category pages
-    // Using addComputedData as addNunjucksComputed caused issues previously
+    // REMOVE THIS SECTION or move it to a data file
+    /* COMMENTING OUT THE PROBLEMATIC SECTION
     eleventyConfig.addComputedData("categoryPageData", (data) => {
-        // This function runs for each page. Check if it's a category page.
-        // data.categoryData comes from the pagination alias in categories/category.njk
         if (data.categoryData && data.attractions) {
             const currentCategory = data.categoryData;
 
@@ -93,6 +91,7 @@ module.exports = function(eleventyConfig) {
         // If not a category page or data is missing, return null or empty object
         return null;
     });
+    */
 
     // --- Base Config Return ---
     // Return the main configuration object for Eleventy

@@ -1,28 +1,12 @@
 ---
 layout: layout.njk
 pagination:
-    data: attractions           # Indented 4 spaces
-    size: 1                  # Indented 4 spaces
-    alias: categoryData      # Indented 4 spaces
-    filter: (attractions) => { # Indented 4 spaces (Start of JS function value)
-        # Internal JS indentation (e.g., 8 spaces or more)
-        if (!attractions || !Array.isArray(attractions)) return []; // Added check
-        let categories = new Set();
-        attractions.forEach(item => {
-            // Added checks for robustness
-            if (item && item.categories && Array.isArray(item.categories)) {
-                item.categories.forEach(cat => {
-                    if (cat) { // Ensure category isn't empty
-                        categories.add(cat);
-                    }
-                });
-            }
-        });
-        return [...categories].sort();
-    }                        # End of JS function value (brace alignment doesn't strictly matter to YAML)
-    addAllPagesToCollections: true # <<< CRITICAL: MUST be indented 4 spaces (same as data, size, alias, filter)
-permalink: "categories/{{ categoryData | slugify }}/index.html" # No indent (top level)
-loadMapScript: true             # No indent (top level)
+  data: categoryData
+  size: 1
+  alias: categoryData
+  addAllPagesToCollections: true
+permalink: "categories/{{ categoryData | slugify }}/index.html"
+loadMapScript: true
 ---
 
 {% set attractions = categoryAttractions %}
