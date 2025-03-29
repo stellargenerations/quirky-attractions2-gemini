@@ -3,41 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title or "Quirky Roadside Attractions USA" }}</title>
-    <meta name="description" content="{{ description or 'Explore unique and quirky roadside attractions across the United States.' }}">
-
-    <link rel="stylesheet" href="/css/leaflet.css" />
-
+    <title>{{ title or "Roadside Attractions USA" }}</title>
+    <meta name="description" content="{{ description or 'Discover unique and quirky roadside attractions across America. Find unusual landmarks, art installations, historical oddities, and more for your next road trip.' }}">
+    
+    {# Common CSS #}
     <link rel="stylesheet" href="/css/style.css">
-
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-            crossorigin=""></script>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    {# Load Leaflet CSS from CDN when needed - trying a different CDN #}
+    {% if loadMapScript %}
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    {% endif %}
 </head>
 <body>
-    {% include "header.njk" %}
-
-    {% include "breadcrumbs.njk" %}
-
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="/">Roadside Attractions USA</a></h1>
+        </div>
+    </header>
+    
+    {# Fixed Breadcrumb Navigation #}
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <div class="container">
+            <ol class="breadcrumb-list">
+                <li class="breadcrumb-item">
+                    <a href="/">Map</a>
+                </li>
+                
+                {% if page.url and page.url.startsWith("/") and not page.url.includes("/") and attraction %}
+                    {# Special case for attraction detail pages with flat URLs #}
+                    {% if attraction.categories and attraction.categories.length %}
+                        <li class="breadcrumb-item">
+                            {% set firstCategory = attraction.categories[0] %}
+                            <a href="/category-{{ firstCategory | slugify }}/">{{ firstCategory }}</a>
+                        </li>
+                    {% endif %}
+                    
+                    <li class="breadcrumb-item current" aria-current="page">
+                        {{ attraction.name }}
+                    </li>
+                
+                {% elseif page.url and page.url.startsWith("/category-") %}
+                    {# Special case for category pages with flat URLs #}
+                    <li class="breadcrumb-item current" aria-current="page">
+                        {{ categoryData or breadcrumbTitle }}
+                    </li>
+                
+                {% elseif breadcrumbTitle %}
+                    {# Default case for other pages with breadcrumbTitle #}
+                    <li class="breadcrumb-item current" aria-current="page">
+                        {{ breadcrumbTitle }}
+                    </li>
+                {% endif %}
+            </ol>
+        </div>
+    </nav>
+    
     <main id="main-content">
-        {{ content | safe }} {# This is where page-specific content goes #}
+        {{ content | safe }}
     </main>
-
-    {% include "footer.njk" %}
-
-    {# We load the main map script only if it's needed for the page #}
+    
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; {{ '' | date('year') }} Roadside Attractions USA. All rights reserved.</p>
+            <p>Discover unique attractions for your next road trip adventure.</p>
+            
+            {# Add category links in footer for easy navigation #}
+            {% if attractions %}
+                <div class="footer-categories">
+                    <strong>Browse by category:</strong> 
+                    {% for category in attractions | getAllCategories %}
+                        <a href="/category-{{ category | slugify }}/">{{ category }}</a>{% if not loop.last %} | {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </footer>
+    
+    {# Load JavaScript directly using script tags - simplest approach #}
     {% if loadMapScript %}
+        <!-- First define the attractions data -->
         <script>
-            // Pass data fetched by 11ty to the client-side JavaScript
-            // Make sure 'attractions' is available in the page's context
-            var attractionsData = {{ attractions | jsonDump | safe }};
-            // Pass category colors if defined (optional)
-            // var categoryColors = { "Folk Art": "#ff0000", ... };
+            // Define attractions data globally
+            window.attractionsData = {% if attractions %}{{ attractions | json | safe }}{% else %}[]{% endif %};
+            console.log("Data prepared:", window.attractionsData.length, "attractions");
         </script>
+        
+        <!-- Load Leaflet first -->
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+        
+        <!-- Then load our script -->
         <script src="/js/main.js"></script>
+        
+        <!-- Add debugging script -->
+        <script>
+          document.addEventListener('DOMContentLoaded', function() {
+            console.log("DOM fully loaded - checking final status");
+            
+            // Check if Leaflet has loaded
+            if (typeof L === 'undefined') {
+              console.error("FINAL CHECK: Leaflet is not loaded - L is undefined");
+            } else {
+              console.log("FINAL CHECK: Leaflet is loaded successfully");
+            }
+            
+            // Check if map was initialized
+            if (document.querySelector('.leaflet-container')) {
+              console.log("FINAL CHECK: Map initialized successfully");
+            } else {
+              console.error("FINAL CHECK: Leaflet map did not initialize!");
+            }
+          });
+        </script>
     {% endif %}
-
 </body>
 </html>

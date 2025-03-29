@@ -1,110 +1,139 @@
-// .eleventy.js - Full Configuration
-const { DateTime } = require("luxon"); // For date formatting if needed later
-const slugifyLib = require("slugify"); // Use different variable name for the library
+// .eleventy.js
+const { DateTime } = require("luxon");
 
 module.exports = function(eleventyConfig) {
-
-    // --- Passthrough Copies ---
-    // Copy CSS, JS, and Images folders to the output directory
-    eleventyConfig.addPassthroughCopy("css");
-    eleventyConfig.addPassthroughCopy("js");
-    eleventyConfig.addPassthroughCopy("img"); // If you add any static images in `/img`
-    // Copy Leaflet's CSS and images from node_modules
-    eleventyConfig.addPassthroughCopy({"node_modules/leaflet/dist/leaflet.css": "css/leaflet.css"});
-    eleventyConfig.addPassthroughCopy({"node_modules/leaflet/dist/images": "img/leaflet"}); // Leaflet marker images
-
-    // --- Custom Filters ---
-    // Slugify filter
-    eleventyConfig.addFilter("slugify", function(str) { // Keep the filter name "slugify"
-        if (!str) return "";
-        return slugifyLib(str, { // Use the library via slugifyLib
-            lower: true,
-            strict: true,
-            remove: /[*+~.()'"!:@]/g // Remove problematic characters
-        });
-    });
-
-    // Filter to get unique categories from attractions data
-    eleventyConfig.addFilter("getAllCategories", attractions => {
-        if (!attractions || !Array.isArray(attractions)) return []; // Add robustness check
-        let allCategories = new Set();
-        attractions.forEach(item => {
-            // Check if item exists and has categories array
-            if (item && item.categories && Array.isArray(item.categories)) {
-                item.categories.forEach(category => {
-                    if (category) { // Ensure category is not empty/null
-                        allCategories.add(category);
-                    }
-                });
-            }
-        });
-        return [...allCategories].sort();
-    });
-
-    // Filter to get unique states from attractions data
-     eleventyConfig.addFilter("getAllStates", attractions => {
-         if (!attractions || !Array.isArray(attractions)) return []; // Add robustness check
-        let allStates = new Set();
-        attractions.forEach(item => {
-            // Check if item exists and has a state property
-            if (item && item.state) {
-                allStates.add(item.state);
-            }
-        });
-        return [...allStates].sort();
-    });
-
-    // Filter to dump data as JSON (useful for debugging or passing to JS)
-    eleventyConfig.addFilter("jsonDump", function(value) {
-        try {
-            return JSON.stringify(value);
-        } catch (e) {
-            console.error("Error in jsonDump filter:", e);
-            return "{}"; // Return empty object string on error
+  // Add date filter
+  eleventyConfig.addFilter("date", function(date, format) {
+    console.log("Date filter called with:", date, format);
+    
+    // If no date is provided, use current date
+    if (!date) {
+      date = new Date();
+    }
+    
+    // Handle different date formats
+    if (format === "year" || format === "yyyy") {
+      return DateTime.fromJSDate(new Date(date)).toFormat("yyyy");
+    }
+    
+    // If a specific format is provided, use it
+    if (format) {
+      return DateTime.fromJSDate(new Date(date)).toFormat(format);
+    }
+    
+    // Default format
+    return DateTime.fromJSDate(new Date(date)).toFormat("dd LLL yyyy");
+  });
+  
+  // Add JSON filter
+  eleventyConfig.addFilter("json", function(value) {
+    return JSON.stringify(value);
+  });
+  
+  // String includes method for templates
+  eleventyConfig.addFilter("includes", function(string, substring) {
+    if (typeof string !== 'string') {
+      return false;
+    }
+    return string.includes(substring);
+  });
+  
+  // Filter for getting all states from attractions data
+  eleventyConfig.addFilter("getAllStates", function(attractions) {
+    const states = new Set();
+    if (attractions && Array.isArray(attractions)) {
+      attractions.forEach(attraction => {
+        if (attraction.state) {
+          states.add(attraction.state);
         }
-    });
-
-    // --- Shortcodes ---
-    // Shortcode for current year (useful for footers)
-    eleventyConfig.addShortcode("year", () => `${new Date().getFullYear()}`);
-
-    // --- Computed Data ---
-    // REMOVE THIS SECTION or move it to a data file
-    /* COMMENTING OUT THE PROBLEMATIC SECTION
-    eleventyConfig.addComputedData("categoryPageData", (data) => {
-        if (data.categoryData && data.attractions) {
-            const currentCategory = data.categoryData;
-
-            // Filter attractions for the current category
-            const categoryAttractions = data.attractions.filter(item =>
-                item && item.categories && Array.isArray(item.categories) && item.categories.includes(currentCategory)
-            );
-
-            // These values will be added to the page's data cascade
-            return {
-                title: `Category: ${currentCategory}`, // Sets page title
-                breadcrumbCategory: currentCategory, // For breadcrumbs
-                categoryAttractions: categoryAttractions, // Filtered list for the template
-                description: `Explore quirky roadside attractions in the category: ${currentCategory}.` // Sets meta description
-            };
+      });
+    }
+    return Array.from(states).sort();
+  });
+  
+  // Filter for getting all categories from attractions data
+  eleventyConfig.addFilter("getAllCategories", function(attractions) {
+    const categories = new Set();
+    if (attractions && Array.isArray(attractions)) {
+      attractions.forEach(attraction => {
+        if (attraction.categories && Array.isArray(attraction.categories)) {
+          attraction.categories.forEach(category => {
+            if (category) {
+              categories.add(category);
+            }
+          });
         }
-        // If not a category page or data is missing, return null or empty object
-        return null;
-    });
-    */
+      });
+    }
+    return Array.from(categories).sort();
+  });
+  
+  // Add slugify filter for URL creation
+  eleventyConfig.addFilter("slugify", function(text) {
+    return text
+      .toString()
+      .toLowerCase()
+      .replace(/\s+/g, '-')
+      .replace(/[^\w\-]+/g, '')
+      .replace(/\-\-+/g, '-')
+      .replace(/^-+/, '')
+      .replace(/-+$/, '');
+  });
 
-    // --- Base Config Return ---
-    // Return the main configuration object for Eleventy
-    return {
-        dir: {
-            input: ".",          // Root is source
-            includes: "_includes", // Template partials
-            data: "_data",         // Global data files
-            output: "_site"        // Build output folder
-        },
-        passthroughFileCopy: true, // Enable passthrough copy
-        templateFormats: ["njk", "md", "html"], // File types Eleventy will process
-        htmlTemplateEngine: "njk", // Use Nunjucks for .html files
-        markdownTemplateEngine: "njk" // Use Nunjucks within .md files
-    };
+  // Create collections with flat permalinks
+  // Modify attraction pages collection to use flat URLs
+  eleventyConfig.addCollection("attractionPages", function(collectionApi) {
+    // Get all pages with an attraction front matter
+    return collectionApi.getAll()
+      .filter(item => item.data.attraction)
+      .map(item => {
+        // Create a flat URL structure
+        const slug = item.data.attraction.slug || 
+                    eleventyConfig.getFilter("slugify")(item.data.attraction.name);
+        
+        // Override the permalink to be at root level
+        item.data.permalink = `/${slug}/`;
+        
+        return item;
+      });
+  });
+
+  // Create category pages collection with flat URLs
+  eleventyConfig.addCollection("categoryPages", function(collectionApi) {
+    const allAttractions = collectionApi.getAll()
+      .find(item => item.data.attractions)?.data.attractions || [];
+    
+    // Get unique categories
+    const categories = new Set();
+    allAttractions.forEach(attraction => {
+      if (attraction.categories && Array.isArray(attraction.categories)) {
+        attraction.categories.forEach(cat => {
+          if (cat) categories.add(cat);
+        });
+      }
+    });
+    
+    // Create a collection item for each category
+    return Array.from(categories).map(category => {
+      const slug = eleventyConfig.getFilter("slugify")(category);
+      return {
+        category: category,
+        slug: slug,
+        // Flat URL for category page
+        permalink: `/category-${slug}/`
+      };
+    });
+  });
+  
+  // Make sure Eleventy can find your files
+  return {
+    dir: {
+      input: ".",
+      output: "_site"
+      // You can uncomment and customize these if needed
+      // includes: "_includes",
+      // layouts: "_includes",
+      // data: "_data"
+    }
+  };
 };

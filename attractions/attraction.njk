@@ -5,8 +5,8 @@ pagination:
     size: 1          # Create one page per item in the 'attractions' array
     alias: attraction # Each item will be available as 'attraction' in this template
     addAllPagesToCollections: true # Optional: makes these pages available in collections
-# Create a URL like /attractions/salvation-mountain/
-permalink: "attractions/{{ attraction.slug }}/index.html"
+# Create a URL directly at the root level for flat structure
+permalink: "{{ attraction.slug }}/index.html"
 # Set the title and breadcrumb for each generated page
 eleventyComputed:
   title: "{{ attraction.name }}"
@@ -17,9 +17,6 @@ eleventyComputed:
 ---
 
 <article class="attraction-detail container">
-    {# Use breadcrumbTitle which is computed above #}
-    {# {% set breadcrumbTitle = attraction.name %} Already set in eleventyComputed #}
-
     <h2>{{ attraction.name }}</h2>
 
     <div class="attraction-meta">
@@ -27,8 +24,8 @@ eleventyComputed:
         {% if attraction.categories.length %}
         <span class="categories">Categories:
             {% for category in attraction.categories %}
-                {# Link back to the category page #}
-                <a href="/categories/{{ category | slugify }}/">{{ category }}</a>{% if not loop.last %}, {% endif %}
+                {# Link back to the category page with flat URL structure #}
+                <a href="/category-{{ category | slugify }}/">{{ category }}</a>{% if not loop.last %}, {% endif %}
             {% endfor %}
         </span>
         {% endif %}
@@ -49,6 +46,41 @@ eleventyComputed:
         <a href="{{ attraction.websiteLink }}" target="_blank" rel="noopener noreferrer">Visit Website</a>
     </div>
     {% endif %}
+
+    {# Related attractions section #}
+    <div class="related-attractions">
+        <h3>More Attractions in {{ attraction.state }}</h3>
+        <div class="related-links">
+            {% set count = 0 %}
+            {% for related in attractions %}
+                {% if related.state == attraction.state and related.slug != attraction.slug and count < 5 %}
+                    <a href="/{{ related.slug }}/">{{ related.name }}</a>{% if not loop.last and count < 4 %} | {% endif %}
+                    {% set count = count + 1 %}
+                {% endif %}
+            {% endfor %}
+            
+            {% if count == 0 %}
+                <p>No other attractions found in this state.</p>
+            {% endif %}
+        </div>
+        
+        {% if attraction.categories.length > 0 %}
+        <h3>Similar {{ attraction.categories[0] }} Attractions</h3>
+        <div class="related-links">
+            {% set count = 0 %}
+            {% for related in attractions %}
+                {% if related.slug != attraction.slug and related.categories.includes(attraction.categories[0]) and count < 5 %}
+                    <a href="/{{ related.slug }}/">{{ related.name }}</a>{% if not loop.last and count < 4 %} | {% endif %}
+                    {% set count = count + 1 %}
+                {% endif %}
+            {% endfor %}
+            
+            {% if count == 0 %}
+                <p>No similar attractions found.</p>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
 
     {# Optional: Add a small map showing just this location #}
     {# <div id="single-location-map" style="height: 300px; margin-top: 20px;"></div> #}

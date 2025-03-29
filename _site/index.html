@@ -3,66 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - Quirky Roadside Attractions USA</title>
+    <title>Quirky Roadside Attractions USA</title>
     <meta name="description" content="Discover and filter quirky roadside attractions across the United States on an interactive map and list.">
-
-    <link rel="stylesheet" href="/css/leaflet.css" />
-
+    
+    
     <link rel="stylesheet" href="/css/style.css">
-
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-            crossorigin=""></script>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    
+    
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
 </head>
 <body>
     <header class="site-header">
-    <div class="container">
-        <h1><a href="/">Quirky Roadside Attractions USA</a></h1>
-        <p class="tagline">Discover the weird and wonderful spots off the beaten path.</p>
-        
-        
-    </div>
-</header>
-
-    <nav aria-label="Breadcrumb" class="breadcrumbs">
-    <div class="container">
-        <ol>
-            <li><a href="/">Home</a></li>
-            
-             
-             
-        </ol>
-    </div>
-</nav>
-
+        <div class="container">
+            <h1><a href="/">Roadside Attractions USA</a></h1>
+        </div>
+    </header>
+    
+    
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <div class="container">
+            <ol class="breadcrumb-list">
+                <li class="breadcrumb-item">
+                    <a href="/">Map</a>
+                </li>
+                
+                
+            </ol>
+        </div>
+    </nav>
+    
     <main id="main-content">
         
-
-<link rel="stylesheet" href="/css/leaflet.css">
-
-
-
-
- 
-
 <div class="map-container">
     <div id="map">
-        <p class="map-loading">Loading Map...</p> 
+        <p class="map-loading">Loading Map...</p>
     </div>
     <button id="zoom-out-btn" title="Zoom out to show entire USA">Show All USA</button>
 </div>
 
 <div class="container controls-list-container">
     <section class="filters" aria-labelledby="filter-heading">
-        <h2 id="filter-heading">Filter Attractions</h2>
         <div class="filter-controls">
             <div class="filter-group">
-                <label for="category-filter">By Category:</label>
                 <select id="category-filter" name="category">
                     <option value="">All Categories</option>
-                    
                     
                         <option value="Art &amp; Sculpture">Art &amp; Sculpture</option>
                     
@@ -77,10 +63,8 @@
                 </select>
             </div>
             <div class="filter-group">
-                <label for="state-filter">By State:</label>
                 <select id="state-filter" name="state">
                     <option value="">All States</option>
-                    
                     
                         <option value="AL">AL</option>
                     
@@ -120,61 +104,103 @@
     </section>
 
     <section class="list-view" aria-labelledby="list-heading">
-        <h2 id="list-heading">Attractions List</h2>
+        <h2 id="list-heading">clicking card will focus map on location</h2>
         <div id="list-view-content" class="card-container">
-            
             <p class="list-loading">Loading attractions...</p>
         </div>
-         <p id="no-results" class="no-results-message" style="display: none;">No attractions match the current filters.</p>
+        <p id="no-results" class="no-results-message" style="display: none;">No attractions match the current filters.</p>
     </section>
 
-     <article class="about-website">
+    <article class="about-website">
         <h2>About This Site</h2>
         <p>Welcome to Quirky Roadside Attractions USA! This site is dedicated to showcasing the unusual, the wonderful, and the downright weird places you can find just off the highways and byways of America. From giant balls of twine to mysterious houses and unique art installations, we aim to inspire your next road trip adventure.</p>
         <p>Use the interactive map and filters above to explore attractions by category or state. Click on a map marker or list item to learn more about each fascinating location.</p>
     </article>
+</div>
 
 <script>
-// Override Leaflet's default icon globally
-document.addEventListener('DOMContentLoaded', function() {
-  if (typeof L !== 'undefined') {
-    // Create a custom default icon
-    var customIcon = L.icon({
-      iconUrl: '/img/leaflet/marker-icon.png',
-      iconRetinaUrl: '/img/leaflet/marker-icon-2x.png',
-      shadowUrl: '/img/leaflet/marker-shadow.png',
-      iconSize: [25, 41],
-      iconAnchor: [12, 41],
-      popupAnchor: [1, -34],
-      shadowSize: [41, 41]
-    });
+  // Debugging script to check if data is properly loading
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM fully loaded');
     
-    // Set as default for all markers
-    L.Marker.prototype.options.icon = customIcon;
-  }
-});
+    if (typeof attractionsData !== 'undefined') {
+      console.log('Attractions data available:', attractionsData.length, 'items');
+    } else {
+      console.error('Attractions data is not defined!');
+    }
+    
+    // Check if Leaflet initialized properly
+    setTimeout(function() {
+      if (document.querySelector('.leaflet-container')) {
+        console.log('Leaflet map initialized successfully');
+      } else {
+        console.error('Leaflet map did not initialize!');
+      }
+    }, 1000);
+  });
 </script>
-</div> 
     </main>
-
+    
     <footer class="site-footer">
-    <div class="container">
-        <p>&copy; 2025 Quirky Roadside Attractions. All rights reserved. | Data sourced from public contributions and research.</p>
-        
-    </div>
-</footer>
-
+        <div class="container">
+            <p>&copy; 2025 Roadside Attractions USA. All rights reserved.</p>
+            <p>Discover unique attractions for your next road trip adventure.</p>
+            
+            
+            
+                <div class="footer-categories">
+                    <strong>Browse by category:</strong> 
+                    
+                        <a href="/category-art-sculpture/">Art &amp; Sculpture</a> | 
+                    
+                        <a href="/category-food-related/">Food Related</a> | 
+                    
+                        <a href="/category-historical/">Historical</a> | 
+                    
+                        <a href="/category-nature/">Nature</a> | 
+                    
+                        <a href="/category-unusual-buildings/">Unusual Buildings</a>
+                    
+                </div>
+            
+        </div>
+    </footer>
     
     
+    
+        <!-- First define the attractions data -->
         <script>
-            // Pass data fetched by 11ty to the client-side JavaScript
-            // Make sure 'attractions' is available in the page's context
-            var attractionsData = [{"name":"Salvation Mountain","locationCity":"Niland","state":"CA","lat":33.2541,"lon":-115.472,"description":"A massive, colorful folk art installation made of adobe, straw, and thousands of gallons of paint.","categories":["Art & Sculpture","Unusual Buildings"],"imageUrl":"https://drive.google.com/file/d/1iNzJfkxh8TjOsHrbAVvmowDFBNxdcLtG/view?usp=drive_link","imageAlt":"Colorful Salvation Mountain structure","websiteLink":null,"slug":"salvation-mountain"},{"name":"Cadillac Ranch","locationCity":"Amarillo","state":"TX","lat":35.1873,"lon":-101.987,"description":"An art installation featuring ten Cadillac cars half-buried nose-first in the ground, inviting graffiti.","categories":["Art & Sculpture"],"imageUrl":"https://upload.wikimedia.org/wikipedia/commons/5/5a/Cadillac_Ranch_2016.jpg","imageAlt":"Cadillacs buried nose-down at Cadillac Ranch","websiteLink":null,"slug":"cadillac-ranch"},{"name":"Carhenge","locationCity":"Alliance","state":"NE","lat":42.1036,"lon":-102.858,"description":"A replica of England's Stonehenge constructed entirely from vintage American automobiles painted gray.","categories":["Art & Sculpture","Unusual Buildings"],"imageUrl":"https://upload.wikimedia.org/wikipedia/commons/f/f9/CarhengeNebraska.JPG","imageAlt":"Cars arranged like Stonehenge","websiteLink":null,"slug":"carhenge"},{"name":"The World's Largest Ball of Twine (by Francis)","locationCity":"Cawker City","state":"KS","lat":39.509,"lon":-98.434,"description":"One of several contenders for the title, this massive ball of sisal twine is constantly growing.","categories":["Unusual Buildings"],"imageUrl":"https://upload.wikimedia.org/wikipedia/commons/1/14/Worlds_Largest_Ball_of_Twine_Cawker_City_Kansas.jpg","imageAlt":"Giant ball of twine under a canopy","websiteLink":null,"slug":"the-worlds-largest-ball-of-twine-by-francis"},{"name":"Wall Drug Store","locationCity":"Wall","state":"SD","lat":43.9914,"lon":-102.242,"description":"Famous for offering free ice water, now a sprawling tourist complex with shops, eateries, and quirky attractions.","categories":["Historical","Food Related"],"imageUrl":"https://upload.wikimedia.org/wikipedia/commons/a/ac/Wall_Drug_-_Outside_Building.jpg","imageAlt":"Exterior of Wall Drug Store","websiteLink":null,"slug":"wall-drug-store"},{"name":"The Fremont Troll","locationCity":"Seattle","state":"WA","lat":47.6511,"lon":-122.347,"description":"A colossal concrete sculpture of a troll crushing a Volkswagen Beetle under the George Washington Memorial Bridge.","categories":["Art & Sculpture"],"imageUrl":"https://upload.wikimedia.org/wikipedia/commons/0/08/Fremont_Troll_2016.jpg","imageAlt":"Giant troll sculpture under a bridge","websiteLink":null,"slug":"the-fremont-troll"},{"name":"Mystery Spot","locationCity":"Santa Cruz","state":"CA","lat":37.0169,"lon":-122.003,"description":"A tourist attraction claiming gravitational anomalies and optical illusions within its tilted environment.","categories":["Unusual Buildings","Nature"],"imageUrl":"https://upload.wikimedia.org/wikipedia/commons/6/6f/Mystery_Spot_Cabin_Exterior.jpg","imageAlt":"Tilted wooden cabin at Mystery Spot","websiteLink":null,"slug":"mystery-spot"},{"name":"Winchester Mystery House","locationCity":"San Jose","state":"CA","lat":37.3186,"lon":-121.951,"description":"A sprawling mansion known for its architectural curiosities, built continuously by Sarah Winchester.","categories":["Historical","Unusual Buildings"],"imageUrl":"https://upload.wikimedia.org/wikipedia/commons/3/39/Winchester_Mystery_House_from_drone_May_2017.jpg","imageAlt":"Aerial view of Winchester Mystery House","websiteLink":null,"slug":"winchester-mystery-house"},{"name":"Cabazon Dinosaurs","locationCity":"Cabazon","state":"CA","lat":33.9204,"lon":-116.771,"description":"Giant concrete dinosaurs, Dinny the Brontosaurus and Mr. Rex the Tyrannosaurus Rex, featured in Pee-wee's Big Adventure.","categories":["Art & Sculpture","Unusual Buildings"],"imageUrl":"https://upload.wikimedia.org/wikipedia/commons/d/d7/Cabazon_Dinosaurs_2013.jpg","imageAlt":"Giant concrete T-Rex and Brontosaurus","websiteLink":null,"slug":"cabazon-dinosaurs"},{"name":"Prada Marfa","locationCity":"Valentine","state":"TX","lat":30.569,"lon":-104.522,"description":"A permanently installed sculpture resembling a Prada boutique, located in the middle of the desert.","categories":["Art & Sculpture"],"imageUrl":"https://upload.wikimedia.org/wikipedia/commons/1/14/Prada_Marfa_Valentine_Texas.jpg","imageAlt":"Prada store sculpture in the desert","websiteLink":null,"slug":"prada-marfa"},{"name":"The Thing?","locationCity":"Dragoon","state":"AZ","lat":32.033,"lon":-110.057,"description":"A mysterious roadside attraction heavily advertised on billboards along I-10, culminating in a bizarre exhibit.","categories":["Unusual Buildings"],"imageUrl":"https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/The_Thing_Arizona_Museum_Entrance.jpg/1024px-The_Thing_Arizona_Museum_Entrance.jpg","imageAlt":"Entrance sign for The Thing? attraction","websiteLink":null,"slug":"the-thing"},{"name":"Ave Maria Grotto","locationCity":"Cullman","state":"AL","lat":34.175,"lon":-86.852,"description":"Features 125 miniature reproductions of famous religious structures and buildings, crafted over decades by a monk.","categories":["Art & Sculpture","Historical"],"imageUrl":"https://upload.wikimedia.org/wikipedia/commons/3/3b/Ave_Maria_Grotto%2C_St._Peter%27s.JPG","imageAlt":"Miniature buildings at Ave Maria Grotto","websiteLink":null,"slug":"ave-maria-grotto"},{"name":"Jolly Green Giant Statue","locationCity":"Blue Earth","state":"MN","lat":43.633,"lon":-94.099,"description":"A 55.5-foot tall statue of the Jolly Green Giant, mascot of the Green Giant vegetable company.","categories":["Art & Sculpture","Food Related"],"imageUrl":"https://upload.wikimedia.org/wikipedia/commons/8/84/Jolly_Green_Giant_Statue_Blue_Earth_MN.jpg","imageAlt":"Tall statue of the Jolly Green Giant","websiteLink":null,"slug":"jolly-green-giant-statue"},{"name":"Unclaimed Baggage Center","locationCity":"Scottsboro","state":"AL","lat":34.659,"lon":-86.035,"description":"A unique retail store selling items recovered from lost or unclaimed airline luggage.","categories":["Unusual Buildings"],"imageUrl":"https://upload.wikimedia.org/wikipedia/commons/a/a4/Unclaimed_Baggage_Center_Main_Entrance.jpg","imageAlt":"Entrance to Unclaimed Baggage Center","websiteLink":null,"slug":"unclaimed-baggage-center"},{"name":"The Paper House","locationCity":"Rockport","state":"MA","lat":42.642,"lon":-70.617,"description":"A house constructed almost entirely out of varnished newspapers, including furniture inside.","categories":["Unusual Buildings","Art & Sculpture"],"imageUrl":"https://upload.wikimedia.org/wikipedia/commons/a/a8/PaperHouseEXT_edit.jpg","imageAlt":"House made of newspaper","websiteLink":null,"slug":"the-paper-house"},{"name":"House on the Rock","locationCity":"Spring Green","state":"WI","lat":43.102,"lon":-90.037,"description":"An eccentric complex of rooms, streets, gardens, and shops designed by Alex Jordan Jr., known for its vast collections.","categories":["Unusual Buildings","Art & Sculpture"],"imageUrl":"https://upload.wikimedia.org/wikipedia/commons/3/34/House_on_the_Rock_exterior.jpg","imageAlt":"Exterior view of House on the Rock","websiteLink":null,"slug":"house-on-the-rock"},{"name":"Lucy the Elephant","locationCity":"Margate City","state":"NJ","lat":39.333,"lon":-74.481,"description":"A six-story elephant-shaped building constructed in 1881, now a National Historic Landmark.","categories":["Unusual Buildings","Historical"],"imageUrl":"https://upload.wikimedia.org/wikipedia/commons/1/1b/Lucy_the_Elephant_Margate_NJ_2021.jpg","imageAlt":"Large elephant shaped building Lucy","websiteLink":null,"slug":"lucy-the-elephant"},{"name":"Haines Shoe House","locationCity":"Hallam","state":"PA","lat":40,"lon":-76.687,"description":"A house built in the shape of a work boot in 1948 by shoe salesman Mahlon Haines.","categories":["Unusual Buildings","Historical"],"imageUrl":"https://upload.wikimedia.org/wikipedia/commons/8/8e/Haines_Shoe_House_2018.jpg","imageAlt":"House shaped like a giant boot","websiteLink":null,"slug":"haines-shoe-house"},{"name":"Ben & Jerry's Flavor Graveyard","locationCity":"Waterbury","state":"VT","lat":44.333,"lon":-72.736,"description":"A whimsical graveyard on the grounds of the Ben & Jerry's factory, memorializing discontinued ice cream flavors.","categories":["Food Related","Art & Sculpture"],"imageUrl":"https://upload.wikimedia.org/wikipedia/commons/3/38/Ben_%26_Jerry%27s_Flavor_Graveyard_Headstones.jpg","imageAlt":"Headstones in the Flavor Graveyard","websiteLink":null,"slug":"ben-jerrys-flavor-graveyard"},{"name":"Hole N\" The Rock","locationCity":"Moab","state":"UT","lat":38.453,"lon":-109.419,"description":"A 5,000 square foot home carved out of a massive sandstone rock formation.","categories":["Unusual Buildings","Historical"],"imageUrl":"https://upload.wikimedia.org/wikipedia/commons/b/be/Hole_N%27_The_Rock%2C_near_Moab%2C_Utah.jpg","imageAlt":"Entrance carved into a large rock","websiteLink":null,"slug":"hole-n-the-rock"},{"name":"International UFO Museum and Research Center","locationCity":"Roswell","state":"NM","lat":33.393,"lon":-104.523,"description":"Museum dedicated to the 1947 Roswell UFO incident and other UFO phenomena.","categories":["Historical","Unusual Buildings"],"imageUrl":"https://upload.wikimedia.org/wikipedia/commons/5/52/Roswell_UFO_Museum_exterior.JPG","imageAlt":"Exterior of the UFO museum in Roswell","websiteLink":null,"slug":"international-ufo-museum-and-research-center"}];
-            // Pass category colors if defined (optional)
-            // var categoryColors = { "Folk Art": "#ff0000", ... };
+            // Define attractions data globally
+            window.attractionsData = [{"name":"Salvation Mountain","locationCity":"Niland","state":"CA","lat":33.2541,"lon":-115.472,"description":"A massive, colorful folk art installation made of adobe, straw, and thousands of gallons of paint.","categories":["Art & Sculpture","Unusual Buildings"],"imageUrl":"https://www.dropbox.com/scl/fi/491lbh09vosgbeum3j1ws/Salvation-Mountain.png?rlkey=d80wvyigdje1ag5it3ckif99x&raw=1&v=1743227435252","imageAlt":"Colorful Salvation Mountain structure","websiteLink":null,"slug":"salvation-mountain"},{"name":"Cadillac Ranch","locationCity":"Amarillo","state":"TX","lat":35.1873,"lon":-101.987,"description":"An art installation featuring ten Cadillac cars half-buried nose-first in the ground, inviting graffiti.","categories":["Art & Sculpture"],"imageUrl":"https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Cadillac_Ranch_in_Texas_%289313106739%29.jpg/640px-Cadillac_Ranch_in_Texas_%289313106739%29.jpg?v=1743227435252","imageAlt":"Cadillacs buried nose-down at Cadillac Ranch","websiteLink":null,"slug":"cadillac-ranch"},{"name":"Carhenge","locationCity":"Alliance","state":"NE","lat":42.1036,"lon":-102.858,"description":"A replica of England's Stonehenge constructed entirely from vintage American automobiles painted gray.","categories":["Art & Sculpture","Unusual Buildings"],"imageUrl":"https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/A454%2C_Carhenge%2C_Alliance%2C_Nebraska%2C_USA%2C_curve%2C_2016.jpg/640px-A454%2C_Carhenge%2C_Alliance%2C_Nebraska%2C_USA%2C_curve%2C_2016.jpg?v=1743227435252","imageAlt":"Cars arranged like Stonehenge","websiteLink":null,"slug":"carhenge"},{"name":"The World's Largest Ball of Twine (by Francis)","locationCity":"Cawker City","state":"KS","lat":39.509,"lon":-98.434,"description":"One of several contenders for the title, this massive ball of sisal twine is constantly growing.","categories":["Unusual Buildings"],"imageUrl":"https://en.wikipedia.org/wiki/Biggest_ball_of_twine?v=1743227435252","imageAlt":"Giant ball of twine under a canopy","websiteLink":null,"slug":"the-worlds-largest-ball-of-twine-by-francis"},{"name":"Wall Drug Store","locationCity":"Wall","state":"SD","lat":43.9914,"lon":-102.242,"description":"Famous for offering free ice water, now a sprawling tourist complex with shops, eateries, and quirky attractions.","categories":["Historical","Food Related"],"imageUrl":"https://en.wikipedia.org/wiki/Wall_Drug?v=1743227435252","imageAlt":"Exterior of Wall Drug Store","websiteLink":null,"slug":"wall-drug-store"},{"name":"The Fremont Troll","locationCity":"Seattle","state":"WA","lat":47.6511,"lon":-122.347,"description":"A colossal concrete sculpture of a troll crushing a Volkswagen Beetle under the George Washington Memorial Bridge.","categories":["Art & Sculpture"],"imageUrl":"https://en.wikipedia.org/wiki/Fremont,_Seattle?v=1743227435252","imageAlt":"Giant troll sculpture under a bridge","websiteLink":null,"slug":"the-fremont-troll"},{"name":"Mystery Spot","locationCity":"Santa Cruz","state":"CA","lat":37.0169,"lon":-122.003,"description":"A tourist attraction claiming gravitational anomalies and optical illusions within its tilted environment.","categories":["Unusual Buildings","Nature"],"imageUrl":"https://en.wikipedia.org/wiki/Mystery_Spot?v=1743227435252","imageAlt":"Tilted wooden cabin at Mystery Spot","websiteLink":null,"slug":"mystery-spot"},{"name":"Winchester Mystery House","locationCity":"San Jose","state":"CA","lat":37.3186,"lon":-121.951,"description":"A sprawling mansion known for its architectural curiosities, built continuously by Sarah Winchester.","categories":["Historical","Unusual Buildings"],"imageUrl":"https://en.wikipedia.org/wiki/Winchester_Mystery_House?v=1743227435252","imageAlt":"Aerial view of Winchester Mystery House","websiteLink":null,"slug":"winchester-mystery-house"},{"name":"Cabazon Dinosaurs","locationCity":"Cabazon","state":"CA","lat":33.9204,"lon":-116.771,"description":"Giant concrete dinosaurs, Dinny the Brontosaurus and Mr. Rex the Tyrannosaurus Rex, featured in Pee-wee's Big Adventure.","categories":["Art & Sculpture","Unusual Buildings"],"imageUrl":"https://www.wikidata.org/wiki/Q5015264?v=1743227435252","imageAlt":"Giant concrete T-Rex and Brontosaurus","websiteLink":null,"slug":"cabazon-dinosaurs"},{"name":"Prada Marfa","locationCity":"Valentine","state":"TX","lat":30.569,"lon":-104.522,"description":"A permanently installed sculpture resembling a Prada boutique, located in the middle of the desert.","categories":["Art & Sculpture"],"imageUrl":"https://en.wikipedia.org/wiki/Prada_Marfa?v=1743227435252","imageAlt":"Prada store sculpture in the desert","websiteLink":null,"slug":"prada-marfa"},{"name":"The Thing?","locationCity":"Dragoon","state":"AZ","lat":32.033,"lon":-110.057,"description":"A mysterious roadside attraction heavily advertised on billboards along I-10, culminating in a bizarre exhibit.","categories":["Unusual Buildings"],"imageUrl":"https://en.wikipedia.org/wiki/The_Thing_(roadside_attraction)?v=1743227435253","imageAlt":"Entrance sign for The Thing? attraction","websiteLink":null,"slug":"the-thing"},{"name":"Ave Maria Grotto","locationCity":"Cullman","state":"AL","lat":34.175,"lon":-86.852,"description":"Features 125 miniature reproductions of famous religious structures and buildings, crafted over decades by a monk.","categories":["Art & Sculpture","Historical"],"imageUrl":"https://commons.wikimedia.org/wiki/File:The_Ave_Maria_Grotto,_St._Bernard_Abbey_16.JPG?v=1743227435253","imageAlt":"Miniature buildings at Ave Maria Grotto","websiteLink":null,"slug":"ave-maria-grotto"},{"name":"Jolly Green Giant Statue","locationCity":"Blue Earth","state":"MN","lat":43.633,"lon":-94.099,"description":"A 55.5-foot tall statue of the Jolly Green Giant, mascot of the Green Giant vegetable company.","categories":["Art & Sculpture","Food Related"],"imageUrl":"https://en.wikipedia.org/wiki/Green_Giant?v=1743227435253","imageAlt":"Tall statue of the Jolly Green Giant","websiteLink":null,"slug":"jolly-green-giant-statue"},{"name":"Unclaimed Baggage Center","locationCity":"Scottsboro","state":"AL","lat":34.659,"lon":-86.035,"description":"A unique retail store selling items recovered from lost or unclaimed airline luggage.","categories":["Unusual Buildings"],"imageUrl":"https://en.wikipedia.org/wiki/Unclaimed_Baggage_Center?v=1743227435253","imageAlt":"Entrance to Unclaimed Baggage Center","websiteLink":null,"slug":"unclaimed-baggage-center"},{"name":"The Paper House","locationCity":"Rockport","state":"MA","lat":42.642,"lon":-70.617,"description":"A house constructed almost entirely out of varnished newspapers, including furniture inside.","categories":["Unusual Buildings","Art & Sculpture"],"imageUrl":"https://en.wikipedia.org/wiki/Paper_House?v=1743227435253","imageAlt":"House made of newspaper","websiteLink":null,"slug":"the-paper-house"},{"name":"House on the Rock","locationCity":"Spring Green","state":"WI","lat":43.102,"lon":-90.037,"description":"An eccentric complex of rooms, streets, gardens, and shops designed by Alex Jordan Jr., known for its vast collections.","categories":["Unusual Buildings","Art & Sculpture"],"imageUrl":"https://en.wikipedia.org/wiki/House_on_the_Rock?v=1743227435253","imageAlt":"Exterior view of House on the Rock","websiteLink":null,"slug":"house-on-the-rock"},{"name":"Lucy the Elephant","locationCity":"Margate City","state":"NJ","lat":39.333,"lon":-74.481,"description":"A six-story elephant-shaped building constructed in 1881, now a National Historic Landmark.","categories":["Unusual Buildings","Historical"],"imageUrl":"https://en.wikipedia.org/wiki/Lucy_the_Elephant?v=1743227435253","imageAlt":"Large elephant shaped building Lucy","websiteLink":null,"slug":"lucy-the-elephant"},{"name":"Haines Shoe House","locationCity":"Hallam","state":"PA","lat":40,"lon":-76.687,"description":"A house built in the shape of a work boot in 1948 by shoe salesman Mahlon Haines.","categories":["Unusual Buildings","Historical"],"imageUrl":"https://en.wikipedia.org/wiki/Haines_Shoe_House?v=1743227435253","imageAlt":"House shaped like a giant boot","websiteLink":null,"slug":"haines-shoe-house"},{"name":"Ben & Jerry's Flavor Graveyard","locationCity":"Waterbury","state":"VT","lat":44.333,"lon":-72.736,"description":"A whimsical graveyard on the grounds of the Ben & Jerry's factory, memorializing discontinued ice cream flavors.","categories":["Food Related","Art & Sculpture"],"imageUrl":"https://commons.wikimedia.org/wiki/File:Ben_and_Jerry%27s_Flavor_Graveyard_Waterbury.jpg?v=1743227435253","imageAlt":"Headstones in the Flavor Graveyard","websiteLink":null,"slug":"ben-jerrys-flavor-graveyard"},{"name":"Hole N\" The Rock","locationCity":"Moab","state":"UT","lat":38.453,"lon":-109.419,"description":"A 5,000 square foot home carved out of a massive sandstone rock formation.","categories":["Unusual Buildings","Historical"],"imageUrl":"https://en.wikipedia.org/wiki/Hole_N%22_The_Rock?v=1743227435253","imageAlt":"Entrance carved into a large rock","websiteLink":null,"slug":"hole-n-the-rock"},{"name":"International UFO Museum and Research Center","locationCity":"Roswell","state":"NM","lat":33.393,"lon":-104.523,"description":"Museum dedicated to the 1947 Roswell UFO incident and other UFO phenomena.","categories":["Historical","Unusual Buildings"],"imageUrl":"https://en.wikipedia.org/wiki/International_UFO_Museum_and_Research_Center?v=1743227435253","imageAlt":"Exterior of the UFO museum in Roswell","websiteLink":null,"slug":"international-ufo-museum-and-research-center"}];
+            console.log("Data prepared:", window.attractionsData.length, "attractions");
         </script>
+        
+        <!-- Load Leaflet first -->
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+        
+        <!-- Then load our script -->
         <script src="/js/main.js"></script>
+        
+        <!-- Add debugging script -->
+        <script>
+          document.addEventListener('DOMContentLoaded', function() {
+            console.log("DOM fully loaded - checking final status");
+            
+            // Check if Leaflet has loaded
+            if (typeof L === 'undefined') {
+              console.error("FINAL CHECK: Leaflet is not loaded - L is undefined");
+            } else {
+              console.log("FINAL CHECK: Leaflet is loaded successfully");
+            }
+            
+            // Check if map was initialized
+            if (document.querySelector('.leaflet-container')) {
+              console.log("FINAL CHECK: Map initialized successfully");
+            } else {
+              console.error("FINAL CHECK: Leaflet map did not initialize!");
+            }
+          });
+        </script>
     
-
 </body>
 </html>

@@ -5,7 +5,7 @@ pagination:
   size: 1
   alias: categoryData
   addAllPagesToCollections: true
-permalink: "categories/{{ categoryData | slugify }}/index.html"
+permalink: "category-{{ categoryData | slugify }}/index.html"
 loadMapScript: true
 ---
 
@@ -49,6 +49,14 @@ loadMapScript: true
      <article class="about-website">
         <h2>About This Category</h2>
         <p>This page features attractions specifically categorized under "{{ categoryData }}". Use the map and state filter to explore these unique locations.</p>
-        <p><a href="/">Return to all attractions</a> or <a href="/categories/">view other categories</a>.</p>
+        <p><a href="/">Return to all attractions</a> or browse other categories:</p>
+        
+        <div class="category-links">
+            {% for category in attractions | getAllCategories %}
+                {% if category !== categoryData %}
+                    <a href="/category-{{ category | slugify }}/">{{ category }}</a>{% if not loop.last %} | {% endif %}
+                {% endif %}
+            {% endfor %}
+        </div>
     </article>
 </div>

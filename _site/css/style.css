@@ -118,7 +118,7 @@ a:hover {
 
 #map {
     width: 100%;
-    height: 750px; /* As requested */
+    height: 800px; /* As requested */
     background-color: #e0e0e0; /* Placeholder background */
     border: 1px solid #ccc;
 }
@@ -203,7 +203,7 @@ a:hover {
 
 /* --- Filters --- */
 .filters {
-    background-color: #fff;
+    background-color: #E9ECEF;
     padding: 1.5rem;
     margin-bottom: 2rem;
     border-radius: 5px;
@@ -344,7 +344,7 @@ a:hover {
     display: inline-block; /* Align link properly */
     margin-top: auto; /* Push to bottom */
     padding: 6px 12px;
-    background-color: #28a745;
+    background-color: #007bff;
     color: white;
     border-radius: 4px;
     font-size: 0.9rem;
@@ -353,7 +353,7 @@ a:hover {
 }
 
 .list-card .card-link:hover {
-    background-color: #218838;
+    background-color: #0056b3;
     text-decoration: none;
 }
 
