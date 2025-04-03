@@ -1,0 +1,79 @@
+---
+pagination:
+  data: collections.stateData
+  size: 1
+  alias: stateItem
+permalink: "/{{ stateItem.slug }}-attractions/index.html"
+layout: layout.njk
+loadMapScript: true
+eleventyComputed:
+  state: "{{ stateItem.state }}"
+  title: "{{ stateItem.state }} Roadside Attractions"
+  description: "Discover quirky roadside attractions in {{ stateItem.state }}."
+---
+
+<div class="map-container">
+    <div id="map">
+        <p class="map-loading">Loading Map...</p>
+    </div>
+    <button id="zoom-out-btn" title="Zoom out to show entire USA">Show All USA</button>
+</div>
+
+<div class="container controls-list-container">
+    <section class="filters" aria-labelledby="filter-heading">
+        <h2 id="filter-heading">Filter {{ state }} Attractions</h2>
+        <div class="filter-controls">
+            <div class="filter-group">
+                <label for="category-filter">By Category:</label>
+                <select id="category-filter" name="category">
+                    <option value="">All Categories</option>
+                    {% for category in attractions | getAllCategories %}
+                        <option value="{{ category }}">{{ category }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="list-view" aria-labelledby="list-heading">
+        <h2 id="list-heading">{{ state }} Attractions List</h2>
+        <div id="list-view-content" class="card-container">
+            {# Pre-render state-specific cards for better SEO #}
+            {% set stateAttractions = attractions | filterByState(state) %}
+            {% for attraction in stateAttractions %}
+            <div class="list-card" id="list-item-{{ attraction.slug }}" data-slug="{{ attraction.slug }}">
+                <div class="card-image">
+                    <img src="{{ attraction.imageUrl }}" alt="{{ attraction.imageAlt or attraction.name }}" 
+                         loading="lazy" class="card-img"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div class="image-error" style="display: none;">Image not available</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">{{ attraction.name }}</h3>
+                    <p class="card-location">
+                        <a href="/{{ attraction.state | slugify }}-attractions/" class="state-link">{{ attraction.locationCity }}, {{ attraction.state }}</a>
+                    </p>
+                    <p class="card-description">{{ attraction.description | truncate(100) }}</p>
+                    <div class="card-links">
+                        <a href="/{{ attraction.slug }}/" class="card-link">Learn More</a>
+                        <span class="card-categories">
+                            {% for cat in attraction.categories %}
+                                <a href="/{{ cat | slugify }}-attractions/" class="category-badge">{{ cat }}</a>
+                            {% endfor %}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <p class="list-loading">Loading attractions...</p>
+        </div>
+        <p id="no-results" class="no-results-message" style="display: none;">No attractions match the current filters.</p>
+    </section>
+
+    <article class="about-website">
+        <h2>About {{ state }} Attractions</h2>
+        <p>Welcome to our collection of roadside attractions in {{ state }}. These unique destinations showcase the quirky and fascinating sites that make {{ state }} road trips so memorable.</p>
+        <p>Use the interactive map above to explore these attractions by location. You can filter by category to find specific types of attractions. Click on a map marker or list item to learn more about each fascinating location.</p>
+    </article>
+</div>

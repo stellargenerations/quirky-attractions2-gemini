@@ -122,18 +122,55 @@ document.addEventListener('DOMContentLoaded', () => {
             console.warn("Can't make marker - missing location data:", attraction);
             return null;
         }
-
+    
         // Use the CDN-based defaultIcon
         const marker = L.marker([attraction.lat, attraction.lon], {
-            icon: defaultIcon,  // Use our CDN-based icon
+            icon: defaultIcon,
             categories: attraction.categories,
             state: attraction.state,
             slug: attraction.slug
         });
-
-        // Create Popup Content - UPDATED URL TO FLAT STRUCTURE
-        const popupContent = `
-            <div class="popup-content">
+    
+        // Create state slug for the link
+        const stateSlug = slugify(attraction.state);
+        
+        // Determine content complexity to adjust popup options
+        const hasCategories = attraction.categories && 
+                              Array.isArray(attraction.categories) && 
+                              attraction.categories.length > 0;
+        
+        const categoryCount = hasCategories ? attraction.categories.length : 0;
+        
+        // Create category badges HTML
+        let categoryBadgesHTML = '';
+        if (hasCategories) {
+            categoryBadgesHTML = '<div class="card-categories">';
+            attraction.categories.forEach(category => {
+                const categorySlug = slugify(category);
+                categoryBadgesHTML += `
+                    <a href="/${categorySlug}-attractions/" class="category-badge">${category}</a>
+                `;
+            });
+            categoryBadgesHTML += '</div>';
+        }
+    
+        // Adapt description length based on content complexity
+        let descriptionLength = 120; // Default
+        
+        // Reduce description length if we have many categories
+        if (categoryCount > 3) {
+            descriptionLength = 80;
+        } else if (categoryCount > 0) {
+            descriptionLength = 100;
+        }
+        
+        // Create a short description (trimmed for popup)
+        const shortDescription = attraction.description && attraction.description.length > descriptionLength
+            ? attraction.description.substring(0, descriptionLength) + '...'
+            : (attraction.description || 'No description available.');
+    
+            const popupContent = `
+            <div class="popup-content ${categoryCount > 0 ? 'has-categories' : ''} ${categoryCount > 3 ? 'many-categories' : ''}">
                 <div class="popup-image-container">
                     <img src="${attraction.imageUrl}" alt="${attraction.imageAlt || attraction.name}" 
                          loading="lazy" class="popup-image"
@@ -141,16 +178,50 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="popup-image-error" style="display: none;">Image not available</div>
                 </div>
                 <h3>${attraction.name}</h3>
-                <p>${attraction.locationCity}, ${attraction.state}</p>
-                <a href="/${attraction.slug}/" class="learn-more-link" target="_blank">Read Article</a>
+                ${attraction.streetAddress ? `<p class="address-info">${attraction.streetAddress}</p>` : ''}
+                <p class="location-info"><a href="/${stateSlug}-attractions/" class="state-link">${attraction.locationCity}, ${attraction.state}${attraction.zipCode ? ' ' + attraction.zipCode : ''}</a></p>
+                <p class="popup-description">${shortDescription}</p>
+                <a href="/${attraction.slug}/" class="learn-more-link">Read Full Article</a>
+                ${categoryBadgesHTML}
             </div>
         `;
-
+    
+        // Calculate a reasonable popup size based on content
+        const baseHeight = 350; // Base popup height
+        const perCategoryHeight = 25; // Additional height per category
+        const adjustedMaxHeight = baseHeight + (categoryCount * perCategoryHeight);
+        
         // Configure popup options for better visibility
-        marker.bindPopup(popupContent, {
-            autoPan: true,             // Auto pan the map to show the popup
-            autoPanPadding: [50, 50],  // Padding around the popup when auto-panning
-            keepInView: true           // Keep the popup in view while panning/zooming
+        const popupOptions = {
+            autoPan: true,
+            autoPanPadding: [50, 50],
+            keepInView: true,
+            minWidth: 280,
+            maxWidth: 320
+        };
+        
+        // Don't set fixed maxHeight to allow natural sizing
+        // Let CSS handle scrolling if needed
+        
+        marker.bindPopup(popupContent, popupOptions);
+        
+        // After popup is opened, dynamically adjust height based on actual content
+        marker.on('popupopen', function(popup) {
+            const popupElement = popup.popup._container;
+            if (popupElement) {
+                const contentElement = popupElement.querySelector('.leaflet-popup-content');
+                const contentHeight = contentElement.scrollHeight;
+                
+                // If content is not too big, remove scrollbar
+                if (contentHeight <= window.innerHeight * 0.7) {
+                    contentElement.style.overflow = 'visible';
+                    contentElement.style.maxHeight = 'none';
+                } else {
+                    // If content is too big, add scrollbar and limit height
+                    contentElement.style.overflow = 'auto';
+                    contentElement.style.maxHeight = Math.min(adjustedMaxHeight, window.innerHeight * 0.7) + 'px';
+                }
+            }
         });
         
         markers[attraction.slug] = marker;
@@ -361,8 +432,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const cards = listViewContent.querySelectorAll('.list-card');
         cards.forEach(card => {
             card.addEventListener('click', (event) => {
-                // Don't do anything if they clicked the Learn More link
-                if (event.target.closest('.card-link')) {
+                // Don't do anything if they clicked the Learn More link, a category link, or a state link
+                if (event.target.closest('.card-link') || 
+                    event.target.closest('.category-badge') || 
+                    event.target.closest('.state-link')) {
                     return;
                 }
 
@@ -503,7 +576,22 @@ function createListCard(attraction) {
         ? attraction.description.substring(0, 100) + '...'
         : attraction.description;
 
-    // UPDATED URL TO FLAT STRUCTURE
+    // Create the category badges HTML
+    let categoryBadgesHTML = '';
+    if (attraction.categories && Array.isArray(attraction.categories) && attraction.categories.length > 0) {
+        categoryBadgesHTML = '<span class="card-categories">';
+        attraction.categories.forEach((category, index) => {
+            const categorySlug = slugify(category);
+            categoryBadgesHTML += `
+                <a href="/${categorySlug}-attractions/" class="category-badge">${category}</a>
+            `;
+        });
+        categoryBadgesHTML += '</span>';
+    }
+
+    // Create a slug for the state link
+    const stateSlug = slugify(attraction.state);
+
     return `
         <div class="list-card" id="list-item-${attraction.slug}" data-slug="${attraction.slug}">
             <div class="card-image">
@@ -514,12 +602,28 @@ function createListCard(attraction) {
             </div>
             <div class="card-content">
                 <h3 class="card-title">${attraction.name}</h3>
-                <p class="card-location">${attraction.locationCity}, ${attraction.state}</p>
+                <p class="card-location">
+                    <a href="/${stateSlug}-attractions/" class="state-link">${attraction.locationCity}, ${attraction.state}</a>
+                </p>
                 <p class="card-description">${shortDescription}</p>
-                <a href="/${attraction.slug}/" class="card-link">Read Article</a>
+                <div class="card-links">
+                    <a href="/${attraction.slug}/" class="card-link">Read Article</a>
+                    ${categoryBadgesHTML}
+                </div>
             </div>
         </div>
     `;
+}
+
+// Helper function to create URL-friendly slugs (same as in your data file)
+function slugify(str) {
+    if (!str) return "";
+    return str.toString().toLowerCase()
+      .replace(/\s+/g, '-')           // Replace spaces with -
+      .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+      .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+      .replace(/^-+/, '')             // Trim - from start of text
+      .replace(/-+$/, '');            // Trim - from end of text
 }
 
 // --- Helper Functions ---

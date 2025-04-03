@@ -47,33 +47,50 @@ a:hover {
 }
 
 /* --- Header & Footer --- */
-.site-header, .site-footer {
+.site-header {
+    background-color: #343a40;
+    color: #fff;
+    padding: 0.5rem 0; /* Reduced from 1rem to 0.5rem */
+}
+
+.site-footer {
     background-color: #343a40;
     color: #fff;
     padding: 1rem 0;
+}
+
+.site-header h1 {
+    font-size: 1.5rem; /* Reduced font size from default h1 size */
+    margin: 0; /* Remove default margin */
 }
 
 .site-header h1 a {
     color: #fff;
     text-decoration: none;
 }
-.site-header .tagline {
-    color: #adb5bd;
-    font-size: 0.9rem;
+
+/* Responsive adjustments for header */
+@media (max-width: 768px) {
+    .site-header h1 {
+        font-size: 1.3rem; /* Even smaller on tablets */
+    }
 }
 
-.site-footer {
-    margin-top: 3rem;
-    text-align: center;
-    font-size: 0.9rem;
-    padding: 1.5rem 0;
+@media (max-width: 480px) {
+    .site-header {
+        padding: 0.3rem 0; /* Further reduce padding on mobile */
+    }
+    
+    .site-header h1 {
+        font-size: 1.2rem; /* Smallest on phones */
+    }
 }
 
 /* --- Breadcrumbs --- */
 .breadcrumbs {
     background-color: #e9ecef;
     padding: 0.75rem 0;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0;
 }
 
 .breadcrumbs ol {
@@ -113,12 +130,13 @@ a:hover {
 .map-container {
     position: relative; /* Needed for positioning the zoom button */
     width: 100%;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
+    margin-top: 0;
 }
 
 #map {
     width: 100%;
-    height: 800px; /* As requested */
+    height: 750px; /* As requested */
     background-color: #e0e0e0; /* Placeholder background */
     border: 1px solid #ccc;
 }
@@ -150,56 +168,189 @@ a:hover {
     background-color: #f4f4f4;
 }
 
-
-/* Leaflet Popup Customization */
+/* --- Leaflet Popup Customization --- */
 .leaflet-popup-content-wrapper {
     border-radius: 5px;
+    width: 300px; /* Fixed width */
+    box-sizing: border-box;
+    overflow: hidden;
 }
+
 .leaflet-popup-content {
-    margin: 10px;
-    font-size: 0.9rem;
-    max-height: 250px; /* Limit popup height */
-    overflow-y: auto; /* Add scroll if content overflows */
-}
-.leaflet-popup-content img {
+    margin: 15px;
+    font-size: 0.95rem;
+    /* Remove fixed max-height and allow content to determine height */
+    max-height: none; 
+    overflow-y: visible; /* Only show scrollbar when needed */
+    width: auto !important; /* Override Leaflet's inline width */
     max-width: 100%;
-    height: 100px; /* Fixed height for popup images */
-    object-fit: cover; /* Crop images nicely */
-    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+/* Add max-height only when content is too tall */
+@media screen and (max-height: 700px) {
+    .leaflet-popup-content {
+        max-height: 350px;
+        overflow-y: auto;
+    }
+}
+
+.leaflet-popup-content .popup-image-container {
+    margin-bottom: 12px;
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.leaflet-popup-content img.popup-image {
+    width: 100%;
+    max-width: 100%;
+    height: 180px;
+    object-fit: cover;
     border-radius: 3px;
     display: block;
     margin-left: auto;
     margin-right: auto;
+    box-sizing: border-box;
 }
+
+/* Adjust image height based on the number of category badges */
+.popup-content.has-categories .popup-image {
+    height: 160px; /* Slightly smaller when we have categories */
+}
+
+.popup-content.many-categories .popup-image {
+    height: 140px; /* Even smaller with many categories */
+}
+
 .leaflet-popup-content h3 {
-    margin: 0 0 5px 0;
-    font-size: 1.1rem;
+    margin: 0 0 4px 0;
+    font-size: 1.2rem;
+    color: #333;
 }
+
 .leaflet-popup-content p {
-    margin: 5px 0;
-    font-size: 0.85rem;
-    line-height: 1.4;
+    margin: 3px 0 10px 0;
+    line-height: 1.3;
 }
+
+.leaflet-popup-content .popup-image-error {
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+    color: #888;
+    font-style: italic;
+    text-align: center;
+    padding: 10px;
+}
+
 .leaflet-popup-content a.learn-more-link {
     display: inline-block;
     margin-top: 8px;
-    padding: 4px 8px;
-    background-color: #007bff;
+    margin-bottom: 10px;
+    padding: 6px 12px;
+    width: fit-content;
+    background-color: #28a745;
     color: white;
-    border-radius: 3px;
-    font-size: 0.8rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
     text-decoration: none;
-}
-.leaflet-popup-content a.learn-more-link:hover {
-    background-color: #0056b3;
-    text-decoration: none;
-}
-.popup-error {
-    color: red;
-    font-style: italic;
-    font-size: 0.8rem;
 }
 
+.leaflet-popup-content a.learn-more-link:hover {
+    background-color: #218838;
+    text-decoration: none;
+}
+
+.leaflet-popup-content .card-categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.leaflet-popup-content .category-badge {
+    display: inline-block;
+    padding: 3px 8px;
+    background-color: #f0f8ff;
+    color: #0056b3;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    text-decoration: none;
+    border: 1px solid #d1e6fa;
+    transition: all 0.2s ease;
+}
+
+.leaflet-popup-content .category-badge:hover {
+    background-color: #d1e6fa;
+    text-decoration: none;
+}
+
+.leaflet-popup-content .state-link {
+    color: #6c757d;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.leaflet-popup-content .state-link:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+/* Adjust popup tip position */
+.leaflet-popup-tip-container {
+    margin-top: -1px;
+}
+
+/* Custom class for controlling the popup size based on content */
+.popup-content {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Style for popup address */
+.leaflet-popup-content .address-info {
+    font-size: 0.85rem;
+    color: #555;
+    margin: 0 0 8px 0;
+    font-style: italic;
+}
+
+/* Style for address in list cards */
+.card-address {
+    font-size: 0.85rem;
+    color: #555;
+    font-style: italic;
+    margin-bottom: 0.2rem;
+}
+
+/* Adjust location margin */
+.card-location {
+    margin-bottom: 0.7rem;
+}
+
+/* Style for address in popups */
+.popup-content .address-info {
+    font-size: 0.85rem;
+    color: #555;
+    margin: 0 0 4px 0;
+    font-style: italic;
+    line-height: 1.2;
+}
+
+.street-address {
+    margin: 0 0 5px 0;
+    line-height: 1.3;
+}
+
+.city-state {
+    margin: 0 0 10px 0;
+    line-height: 1.3;
+}
 
 /* --- Filters --- */
 .filters {
@@ -307,7 +458,6 @@ a:hover {
      padding: 10px;
 }
 
-
 .list-card .card-content {
     padding: 1rem;
     flex-grow: 1; /* Allows content to fill space */
@@ -339,21 +489,76 @@ a:hover {
     -webkit-box-orient: vertical;
 }
 
+/* Style for list card address */
+.list-card .card-address {
+    font-size: 0.85rem;
+    color: #555;
+    font-style: italic;
+    margin-bottom: 0.75rem;
+}
 
+/* Fix spacing after location */
+.list-card .card-location {
+    margin-bottom: 0.25rem;
+}
+
+/* --- Card Links and Badges --- */
+.card-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto; /* Push to bottom of card */
+}
+
+.card-categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.category-badge {
+    display: inline-block;
+    padding: 3px 8px;
+    background-color: #f0f8ff; /* Light blue background */
+    color: #0056b3;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    text-decoration: none;
+    border: 1px solid #d1e6fa;
+    transition: all 0.2s ease;
+}
+
+.category-badge:hover {
+    background-color: #d1e6fa;
+    text-decoration: none;
+}
+
+.state-link {
+    color: #6c757d;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.state-link:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+/* Adjust Learn More link */
 .list-card .card-link {
-    display: inline-block; /* Align link properly */
-    margin-top: auto; /* Push to bottom */
+    display: inline-block;
     padding: 6px 12px;
-    background-color: #007bff;
+    background-color: #28a745;
     color: white;
     border-radius: 4px;
     font-size: 0.9rem;
-    text-align: center;
-    align-self: flex-start; /* Align to the start of the flex container */
+    margin-right: 10px;
+    margin-bottom: 5px;
 }
 
 .list-card .card-link:hover {
-    background-color: #0056b3;
+    background-color: #218838;
     text-decoration: none;
 }
 
@@ -388,7 +593,6 @@ a:hover {
 .attraction-meta .categories a {
     font-size: 0.9rem;
 }
-
 
 .attraction-image {
     margin-bottom: 1.5rem;
@@ -445,7 +649,6 @@ a:hover {
     color: #495057;
 }
 
-
 /* --- Responsive Design --- */
 
 /* Smaller tablets and large phones */
@@ -477,6 +680,22 @@ a:hover {
         margin-bottom: 0.5rem;
     }
 
+    /* Adjust popup on medium screens */
+    .leaflet-popup-content-wrapper {
+        width: 280px;
+    }
+    
+    .leaflet-popup-content img.popup-image {
+        height: 160px;
+    }
+    
+    .popup-content.has-categories .popup-image {
+        height: 140px;
+    }
+    
+    .popup-content.many-categories .popup-image {
+        height: 120px;
+    }
 }
 
 /* Mobile phones */
@@ -494,7 +713,7 @@ a:hover {
         height: 400px; /* Further reduce map height */
     }
 
-     #zoom-out-btn {
+    #zoom-out-btn {
         font-size: 11px;
         padding: 4px 8px;
         left: 45px; /* Adjust position slightly */
@@ -515,10 +734,9 @@ a:hover {
     .list-card .card-content {
         padding: 0.8rem;
     }
-     .list-card .card-title {
+    .list-card .card-title {
         font-size: 1.1rem;
     }
-
 
     .attraction-detail {
         padding: 1rem;
@@ -529,4 +747,53 @@ a:hover {
     .attraction-image img {
         max-height: 300px;
     }
+    
+    /* Mobile adjustments for popups */
+    .leaflet-popup-content-wrapper {
+        width: 260px;
+    }
+    
+    .leaflet-popup-content {
+        margin: 12px;
+        font-size: 0.9rem;
+    }
+    
+    @media screen and (max-height: 600px) {
+        .leaflet-popup-content {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+    }
+    
+    .leaflet-popup-content img.popup-image {
+        height: 150px;
+    }
+    
+    .popup-content.has-categories .popup-image {
+        height: 130px;
+    }
+    
+    .popup-content.many-categories .popup-image {
+        height: 110px;
+    }
+    
+    /* Adjust card links on mobile */
+    .card-links {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .card-categories {
+        margin-top: 8px;
+        width: 100%;
+    }
+    
+    .list-card .card-link {
+        margin-bottom: 8px;
+    }
+}
+
+.leaflet-popup-content .location-info {
+    margin: 0 0 8px 0;
+    line-height: 1.2;
 }

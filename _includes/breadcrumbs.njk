@@ -1,18 +1,41 @@
-<nav aria-label="Breadcrumb" class="breadcrumbs">
-    <div class="container">
-        <ol>
-            <li><a href="/">Home</a></li>
-            {% if breadcrumbTitle %}
-                <li><span aria-current="page">{{ breadcrumbTitle }}</span></li>
-            {% endif %}
-             {% if breadcrumbCategory %}
-                <li><a href="/categories/">Categories</a></li>
-                <li><span aria-current="page">{{ breadcrumbCategory }}</span></li>
-            {% endif %}
-             {% if breadcrumbAttraction %}
-                 <li><a href="/#attraction-{{ breadcrumbAttractionSlug }}">Attractions</a></li>
-                 <li><span aria-current="page">{{ breadcrumbAttraction }}</span></li>
-            {% endif %}
-        </ol>
-    </div>
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+  <div class="container">
+    <ol class="breadcrumb-list">
+      <li class="breadcrumb-item">
+        <a href="/">Home</a>
+      </li>
+      
+      {% if attraction %}
+        {# For attraction detail pages #}
+        {% if attraction.state %}
+          <li class="breadcrumb-item">
+            <a href="/{{ attraction.state | slugify }}-attractions/">{{ attraction.state }} Attractions</a>
+          </li>
+        {% endif %}
+        
+        {% if attraction.categories and attraction.categories.length > 0 %}
+          <li class="breadcrumb-item">
+            {% set firstCategory = attraction.categories[0] %}
+            <a href="/{{ firstCategory | slugify }}-attractions/">{{ firstCategory }} Attractions</a>
+          </li>
+        {% endif %}
+        
+        <li class="breadcrumb-item current" aria-current="page">
+          {{ attraction.name }}
+        </li>
+      
+      {% elseif category %}
+        {# For category pages #}
+        <li class="breadcrumb-item current" aria-current="page">
+          {{ category }} Attractions
+        </li>
+      
+      {% elseif state %}
+        {# For state pages #}
+        <li class="breadcrumb-item current" aria-current="page">
+          {{ state }} Attractions
+        </li>
+      {% endif %}
+    </ol>
+  </div>
 </nav>

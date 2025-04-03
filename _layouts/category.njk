@@ -1,0 +1,40 @@
+---
+layout: layout.njk
+loadMapScript: true
+---
+
+<div class="map-container">
+    <div id="map">
+        <p class="map-loading">Loading Map...</p>
+    </div>
+    <button id="zoom-out-btn" title="Zoom out to show entire USA">Show All USA</button>
+</div>
+
+<div class="container controls-list-container">
+    <section class="filters" aria-labelledby="filter-heading">
+        <div class="filter-controls">
+            <div class="filter-group">
+                <select id="state-filter" name="state">
+                    <option value="">All States</option>
+                    {% for state in attractions | getAllStates %}
+                        <option value="{{ state }}">{{ state }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </section>
+
+    <section class="list-view" aria-labelledby="list-heading">
+        <h2 id="list-heading">{{ category }} Attractions List</h2>
+        <div id="list-view-content" class="card-container">
+            <p class="list-loading">Loading attractions...</p>
+        </div>
+        <p id="no-results" class="no-results-message" style="display: none;">No attractions match the current filters.</p>
+    </section>
+
+    <article class="about-website">
+        <h2>About {{ category }} Attractions</h2>
+        <p>Welcome to our collection of {{ category | lower }} roadside attractions across the United States. These unique destinations showcase the quirky and fascinating {{ category | lower }} sites that make American road trips so memorable.</p>
+        <p>Use the interactive map above to explore these {{ category | lower }} attractions by location. You can filter by state to find attractions in specific areas. Click on a map marker or list item to learn more about each fascinating location.</p>
+    </article>
+</div>

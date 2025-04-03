@@ -35,19 +35,57 @@ description: Discover and filter quirky roadside attractions across the United S
     </section>
 
     <section class="list-view" aria-labelledby="list-heading">
-        <h2 id="list-heading">clicking card will focus map on location</h2>
+        <h2 id="list-heading">Attractions List</h2>
         <div id="list-view-content" class="card-container">
+            {# Pre-render cards for better SEO #}
+            {% for attraction in attractions %}
+            <div class="list-card" id="list-item-{{ attraction.slug }}" data-slug="{{ attraction.slug }}">
+                <div class="card-image">
+                    <img src="{{ attraction.imageUrl }}" alt="{{ attraction.imageAlt or attraction.name }}" 
+                         loading="lazy" class="card-img"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div class="image-error" style="display: none;">Image not available</div>
+                </div>
+              <div class="card-content">
+                <h3 class="card-title">{{ attraction.name }}</h3>
+                {% if attraction.streetAddress %}
+                <p class="card-address">{{ attraction.streetAddress }}</p>
+                {% endif %}
+                <p class="card-location">
+                     <a href="/{{ attraction.state | slugify }}-attractions/" class="state-link">
+                     {{ attraction.locationCity }}, {{ attraction.state }} {% if attraction.zipCode %}{{ attraction.zipCode }}{% endif %}
+                </a>
+            </p>
+            <p class="card-description">{{ attraction.description | truncate(100) }}</p>
+                <div class="card-links">
+                  <a href="/{{ attraction.slug }}/" class="card-link">Learn More</a>
+                    <span class="card-categories">
+                         {% for category in attraction.categories %}
+                     <a href="/{{ category | slugify }}-attractions/" class="category-badge">{{ category }}</a>
+                 {% endfor %}
+                </span>
+            </div>
+            </div>
+            </div>
+            {% endfor %}
             <p class="list-loading">Loading attractions...</p>
         </div>
         <p id="no-results" class="no-results-message" style="display: none;">No attractions match the current filters.</p>
     </section>
 
     <article class="about-website">
-        <h2>About This Site</h2>
+        <h1>About This Site</h1>
         <p>Welcome to Quirky Roadside Attractions USA! This site is dedicated to showcasing the unusual, the wonderful, and the downright weird places you can find just off the highways and byways of America. From giant balls of twine to mysterious houses and unique art installations, we aim to inspire your next road trip adventure.</p>
         <p>Use the interactive map and filters above to explore attractions by category or state. Click on a map marker or list item to learn more about each fascinating location.</p>
+    <div>
+          <article>
+             {% include "articles/Uncover Roadside America Your Ultimate US Map Resource.html" %}
+          </article>
+        </div> 
     </article>
 </div>
+
+
 
 <script>
   // Debugging script to check if data is properly loading

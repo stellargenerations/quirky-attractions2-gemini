@@ -1,0 +1,42 @@
+---
+layout: layout.njk
+loadMapScript: true
+---
+
+<div class="map-container">
+    <div id="map">
+        <p class="map-loading">Loading Map...</p>
+    </div>
+    <button id="zoom-out-btn" title="Zoom out to show entire USA">Show All USA</button>
+</div>
+
+<div class="container controls-list-container">
+    <section class="filters" aria-labelledby="filter-heading">
+        <h2 id="filter-heading">Filter {{ state }} Attractions</h2>
+        <div class="filter-controls">
+            <div class="filter-group">
+                <label for="category-filter">By Category:</label>
+                <select id="category-filter" name="category">
+                    <option value="">All Categories</option>
+                    {% for category in attractions | getAllCategories %}
+                        <option value="{{ category }}">{{ category }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </section>
+
+    <section class="list-view" aria-labelledby="list-heading">
+        <h2 id="list-heading">{{ state }} Attractions List</h2>
+        <div id="list-view-content" class="card-container">
+            <p class="list-loading">Loading attractions...</p>
+        </div>
+        <p id="no-results" class="no-results-message" style="display: none;">No attractions match the current filters.</p>
+    </section>
+
+    <article class="about-website">
+        <h2>About {{ state }} Roadside Attractions</h2>
+        <p>Welcome to our collection of roadside attractions in {{ state }}. These unique destinations showcase the quirky and fascinating sites that make road trips through {{ state }} so memorable.</p>
+        <p>Use the interactive map above to explore these {{ state }} attractions by location. You can filter by category to find specific types of attractions. Click on a map marker or list item to learn more about each fascinating location.</p>
+    </article>
+</div>

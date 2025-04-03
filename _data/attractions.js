@@ -5,7 +5,7 @@ const { parse } = require('csv-parse'); // Using csv-parse library
 
 const SHEET_URL = process.env.GOOGLE_SHEET_PUBLISH_URL;
 
-// Helper function to create a URL-friendly slug (same as before)
+// Helper function to create a URL-friendly slug
 const slugify = (str) => {
     if (!str) return "";
     return str.toString().toLowerCase()
@@ -16,12 +16,13 @@ const slugify = (str) => {
       .replace(/-+$/, '');            // Trim - from end of text
 };
 
-// Define the expected headers IN ORDER (must match your Google Sheet columns A, B, C...)
-// This is crucial for mapping the data correctly after parsing.
+// Define the expected headers IN ORDER to match your Google Sheet columns
 const EXPECTED_HEADERS = [
     'Name',
+    'StreetAddress',  // Now in second position (Column B)
     'LocationCity',
     'State',
+    'ZipCode',        // Wherever this is in your sheet
     'Latitude',
     'Longitude',
     'Description',
@@ -31,12 +32,55 @@ const EXPECTED_HEADERS = [
     'WebsiteLink'
 ];
 
+// Fallback data in case the fetch fails during development or build
+const FALLBACK_ATTRACTIONS = [
+    {
+        name: "Big Texan Steak Ranch",
+        locationCity: "Amarillo",
+        state: "Texas",
+        lat: 35.1813,
+        lon: -101.8252,
+        description: "Home of the 72oz steak challenge, where if you can eat the entire meal in one hour, it's free.",
+        categories: ["Food Related", "Unusual Buildings"],
+        imageUrl: "https://via.placeholder.com/400x300?text=Big+Texan+Steak+Ranch",
+        imageAlt: "Big Texan Steak Ranch with its distinctive cow sign",
+        websiteLink: "https://bigtexan.com",
+        slug: "big-texan-steak-ranch"
+    },
+    {
+        name: "Cadillac Ranch",
+        locationCity: "Amarillo",
+        state: "Texas",
+        lat: 35.1872,
+        lon: -101.9871,
+        description: "A public art installation featuring ten Cadillacs half-buried nose-first in the ground, covered in ever-changing graffiti.",
+        categories: ["Art & Sculpture", "Unusual Buildings"],
+        imageUrl: "https://via.placeholder.com/400x300?text=Cadillac+Ranch",
+        imageAlt: "Colorfully painted Cadillacs buried nose-down in a field",
+        websiteLink: null,
+        slug: "cadillac-ranch"
+    },
+    {
+        name: "Salvation Mountain",
+        locationCity: "Niland",
+        state: "California",
+        lat: 33.2541,
+        lon: -115.4727,
+        description: "A colorful art installation made from local adobe clay and covered with biblical messages and quotes.",
+        categories: ["Art & Sculpture", "Folk Art"],
+        imageUrl: "https://via.placeholder.com/400x300?text=Salvation+Mountain",
+        imageAlt: "Colorful painted mountain in the desert with 'God is Love' painted on it",
+        websiteLink: null,
+        slug: "salvation-mountain"
+    }
+];
+
 module.exports = async function() {
     console.log("Fetching data from Google Sheet Published URL...");
 
     if (!SHEET_URL) {
-        console.error("ERROR: GOOGLE_SHEET_PUBLISH_URL is missing in your .env file.");
-        return []; // Return empty array on critical error
+        console.error("ERROR: GOOGLE_SHEET_PUBLISH_URL is missing in your .env file. Using fallback data.");
+        return FALLBACK_ATTRACTIONS;
     }
 
     try {
@@ -70,6 +114,7 @@ module.exports = async function() {
         }
 
         // --- Use csv-parse to process the TSV data ---
+        console.log("Parsing data from sheet...");
         const records = await new Promise((resolve, reject) => {
             // Try to auto-detect delimiter
             const firstLine = dataText.split('\n')[0];
@@ -100,7 +145,24 @@ module.exports = async function() {
         });
         // --- End parsing ---
 
+        // Add debugging AFTER records is defined
         console.log(`Successfully parsed ${records.length} rows.`);
+
+        // Debug data analysis
+        if (records.length > 0) {
+            console.log("First row headers:", Object.keys(records[0]).join(', '));
+            console.log("Categories in first row:", records[0].Categories || records[0].categories || "NOT FOUND");
+            
+            // Check a few more rows if available
+            if (records.length > 1) {
+                console.log("Categories in second row:", records[1].Categories || records[1].categories || "NOT FOUND");
+            }
+        }
+
+        if (records.length === 0) {
+            console.warn("WARNING: No records found in the CSV. Using fallback data.");
+            return FALLBACK_ATTRACTIONS;
+        }
 
         const attractions = records.map((row, index) => {
             // Check if headers match expected (only check once for warning)
@@ -154,17 +216,31 @@ module.exports = async function() {
                 fixedImageUrl += '&v=' + Date.now();
             }
 
+            // IMPROVED: Properly handle categories with better defensive coding
+            const processedCategories = (() => {
+                // Get the raw categories value, defaulting to empty string if not present
+                const catsRaw = row.Categories || row.categories || '';
+                
+                // Only try to split if it's a non-empty string
+                const cats = typeof catsRaw === 'string' && catsRaw.trim() !== '' 
+                    ? catsRaw.split(',').map(cat => cat.trim()).filter(Boolean)
+                    : [];
+                    
+                console.log(`Categories for "${name}":`, cats);
+                
+                return cats; // Will be an empty array if no categories exist
+            })();
+
             return {
                 name: name,
                 locationCity: row.LocationCity || row.locationCity || 'N/A',
                 state: state,
+                streetAddress: row.StreetAddress || row.streetAddress || '',
+                zipCode: row.ZipCode || row.zipCode || '',
                 lat: lat,
                 lon: lon,
                 description: row.Description || row.description || 'No description available.',
-                // Split categories by comma, trim whitespace, filter out empty strings
-                categories: (row.Categories || row.categories || '').split(',')
-                    .map(cat => cat.trim())
-                    .filter(cat => cat),
+                categories: processedCategories, // Use our improved categories handling
                 imageUrl: fixedImageUrl,
                 imageAlt: row.ImageAltText || row.imageAltText || `Image of ${name}`, // Default alt text
                 websiteLink: row.WebsiteLink || row.websiteLink || null,
@@ -176,14 +252,15 @@ module.exports = async function() {
         console.log(`Successfully processed ${attractions.length} attractions.`);
         
         if (attractions.length === 0) {
-            console.warn("WARNING: No valid attractions were processed from the sheet!");
+            console.warn("WARNING: No valid attractions were processed from the sheet! Using fallback data.");
+            return FALLBACK_ATTRACTIONS;
         }
         
         return attractions;
 
     } catch (error) {
         console.error("Error fetching or processing Google Sheet published data:", error);
-        // Return empty array on error during build.
-        return [];
+        console.warn("Using fallback attractions data instead.");
+        return FALLBACK_ATTRACTIONS;
     }
 };

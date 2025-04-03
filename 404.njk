@@ -1,0 +1,28 @@
+---
+layout: layout.njk
+permalink: /404.html
+title: Page Not Found
+description: Sorry, we couldn't find the page you were looking for.
+---
+
+<div class="container">
+  <div class="attraction-detail">
+    <h1>404 - Page Not Found</h1>
+    <p>Sorry, the page you're looking for doesn't exist or has been moved.</p>
+    <p>You might want to try one of these options:</p>
+    <ul>
+      <li><a href="/">Return to the homepage</a></li>
+      <li>Check the URL for typos</li>
+      <li>Browse attractions by category:
+        {% for category in attractions | getAllCategories %}
+          <a href="/{{ category | slugify }}-attractions/">{{ category }}</a>{% if not loop.last %}, {% endif %}
+        {% endfor %}
+      </li>
+      <li>Browse attractions by state:
+        {% for state in attractions | getAllStates %}
+          <a href="/{{ state | slugify }}-attractions/">{{ state }}</a>{% if not loop.last %}, {% endif %}
+        {% endfor %}
+      </li>
+    </ul>
+  </div>
+</div>
