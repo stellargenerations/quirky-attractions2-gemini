@@ -11,7 +11,7 @@ title: Lava Hot Springs
     <span class="location">Location: Lava Hot Springs, ID 83246</span>
   </div>
   <figure class="attraction-image">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Lava_Hot_Springs%2C_Idaho.jpg?v=1743943749171" alt="Lava Hot Springs, Idaho.jpg" loading="lazy">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Lava_Hot_Springs%2C_Idaho.jpg?v=1743949199307" alt="Lava Hot Springs, Idaho.jpg" loading="lazy">
   </figure>
   <div class="attraction-description">
     <h3>About Lava Hot Springs</h3>

@@ -11,7 +11,7 @@ title: Hole N" The Rock
     <span class="location">Location: Moab, UT 84532</span>
   </div>
   <figure class="attraction-image">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5a/Hole_N_The_Rock.jpg?v=1743943749170" alt="Hole N The Rock.jpg" loading="lazy">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5a/Hole_N_The_Rock.jpg?v=1743949199306" alt="Hole N The Rock.jpg" loading="lazy">
   </figure>
   <div class="attraction-description">
     <h3>About Hole N" The Rock</h3>
