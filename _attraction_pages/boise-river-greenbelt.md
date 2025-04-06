@@ -11,7 +11,7 @@ title: Boise River Greenbelt
     <span class="location">Location: N/A, ID </span>
   </div>
   <figure class="attraction-image">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Boise_River_-_Greenbelt_of_Boise.jpg?v=1743949199307" alt="Boise River - Greenbelt of Boise.jpg" loading="lazy">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Boise_River_-_Greenbelt_of_Boise.jpg?v=1743956077378" alt="Boise River - Greenbelt of Boise.jpg" loading="lazy">
   </figure>
   <div class="attraction-description">
     <h3>About Boise River Greenbelt</h3>

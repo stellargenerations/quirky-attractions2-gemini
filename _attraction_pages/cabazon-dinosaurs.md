@@ -11,7 +11,7 @@ title: Cabazon Dinosaurs
     <span class="location">Location: Cabazon, CA 92230</span>
   </div>
   <figure class="attraction-image">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Cabazon_Dinosaurs%2C_Ca_%285991906002%29.jpg?v=1743949199304" alt="Cabazon Dinosaurs, Ca (5991906002).jpg" loading="lazy">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Cabazon_Dinosaurs%2C_Ca_%285991906002%29.jpg?v=1743956077375" alt="Cabazon Dinosaurs, Ca (5991906002).jpg" loading="lazy">
   </figure>
   <div class="attraction-description">
     <h3>About Cabazon Dinosaurs</h3>

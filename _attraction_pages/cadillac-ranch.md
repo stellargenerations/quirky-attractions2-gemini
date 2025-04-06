@@ -11,7 +11,7 @@ title: Cadillac Ranch
     <span class="location">Location: Amarillo, TX 79124</span>
   </div>
   <figure class="attraction-image">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Cadillac_Ranch_Entrance.jpg?v=1743949199301" alt="Cadillac Ranch Entrance.jpg" loading="lazy">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Cadillac_Ranch_Entrance.jpg?v=1743956077374" alt="Cadillac Ranch Entrance.jpg" loading="lazy">
   </figure>
   <div class="attraction-description">
     <h3>About Cadillac Ranch</h3>

@@ -11,7 +11,7 @@ title: Ben & Jerry's Flavor Graveyard
     <span class="location">Location: Waterbury, VT 5676</span>
   </div>
   <figure class="attraction-image">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/1/1f/Ben_and_Jerry%27s_Flavor_Graveyard_Waterbury.jpg?v=1743949199306" alt="Ben and Jerry's Flavor Graveyard Waterbury.jpg" loading="lazy">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/1/1f/Ben_and_Jerry%27s_Flavor_Graveyard_Waterbury.jpg?v=1743956077377" alt="Ben and Jerry's Flavor Graveyard Waterbury.jpg" loading="lazy">
   </figure>
   <div class="attraction-description">
     <h3>About Ben & Jerry's Flavor Graveyard</h3>
