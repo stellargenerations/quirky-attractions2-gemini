@@ -11,7 +11,7 @@ title: Unclaimed Baggage Center
     <span class="location">Location: Scottsboro, AL 35768</span>
   </div>
   <figure class="attraction-image">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/Unclaimed_Baggage_logo.png?v=1743430669966" alt="Unclaimed Baggage logo.png" loading="lazy">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/Unclaimed_Baggage_logo.png?v=1743942693845" alt="Unclaimed Baggage logo.png" loading="lazy">
   </figure>
   <div class="attraction-description">
     <h3>About Unclaimed Baggage Center</h3>

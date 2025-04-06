@@ -11,7 +11,7 @@ title: Salvation Mountain
     <span class="location">Location: Niland, CA 92257</span>
   </div>
   <figure class="attraction-image">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/9/94/Salvation_Mountain%2C_Niland%2C_CA.jpg?v=1743430669961" alt="Salvation Mountain, Niland, CA.jpg" loading="lazy">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/94/Salvation_Mountain%2C_Niland%2C_CA.jpg?v=1743942693843" alt="Salvation Mountain, Niland, CA.jpg" loading="lazy">
   </figure>
   <div class="attraction-description">
     <h3>About Salvation Mountain</h3>

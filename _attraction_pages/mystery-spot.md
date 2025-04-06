@@ -11,7 +11,7 @@ title: Mystery Spot
     <span class="location">Location: Santa Cruz, CA 95065</span>
   </div>
   <figure class="attraction-image">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5b/The_Mystery_spot_entrance.jpg?v=1743430669963" alt="The Mystery spot entrance.jpg" loading="lazy">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5b/The_Mystery_spot_entrance.jpg?v=1743942693844" alt="The Mystery spot entrance.jpg" loading="lazy">
   </figure>
   <div class="attraction-description">
     <h3>About Mystery Spot</h3>
