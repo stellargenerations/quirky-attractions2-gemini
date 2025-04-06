@@ -11,7 +11,7 @@ title: The Thing?
     <span class="location">Location: Dragoon, AZ 85609</span>
   </div>
   <figure class="attraction-image">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/9/92/The_Thing_1982_publicity_still.jpg?v=1743942693845" alt="The Thing 1982 publicity still.jpg" loading="lazy">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/92/The_Thing_1982_publicity_still.jpg?v=1743943749167" alt="The Thing 1982 publicity still.jpg" loading="lazy">
   </figure>
   <div class="attraction-description">
     <h3>About The Thing?</h3>

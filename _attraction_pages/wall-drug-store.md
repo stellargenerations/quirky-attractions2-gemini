@@ -11,7 +11,7 @@ title: Wall Drug Store
     <span class="location">Location: Wall, SD 57790</span>
   </div>
   <figure class="attraction-image">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Wall_Drug.JPG?v=1743942693844" alt="Wall Drug.JPG" loading="lazy">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Wall_Drug.JPG?v=1743943749165" alt="Wall Drug.JPG" loading="lazy">
   </figure>
   <div class="attraction-description">
     <h3>About Wall Drug Store</h3>

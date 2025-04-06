@@ -11,7 +11,7 @@ title: City of Rocks National Reserve
     <span class="location">Location: Almo, ID 83312</span>
   </div>
   <figure class="attraction-image">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/8/86/City_of_Rocks_11.jpg?v=1743942693847" alt="City of Rocks 11.jpg" loading="lazy">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/86/City_of_Rocks_11.jpg?v=1743943749171" alt="City of Rocks 11.jpg" loading="lazy">
   </figure>
   <div class="attraction-description">
     <h3>About City of Rocks National Reserve</h3>

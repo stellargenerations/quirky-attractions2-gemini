@@ -11,7 +11,7 @@ title: Haines Shoe House
     <span class="location">Location: Hallam, PA 17406</span>
   </div>
   <figure class="attraction-image">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0f/Haines_Shoe_House%2C_York_Pa.jpg?v=1743942693846" alt="Haines Shoe House, York Pa.jpg" loading="lazy">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0f/Haines_Shoe_House%2C_York_Pa.jpg?v=1743943749169" alt="Haines Shoe House, York Pa.jpg" loading="lazy">
   </figure>
   <div class="attraction-description">
     <h3>About Haines Shoe House</h3>

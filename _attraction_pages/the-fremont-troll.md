@@ -11,7 +11,7 @@ title: The Fremont Troll
     <span class="location">Location: Seattle, WA 98103</span>
   </div>
   <figure class="attraction-image">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Troll_Ave_Fremont_Seattle_USA.jpg?v=1743942693844" alt="Troll Ave Fremont Seattle USA.jpg" loading="lazy">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Troll_Ave_Fremont_Seattle_USA.jpg?v=1743943749165" alt="Troll Ave Fremont Seattle USA.jpg" loading="lazy">
   </figure>
   <div class="attraction-description">
     <h3>About The Fremont Troll</h3>
