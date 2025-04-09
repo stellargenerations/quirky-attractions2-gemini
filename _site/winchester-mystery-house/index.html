@@ -42,26 +42,37 @@
     
     <main id="main-content">
         
-<article class="attraction-detail container">
-    <h2>Winchester Mystery House</h2>
+<article class="attraction-detail container" itemscope itemtype="https://schema.org/TouristAttraction">
+    <h2 itemprop="name">Winchester Mystery House</h2>
 
     <div class="attraction-meta">
-        
-            <span class="address">Address: 525 S Winchester Blvd</span>
-        
-        <span class="location">Location: San Jose, California 95128</span>
+        <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+            
+                <span class="address" itemprop="streetAddress">Address: 525 S Winchester Blvd</span>
+            
+            <span class="location">
+                Location:
+                <span itemprop="addressLocality">San Jose</span>,
+                <span itemprop="addressRegion">California</span>
+                <span itemprop="postalCode">95128</span>
+            </span>
+        </div>
     </div>
 
     <figure class="attraction-image">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/9/94/Winchester_Mystery_House.jpg?v=1744227955011" alt="Winchester Mystery House.jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <img itemprop="image" src="https://upload.wikimedia.org/wikipedia/commons/9/94/Winchester_Mystery_House.jpg?v=1744230888226" alt="Winchester Mystery House.jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
         <figcaption style="display: none;">Image failed to load.</figcaption>
     </figure>
 
+    <!-- Add geo coordinates -->
+    <meta itemprop="latitude" content="37.3183156">
+    <meta itemprop="longitude" content="-121.9511048">
 
 
-<div class="attraction-article">
-  <h3>Explore the Wonders of the Winchester Mystery House</h3>
-  <div class="article-content">
+
+<div class="attraction-article" itemprop="additionalProperty" itemscope itemtype="https://schema.org/PropertyValue">
+  <h3 itemprop="name">Explore the Wonders of the Winchester Mystery House</h3>
+  <div class="article-content" itemprop="value">
     
 <html><head><meta charset="UTF-8" /></head><body><h1></h1><h1>Explore the Wonders of the Winchester Mystery House</h1><p>Did you know a single California mansion has <strong>160 rooms</strong>? It has staircases that lead to ceilings and doors opening to sheer drops. Located at 525 S Winchester Blvd in San Jose, the Winchester Mystery House is a marvel. It's known for its size and strange architectural features.</p><p>This mansion is a mix of Victorian and Gothic styles. It's famous not just for its size but also for the myths about its former owner. Sarah Winchester, widow of William Wirt Winchester, once lived here.</p><p>The mansion is full of secrets and stories. It has secret passages and a cabinet that goes through 30 rooms. Every corner tells a tale of obsession and creativity.</p><p>Today, the mansion attracts thousands of visitors. It's a mix of Victorian elegance and weird features. Tour guides share the real history and myths, letting visitors experience this enigma firsthand.</p><h2>Key Takeaways</h2><ul>
 <li>Discover a 160-room estate with staircases leading nowhere, doors opening to walls, and 10,000 window panes</li>
@@ -135,10 +146,13 @@
 
  <div class="attraction-description">
         <h3>About This Attraction</h3>
-        <p>A sprawling mansion known for its architectural curiosities, built continuously by Sarah Winchester.</p>
+        <p itemprop="description">A sprawling mansion known for its architectural curiosities, built continuously by Sarah Winchester.</p>
     </div>
 
     
+
+    <!-- Add country information -->
+    <meta itemprop="addressCountry" content="US">
 </article>
 
     </main>

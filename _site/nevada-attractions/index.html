@@ -42,8 +42,31 @@
     
     <main id="main-content">
         
+<script>
+// This script will run after the page loads
+window.addEventListener('DOMContentLoaded', function() {
+  // Set a flag that we're on a state page
+  window.isStatePage = true;
+  window.currentState = "Nevada";
+
+  // Check if the map and zoomToState function are available
+  function checkAndZoom() {
+    if (window.map && typeof window.zoomToState === 'function') {
+      console.log('Zooming to state: Nevada');
+      window.zoomToState("Nevada");
+    } else {
+      // If not available yet, try again in 100ms (reduced from 500ms)
+      setTimeout(checkAndZoom, 100);
+    }
+  }
+
+  // Start checking almost immediately (reduced from 1000ms)
+  setTimeout(checkAndZoom, 300);
+});
+</script>
+
 <div class="map-container">
-    <div id="map">
+    <div id="map" data-state="Nevada">
         <p class="map-loading">Loading Map...</p>
     </div>
     <button id="zoom-out-btn" title="Zoom out to show entire USA">Show All USA</button>
@@ -70,21 +93,30 @@
             
             
             
-            <div class="list-card" id="list-item-republic-of-molossia" data-slug="republic-of-molossia">
+            <div class="list-card" id="list-item-republic-of-molossia" data-slug="republic-of-molossia" itemscope itemtype="https://schema.org/TouristAttraction">
                 <div class="card-image">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Arms4.jpg?v=1744227955016" alt="Arms4.jpg" 
+                    <img itemprop="image" src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Arms4.jpg?v=1744230888231" alt="Arms4.jpg"
                          loading="lazy" class="card-img"
                          onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                     <div class="image-error" style="display: none;">Image not available</div>
                 </div>
                 <div class="card-content">
-                    <h3 class="card-title">Republic of Molossia</h3>
+                    <h3 class="card-title" itemprop="name">Republic of Molossia</h3>
                     <p class="card-location">
+                        <span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+                            <span itemprop="addressLocality">Dayton</span>,
+                            <span itemprop="addressRegion">Nevada</span>
+                            <meta itemprop="addressCountry" content="US">
+                        </span>
                         <a href="/nevada-attractions/" class="state-link">Dayton, Nevada</a>
                     </p>
-                    <p class="card-description">Molossia (), officially the Republic of Molossia, is a micronation claiming de facto sovereignty...</p>
+                    <p class="card-description" itemprop="description">Molossia (), officially the Republic of Molossia, is a micronation claiming de facto sovereignty...</p>
+
+                    <!-- Add geo coordinates -->
+                    <meta itemprop="latitude" content="39.3228123">
+                    <meta itemprop="longitude" content="-119.5393764">
                     <div class="card-links">
-                        <a href="/republic-of-molossia/" class="card-link">Learn More</a>
+                        <a href="/republic-of-molossia/" class="card-link" itemprop="url">Learn More</a>
                         <span class="card-categories">
                             
                         </span>
@@ -92,21 +124,30 @@
                 </div>
             </div>
             
-            <div class="list-card" id="list-item-neon-museum" data-slug="neon-museum">
+            <div class="list-card" id="list-item-neon-museum" data-slug="neon-museum" itemscope itemtype="https://schema.org/TouristAttraction">
                 <div class="card-image">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Budynek_Muzeum_Neon%C3%B3w_ul._Mi%C5%84ska.jpg?v=1744227955017" alt="Budynek Muzeum Neonów ul. Mińska.jpg" 
+                    <img itemprop="image" src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Budynek_Muzeum_Neon%C3%B3w_ul._Mi%C5%84ska.jpg?v=1744230888232" alt="Budynek Muzeum Neonów ul. Mińska.jpg"
                          loading="lazy" class="card-img"
                          onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                     <div class="image-error" style="display: none;">Image not available</div>
                 </div>
                 <div class="card-content">
-                    <h3 class="card-title">Neon Museum</h3>
+                    <h3 class="card-title" itemprop="name">Neon Museum</h3>
                     <p class="card-location">
+                        <span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+                            <span itemprop="addressLocality">Las Vegas</span>,
+                            <span itemprop="addressRegion">Nevada</span>
+                            <meta itemprop="addressCountry" content="US">
+                        </span>
                         <a href="/nevada-attractions/" class="state-link">Las Vegas, Nevada</a>
                     </p>
-                    <p class="card-description">The Neon Museum in Las Vegas, Nevada, United States, features signs from old casinos and other...</p>
+                    <p class="card-description" itemprop="description">The Neon Museum in Las Vegas, Nevada, United States, features signs from old casinos and other...</p>
+
+                    <!-- Add geo coordinates -->
+                    <meta itemprop="latitude" content="36.17651265">
+                    <meta itemprop="longitude" content="-115.1352767">
                     <div class="card-links">
-                        <a href="/neon-museum/" class="card-link">Learn More</a>
+                        <a href="/neon-museum/" class="card-link" itemprop="url">Learn More</a>
                         <span class="card-categories">
                             
                         </span>
@@ -148,7 +189,7 @@
         <script>
             // Define attractions data globally
             
-                window.attractionsData = [{"name":"Republic of Molossia","locationCity":"Dayton","state":"Nevada","streetAddress":"226 Trans-Molossia Trail","zipCode":"89403","lat":39.3228123,"lon":-119.5393764,"description":"Molossia (), officially the Republic of Molossia, is a micronation claiming de facto sovereignty over 11.3 acres (4.6 ha; 46,000 m2) of land near D...","categories":[],"imageUrl":"https://upload.wikimedia.org/wikipedia/commons/f/f2/Arms4.jpg?v=1744227955016","imageAlt":"Arms4.jpg","websiteLink":null,"slug":"republic-of-molossia"},{"name":"Neon Museum","locationCity":"Las Vegas","state":"Nevada","streetAddress":"770 Las Vegas Boulevard North","zipCode":"89101","lat":36.17651265,"lon":-115.1352767,"description":"The Neon Museum in Las Vegas, Nevada, United States, features signs from old casinos and other businesses displayed outdoors on 2.27 acres (0.92 ha).","categories":[],"imageUrl":"https://upload.wikimedia.org/wikipedia/commons/c/cc/Budynek_Muzeum_Neon%C3%B3w_ul._Mi%C5%84ska.jpg?v=1744227955017","imageAlt":"Budynek Muzeum Neonów ul. Mińska.jpg","websiteLink":null,"slug":"neon-museum"}];
+                window.attractionsData = [{"name":"Republic of Molossia","locationCity":"Dayton","state":"Nevada","streetAddress":"226 Trans-Molossia Trail","zipCode":"89403","lat":39.3228123,"lon":-119.5393764,"description":"Molossia (), officially the Republic of Molossia, is a micronation claiming de facto sovereignty over 11.3 acres (4.6 ha; 46,000 m2) of land near D...","categories":[],"imageUrl":"https://upload.wikimedia.org/wikipedia/commons/f/f2/Arms4.jpg?v=1744230888231","imageAlt":"Arms4.jpg","websiteLink":null,"slug":"republic-of-molossia"},{"name":"Neon Museum","locationCity":"Las Vegas","state":"Nevada","streetAddress":"770 Las Vegas Boulevard North","zipCode":"89101","lat":36.17651265,"lon":-115.1352767,"description":"The Neon Museum in Las Vegas, Nevada, United States, features signs from old casinos and other businesses displayed outdoors on 2.27 acres (0.92 ha).","categories":[],"imageUrl":"https://upload.wikimedia.org/wikipedia/commons/c/cc/Budynek_Muzeum_Neon%C3%B3w_ul._Mi%C5%84ska.jpg?v=1744230888232","imageAlt":"Budynek Muzeum Neonów ul. Mińska.jpg","websiteLink":null,"slug":"neon-museum"}];
                 console.log("State data prepared:", window.attractionsData.length, "attractions");
             
         </script>

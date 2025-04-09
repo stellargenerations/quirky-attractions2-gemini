@@ -42,26 +42,37 @@
     
     <main id="main-content">
         
-<article class="attraction-detail container">
-    <h2>Republic of Molossia</h2>
+<article class="attraction-detail container" itemscope itemtype="https://schema.org/TouristAttraction">
+    <h2 itemprop="name">Republic of Molossia</h2>
 
     <div class="attraction-meta">
-        
-            <span class="address">Address: 226 Trans-Molossia Trail</span>
-        
-        <span class="location">Location: Dayton, Nevada 89403</span>
+        <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+            
+                <span class="address" itemprop="streetAddress">Address: 226 Trans-Molossia Trail</span>
+            
+            <span class="location">
+                Location:
+                <span itemprop="addressLocality">Dayton</span>,
+                <span itemprop="addressRegion">Nevada</span>
+                <span itemprop="postalCode">89403</span>
+            </span>
+        </div>
     </div>
 
     <figure class="attraction-image">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Arms4.jpg?v=1744227955016" alt="Arms4.jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <img itemprop="image" src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Arms4.jpg?v=1744230888231" alt="Arms4.jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
         <figcaption style="display: none;">Image failed to load.</figcaption>
     </figure>
 
+    <!-- Add geo coordinates -->
+    <meta itemprop="latitude" content="39.3228123">
+    <meta itemprop="longitude" content="-119.5393764">
 
 
-<div class="attraction-article">
-  <h3>Explore the Republic of Molossia: A Fascinating Micronation</h3>
-  <div class="article-content">
+
+<div class="attraction-article" itemprop="additionalProperty" itemscope itemtype="https://schema.org/PropertyValue">
+  <h3 itemprop="name">Explore the Republic of Molossia: A Fascinating Micronation</h3>
+  <div class="article-content" itemprop="value">
     
 <!DOCTYPE html>
 <html lang="en">
@@ -322,10 +333,13 @@
 
  <div class="attraction-description">
         <h3>About This Attraction</h3>
-        <p>Molossia (), officially the Republic of Molossia, is a micronation claiming de facto sovereignty over 11.3 acres (4.6 ha; 46,000 m2) of land near D...</p>
+        <p itemprop="description">Molossia (), officially the Republic of Molossia, is a micronation claiming de facto sovereignty over 11.3 acres (4.6 ha; 46,000 m2) of land near D...</p>
     </div>
 
     
+
+    <!-- Add country information -->
+    <meta itemprop="addressCountry" content="US">
 </article>
 
     </main>

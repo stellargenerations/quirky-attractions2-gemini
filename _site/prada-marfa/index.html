@@ -42,30 +42,44 @@
     
     <main id="main-content">
         
-<article class="attraction-detail container">
-    <h2>Prada Marfa</h2>
+<article class="attraction-detail container" itemscope itemtype="https://schema.org/TouristAttraction">
+    <h2 itemprop="name">Prada Marfa</h2>
 
     <div class="attraction-meta">
-        
-            <span class="address">Address: US-90</span>
-        
-        <span class="location">Location: Valentine, Texas 79854</span>
+        <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+            
+                <span class="address" itemprop="streetAddress">Address: US-90</span>
+            
+            <span class="location">
+                Location:
+                <span itemprop="addressLocality">Valentine</span>,
+                <span itemprop="addressRegion">Texas</span>
+                <span itemprop="postalCode">79854</span>
+            </span>
+        </div>
     </div>
 
     <figure class="attraction-image">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/1/17/2015-09-06_Prada_Marfa_%28Valentine%2C_TX%29.jpg?v=1744227955011" alt="2015-09-06 Prada Marfa (Valentine, TX).jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <img itemprop="image" src="https://upload.wikimedia.org/wikipedia/commons/1/17/2015-09-06_Prada_Marfa_%28Valentine%2C_TX%29.jpg?v=1744230888227" alt="2015-09-06 Prada Marfa (Valentine, TX).jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
         <figcaption style="display: none;">Image failed to load.</figcaption>
     </figure>
+
+    <!-- Add geo coordinates -->
+    <meta itemprop="latitude" content="30.5875771">
+    <meta itemprop="longitude" content="-104.5000853">
 
 
 
 
  <div class="attraction-description">
         <h3>About This Attraction</h3>
-        <p>A permanently installed sculpture resembling a Prada boutique, located in the middle of the desert.</p>
+        <p itemprop="description">A permanently installed sculpture resembling a Prada boutique, located in the middle of the desert.</p>
     </div>
 
     
+
+    <!-- Add country information -->
+    <meta itemprop="addressCountry" content="US">
 </article>
 
     </main>

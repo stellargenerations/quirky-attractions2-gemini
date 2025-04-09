@@ -42,8 +42,31 @@
     
     <main id="main-content">
         
+<script>
+// This script will run after the page loads
+window.addEventListener('DOMContentLoaded', function() {
+  // Set a flag that we're on a state page
+  window.isStatePage = true;
+  window.currentState = "Vermont";
+
+  // Check if the map and zoomToState function are available
+  function checkAndZoom() {
+    if (window.map && typeof window.zoomToState === 'function') {
+      console.log('Zooming to state: Vermont');
+      window.zoomToState("Vermont");
+    } else {
+      // If not available yet, try again in 100ms (reduced from 500ms)
+      setTimeout(checkAndZoom, 100);
+    }
+  }
+
+  // Start checking almost immediately (reduced from 1000ms)
+  setTimeout(checkAndZoom, 300);
+});
+</script>
+
 <div class="map-container">
-    <div id="map">
+    <div id="map" data-state="Vermont">
         <p class="map-loading">Loading Map...</p>
     </div>
     <button id="zoom-out-btn" title="Zoom out to show entire USA">Show All USA</button>
@@ -70,21 +93,30 @@
             
             
             
-            <div class="list-card" id="list-item-ben-jerrys-flavor-graveyard" data-slug="ben-jerrys-flavor-graveyard">
+            <div class="list-card" id="list-item-ben-jerrys-flavor-graveyard" data-slug="ben-jerrys-flavor-graveyard" itemscope itemtype="https://schema.org/TouristAttraction">
                 <div class="card-image">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/1f/Ben_and_Jerry%27s_Flavor_Graveyard_Waterbury.jpg?v=1744227955013" alt="Ben and Jerry&#39;s Flavor Graveyard Waterbury.jpg" 
+                    <img itemprop="image" src="https://upload.wikimedia.org/wikipedia/commons/1/1f/Ben_and_Jerry%27s_Flavor_Graveyard_Waterbury.jpg?v=1744230888229" alt="Ben and Jerry&#39;s Flavor Graveyard Waterbury.jpg"
                          loading="lazy" class="card-img"
                          onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                     <div class="image-error" style="display: none;">Image not available</div>
                 </div>
                 <div class="card-content">
-                    <h3 class="card-title">Ben &amp; Jerry&#39;s Flavor Graveyard</h3>
+                    <h3 class="card-title" itemprop="name">Ben &amp; Jerry&#39;s Flavor Graveyard</h3>
                     <p class="card-location">
+                        <span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+                            <span itemprop="addressLocality">Waterbury</span>,
+                            <span itemprop="addressRegion">Vermont</span>
+                            <meta itemprop="addressCountry" content="US">
+                        </span>
                         <a href="/vermont-attractions/" class="state-link">Waterbury, Vermont</a>
                     </p>
-                    <p class="card-description">A whimsical graveyard on the grounds of the Ben &amp; Jerry&#39;s factory, memorializing discontinued ice...</p>
+                    <p class="card-description" itemprop="description">A whimsical graveyard on the grounds of the Ben &amp; Jerry&#39;s factory, memorializing discontinued ice...</p>
+
+                    <!-- Add geo coordinates -->
+                    <meta itemprop="latitude" content="44.3529491">
+                    <meta itemprop="longitude" content="-72.740204">
                     <div class="card-links">
-                        <a href="/ben-jerrys-flavor-graveyard/" class="card-link">Learn More</a>
+                        <a href="/ben-jerrys-flavor-graveyard/" class="card-link" itemprop="url">Learn More</a>
                         <span class="card-categories">
                             
                         </span>
@@ -126,7 +158,7 @@
         <script>
             // Define attractions data globally
             
-                window.attractionsData = [{"name":"Ben & Jerry's Flavor Graveyard","locationCity":"Waterbury","state":"Vermont","streetAddress":"1281 Waterbury-Stowe Rd","zipCode":"5676","lat":44.3529491,"lon":-72.740204,"description":"A whimsical graveyard on the grounds of the Ben & Jerry's factory, memorializing discontinued ice cream flavors.","categories":[],"imageUrl":"https://upload.wikimedia.org/wikipedia/commons/1/1f/Ben_and_Jerry%27s_Flavor_Graveyard_Waterbury.jpg?v=1744227955013","imageAlt":"Ben and Jerry's Flavor Graveyard Waterbury.jpg","websiteLink":null,"slug":"ben-jerrys-flavor-graveyard"}];
+                window.attractionsData = [{"name":"Ben & Jerry's Flavor Graveyard","locationCity":"Waterbury","state":"Vermont","streetAddress":"1281 Waterbury-Stowe Rd","zipCode":"5676","lat":44.3529491,"lon":-72.740204,"description":"A whimsical graveyard on the grounds of the Ben & Jerry's factory, memorializing discontinued ice cream flavors.","categories":[],"imageUrl":"https://upload.wikimedia.org/wikipedia/commons/1/1f/Ben_and_Jerry%27s_Flavor_Graveyard_Waterbury.jpg?v=1744230888229","imageAlt":"Ben and Jerry's Flavor Graveyard Waterbury.jpg","websiteLink":null,"slug":"ben-jerrys-flavor-graveyard"}];
                 console.log("State data prepared:", window.attractionsData.length, "attractions");
             
         </script>

@@ -42,30 +42,44 @@
     
     <main id="main-content">
         
-<article class="attraction-detail container">
-    <h2>Ben &amp; Jerry&#39;s Flavor Graveyard</h2>
+<article class="attraction-detail container" itemscope itemtype="https://schema.org/TouristAttraction">
+    <h2 itemprop="name">Ben &amp; Jerry&#39;s Flavor Graveyard</h2>
 
     <div class="attraction-meta">
-        
-            <span class="address">Address: 1281 Waterbury-Stowe Rd</span>
-        
-        <span class="location">Location: Waterbury, Vermont 5676</span>
+        <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+            
+                <span class="address" itemprop="streetAddress">Address: 1281 Waterbury-Stowe Rd</span>
+            
+            <span class="location">
+                Location:
+                <span itemprop="addressLocality">Waterbury</span>,
+                <span itemprop="addressRegion">Vermont</span>
+                <span itemprop="postalCode">5676</span>
+            </span>
+        </div>
     </div>
 
     <figure class="attraction-image">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/1/1f/Ben_and_Jerry%27s_Flavor_Graveyard_Waterbury.jpg?v=1744227955013" alt="Ben and Jerry&#39;s Flavor Graveyard Waterbury.jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <img itemprop="image" src="https://upload.wikimedia.org/wikipedia/commons/1/1f/Ben_and_Jerry%27s_Flavor_Graveyard_Waterbury.jpg?v=1744230888229" alt="Ben and Jerry&#39;s Flavor Graveyard Waterbury.jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
         <figcaption style="display: none;">Image failed to load.</figcaption>
     </figure>
+
+    <!-- Add geo coordinates -->
+    <meta itemprop="latitude" content="44.3529491">
+    <meta itemprop="longitude" content="-72.740204">
 
 
 
 
  <div class="attraction-description">
         <h3>About This Attraction</h3>
-        <p>A whimsical graveyard on the grounds of the Ben &amp; Jerry&#39;s factory, memorializing discontinued ice cream flavors.</p>
+        <p itemprop="description">A whimsical graveyard on the grounds of the Ben &amp; Jerry&#39;s factory, memorializing discontinued ice cream flavors.</p>
     </div>
 
     
+
+    <!-- Add country information -->
+    <meta itemprop="addressCountry" content="US">
 </article>
 
     </main>

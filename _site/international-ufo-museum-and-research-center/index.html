@@ -42,30 +42,44 @@
     
     <main id="main-content">
         
-<article class="attraction-detail container">
-    <h2>International UFO Museum and Research Center</h2>
+<article class="attraction-detail container" itemscope itemtype="https://schema.org/TouristAttraction">
+    <h2 itemprop="name">International UFO Museum and Research Center</h2>
 
     <div class="attraction-meta">
-        
-            <span class="address">Address: 114 North Main Street</span>
-        
-        <span class="location">Location: Roswell, New Mexico 88203</span>
+        <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+            
+                <span class="address" itemprop="streetAddress">Address: 114 North Main Street</span>
+            
+            <span class="location">
+                Location:
+                <span itemprop="addressLocality">Roswell</span>,
+                <span itemprop="addressRegion">New Mexico</span>
+                <span itemprop="postalCode">88203</span>
+            </span>
+        </div>
     </div>
 
     <figure class="attraction-image">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/d/dc/International_UFO_Museum_and_Research_Center_%284512474350%29.jpg?v=1744227955013" alt="International UFO Museum and Research Center (4512474350).jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <img itemprop="image" src="https://upload.wikimedia.org/wikipedia/commons/d/dc/International_UFO_Museum_and_Research_Center_%284512474350%29.jpg?v=1744230888229" alt="International UFO Museum and Research Center (4512474350).jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
         <figcaption style="display: none;">Image failed to load.</figcaption>
     </figure>
+
+    <!-- Add geo coordinates -->
+    <meta itemprop="latitude" content="33.3936704">
+    <meta itemprop="longitude" content="-104.523017">
 
 
 
 
  <div class="attraction-description">
         <h3>About This Attraction</h3>
-        <p>Museum dedicated to the 1947 Roswell UFO incident and other UFO phenomena.</p>
+        <p itemprop="description">Museum dedicated to the 1947 Roswell UFO incident and other UFO phenomena.</p>
     </div>
 
     
+
+    <!-- Add country information -->
+    <meta itemprop="addressCountry" content="US">
 </article>
 
     </main>

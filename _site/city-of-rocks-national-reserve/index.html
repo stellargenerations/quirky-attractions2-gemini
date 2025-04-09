@@ -42,28 +42,42 @@
     
     <main id="main-content">
         
-<article class="attraction-detail container">
-    <h2>City of Rocks National Reserve</h2>
+<article class="attraction-detail container" itemscope itemtype="https://schema.org/TouristAttraction">
+    <h2 itemprop="name">City of Rocks National Reserve</h2>
 
     <div class="attraction-meta">
-        
-        <span class="location">Location: Almo, Idaho 83312</span>
+        <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+            
+            <span class="location">
+                Location:
+                <span itemprop="addressLocality">Almo</span>,
+                <span itemprop="addressRegion">Idaho</span>
+                <span itemprop="postalCode">83312</span>
+            </span>
+        </div>
     </div>
 
     <figure class="attraction-image">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/8/86/City_of_Rocks_11.jpg?v=1744227955015" alt="City of Rocks 11.jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <img itemprop="image" src="https://upload.wikimedia.org/wikipedia/commons/8/86/City_of_Rocks_11.jpg?v=1744230888230" alt="City of Rocks 11.jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
         <figcaption style="display: none;">Image failed to load.</figcaption>
     </figure>
+
+    <!-- Add geo coordinates -->
+    <meta itemprop="latitude" content="42.0727057">
+    <meta itemprop="longitude" content="-113.7037854">
 
 
 
 
  <div class="attraction-description">
         <h3>About This Attraction</h3>
-        <p>The City of Rocks National Reserve, also known as the Silent City of Rocks, is a United States National Reserve and state park in south-central Ida...</p>
+        <p itemprop="description">The City of Rocks National Reserve, also known as the Silent City of Rocks, is a United States National Reserve and state park in south-central Ida...</p>
     </div>
 
     
+
+    <!-- Add country information -->
+    <meta itemprop="addressCountry" content="US">
 </article>
 
     </main>

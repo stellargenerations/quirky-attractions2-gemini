@@ -42,26 +42,37 @@
     
     <main id="main-content">
         
-<article class="attraction-detail container">
-    <h2>Red Rocks Amphitheatre</h2>
+<article class="attraction-detail container" itemscope itemtype="https://schema.org/TouristAttraction">
+    <h2 itemprop="name">Red Rocks Amphitheatre</h2>
 
     <div class="attraction-meta">
-        
-            <span class="address">Address: 18300 West Alameda Parkway</span>
-        
-        <span class="location">Location: Morrison, Colorado 80465</span>
+        <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+            
+                <span class="address" itemprop="streetAddress">Address: 18300 West Alameda Parkway</span>
+            
+            <span class="location">
+                Location:
+                <span itemprop="addressLocality">Morrison</span>,
+                <span itemprop="addressRegion">Colorado</span>
+                <span itemprop="postalCode">80465</span>
+            </span>
+        </div>
     </div>
 
     <figure class="attraction-image">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Visitor_Center_and_Amphitheatre_sign%2C_Red_Rocks.jpg?v=1744227955017" alt="Visitor Center and Amphitheatre sign, Red Rocks.jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <img itemprop="image" src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Visitor_Center_and_Amphitheatre_sign%2C_Red_Rocks.jpg?v=1744230888232" alt="Visitor Center and Amphitheatre sign, Red Rocks.jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
         <figcaption style="display: none;">Image failed to load.</figcaption>
     </figure>
 
+    <!-- Add geo coordinates -->
+    <meta itemprop="latitude" content="39.6653917">
+    <meta itemprop="longitude" content="-105.2057171">
 
 
-<div class="attraction-article">
-  <h3>Red Rocks Amphitheatre</h3>
-  <div class="article-content">
+
+<div class="attraction-article" itemprop="additionalProperty" itemscope itemtype="https://schema.org/PropertyValue">
+  <h3 itemprop="name">Red Rocks Amphitheatre</h3>
+  <div class="article-content" itemprop="value">
     <p>Content about Red Rocks Amphitheatre goes here.</p>
 
   </div>
@@ -70,10 +81,13 @@
 
  <div class="attraction-description">
         <h3>About This Attraction</h3>
-        <p>Red Rocks Amphitheatre (also known colloquially as simply Red Rocks) is an open-air amphitheater in the western United States near Morrison, Colora...</p>
+        <p itemprop="description">Red Rocks Amphitheatre (also known colloquially as simply Red Rocks) is an open-air amphitheater in the western United States near Morrison, Colora...</p>
     </div>
 
     
+
+    <!-- Add country information -->
+    <meta itemprop="addressCountry" content="US">
 </article>
 
     </main>

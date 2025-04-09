@@ -12,8 +12,31 @@ eleventyComputed:
   description: "Discover quirky roadside attractions in {{ stateItem.state }}."
 ---
 
+<script>
+// This script will run after the page loads
+window.addEventListener('DOMContentLoaded', function() {
+  // Set a flag that we're on a state page
+  window.isStatePage = true;
+  window.currentState = "{{ state }}";
+
+  // Check if the map and zoomToState function are available
+  function checkAndZoom() {
+    if (window.map && typeof window.zoomToState === 'function') {
+      console.log('Zooming to state: {{ state }}');
+      window.zoomToState("{{ state }}");
+    } else {
+      // If not available yet, try again in 100ms (reduced from 500ms)
+      setTimeout(checkAndZoom, 100);
+    }
+  }
+
+  // Start checking almost immediately (reduced from 1000ms)
+  setTimeout(checkAndZoom, 300);
+});
+</script>
+
 <div class="map-container">
-    <div id="map">
+    <div id="map" data-state="{{ state }}">
         <p class="map-loading">Loading Map...</p>
     </div>
     <button id="zoom-out-btn" title="Zoom out to show entire USA">Show All USA</button>
@@ -42,24 +65,33 @@ eleventyComputed:
             {# Pre-render state-specific cards for better SEO #}
             {% set stateAttractions = attractions | filterByState(state) %}
             {% for attraction in stateAttractions %}
-            <div class="list-card" id="list-item-{{ attraction.slug }}" data-slug="{{ attraction.slug }}">
+            <div class="list-card" id="list-item-{{ attraction.slug }}" data-slug="{{ attraction.slug }}" itemscope itemtype="https://schema.org/TouristAttraction">
                 <div class="card-image">
-                    <img src="{{ attraction.imageUrl }}" alt="{{ attraction.imageAlt or attraction.name }}" 
+                    <img itemprop="image" src="{{ attraction.imageUrl }}" alt="{{ attraction.imageAlt or attraction.name }}"
                          loading="lazy" class="card-img"
                          onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                     <div class="image-error" style="display: none;">Image not available</div>
                 </div>
                 <div class="card-content">
-                    <h3 class="card-title">{{ attraction.name }}</h3>
+                    <h3 class="card-title" itemprop="name">{{ attraction.name }}</h3>
                     <p class="card-location">
+                        <span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+                            <span itemprop="addressLocality">{{ attraction.locationCity }}</span>,
+                            <span itemprop="addressRegion">{{ attraction.state }}</span>
+                            <meta itemprop="addressCountry" content="US">
+                        </span>
                         <a href="/{{ attraction.state | slugify }}-attractions/" class="state-link">{{ attraction.locationCity }}, {{ attraction.state }}</a>
                     </p>
-                    <p class="card-description">{{ attraction.description | truncate(100) }}</p>
+                    <p class="card-description" itemprop="description">{{ attraction.description | truncate(100) }}</p>
+
+                    <!-- Add geo coordinates -->
+                    <meta itemprop="latitude" content="{{ attraction.lat }}">
+                    <meta itemprop="longitude" content="{{ attraction.lon }}">
                     <div class="card-links">
-                        <a href="/{{ attraction.slug }}/" class="card-link">Learn More</a>
+                        <a href="/{{ attraction.slug }}/" class="card-link" itemprop="url">Learn More</a>
                         <span class="card-categories">
                             {% for cat in attraction.categories %}
-                                <a href="/{{ cat | slugify }}-attractions/" class="category-badge">{{ cat }}</a>
+                                <a href="/{{ cat | slugify }}-attractions/" class="category-badge" itemprop="additionalType">{{ cat }}</a>
                             {% endfor %}
                         </span>
                     </div>

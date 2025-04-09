@@ -42,30 +42,44 @@
     
     <main id="main-content">
         
-<article class="attraction-detail container">
-    <h2>Jolly Green Giant Statue</h2>
+<article class="attraction-detail container" itemscope itemtype="https://schema.org/TouristAttraction">
+    <h2 itemprop="name">Jolly Green Giant Statue</h2>
 
     <div class="attraction-meta">
-        
-            <span class="address">Address: 1130 Giant Dr</span>
-        
-        <span class="location">Location: Blue Earth, Minnesota 56013</span>
+        <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+            
+                <span class="address" itemprop="streetAddress">Address: 1130 Giant Dr</span>
+            
+            <span class="location">
+                Location:
+                <span itemprop="addressLocality">Blue Earth</span>,
+                <span itemprop="addressRegion">Minnesota</span>
+                <span itemprop="postalCode">56013</span>
+            </span>
+        </div>
     </div>
 
     <figure class="attraction-image">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Jolly_Green_Giant%2C_backside-Green_Giant_Statue_Park%2C_Blue_Earth%2C_MN.jpg?v=1744227955012" alt="Jolly Green Giant, backside-Green Giant Statue Park, Blue Earth, MN.jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <img itemprop="image" src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Jolly_Green_Giant%2C_backside-Green_Giant_Statue_Park%2C_Blue_Earth%2C_MN.jpg?v=1744230888228" alt="Jolly Green Giant, backside-Green Giant Statue Park, Blue Earth, MN.jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
         <figcaption style="display: none;">Image failed to load.</figcaption>
     </figure>
+
+    <!-- Add geo coordinates -->
+    <meta itemprop="latitude" content="43.6512912">
+    <meta itemprop="longitude" content="-94.0950439">
 
 
 
 
  <div class="attraction-description">
         <h3>About This Attraction</h3>
-        <p>A 55.5-foot tall statue of the Jolly Green Giant, mascot of the Green Giant vegetable company.</p>
+        <p itemprop="description">A 55.5-foot tall statue of the Jolly Green Giant, mascot of the Green Giant vegetable company.</p>
     </div>
 
     
+
+    <!-- Add country information -->
+    <meta itemprop="addressCountry" content="US">
 </article>
 
     </main>

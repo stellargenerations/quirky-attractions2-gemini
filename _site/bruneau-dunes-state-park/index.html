@@ -42,30 +42,44 @@
     
     <main id="main-content">
         
-<article class="attraction-detail container">
-    <h2>Bruneau Dunes State Park</h2>
+<article class="attraction-detail container" itemscope itemtype="https://schema.org/TouristAttraction">
+    <h2 itemprop="name">Bruneau Dunes State Park</h2>
 
     <div class="attraction-meta">
-        
-            <span class="address">Address: 27608 Bruneau Sand Dunes Road</span>
-        
-        <span class="location">Location: Bruneau, Idaho 83604</span>
+        <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+            
+                <span class="address" itemprop="streetAddress">Address: 27608 Bruneau Sand Dunes Road</span>
+            
+            <span class="location">
+                Location:
+                <span itemprop="addressLocality">Bruneau</span>,
+                <span itemprop="addressRegion">Idaho</span>
+                <span itemprop="postalCode">83604</span>
+            </span>
+        </div>
     </div>
 
     <figure class="attraction-image">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/8/86/Bruneau_Dunes_State_Park.jpg?v=1744227955015" alt="Bruneau Dunes State Park.jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <img itemprop="image" src="https://upload.wikimedia.org/wikipedia/commons/8/86/Bruneau_Dunes_State_Park.jpg?v=1744230888230" alt="Bruneau Dunes State Park.jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
         <figcaption style="display: none;">Image failed to load.</figcaption>
     </figure>
+
+    <!-- Add geo coordinates -->
+    <meta itemprop="latitude" content="42.9111653">
+    <meta itemprop="longitude" content="-115.7150834">
 
 
 
 
  <div class="attraction-description">
         <h3>About This Attraction</h3>
-        <p>Bruneau Dunes State Park is a public recreation and geologic preservation area in the western United States, located in Owyhee County in southweste...</p>
+        <p itemprop="description">Bruneau Dunes State Park is a public recreation and geologic preservation area in the western United States, located in Owyhee County in southweste...</p>
     </div>
 
     
+
+    <!-- Add country information -->
+    <meta itemprop="addressCountry" content="US">
 </article>
 
     </main>

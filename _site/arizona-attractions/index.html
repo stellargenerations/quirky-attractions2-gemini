@@ -42,8 +42,31 @@
     
     <main id="main-content">
         
+<script>
+// This script will run after the page loads
+window.addEventListener('DOMContentLoaded', function() {
+  // Set a flag that we're on a state page
+  window.isStatePage = true;
+  window.currentState = "Arizona";
+
+  // Check if the map and zoomToState function are available
+  function checkAndZoom() {
+    if (window.map && typeof window.zoomToState === 'function') {
+      console.log('Zooming to state: Arizona');
+      window.zoomToState("Arizona");
+    } else {
+      // If not available yet, try again in 100ms (reduced from 500ms)
+      setTimeout(checkAndZoom, 100);
+    }
+  }
+
+  // Start checking almost immediately (reduced from 1000ms)
+  setTimeout(checkAndZoom, 300);
+});
+</script>
+
 <div class="map-container">
-    <div id="map">
+    <div id="map" data-state="Arizona">
         <p class="map-loading">Loading Map...</p>
     </div>
     <button id="zoom-out-btn" title="Zoom out to show entire USA">Show All USA</button>
@@ -70,21 +93,30 @@
             
             
             
-            <div class="list-card" id="list-item-the-thing" data-slug="the-thing">
+            <div class="list-card" id="list-item-the-thing" data-slug="the-thing" itemscope itemtype="https://schema.org/TouristAttraction">
                 <div class="card-image">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/92/The_Thing_1982_publicity_still.jpg?v=1744227955012" alt="The Thing 1982 publicity still.jpg" 
+                    <img itemprop="image" src="https://upload.wikimedia.org/wikipedia/commons/9/92/The_Thing_1982_publicity_still.jpg?v=1744230888227" alt="The Thing 1982 publicity still.jpg"
                          loading="lazy" class="card-img"
                          onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                     <div class="image-error" style="display: none;">Image not available</div>
                 </div>
                 <div class="card-content">
-                    <h3 class="card-title">The Thing?</h3>
+                    <h3 class="card-title" itemprop="name">The Thing?</h3>
                     <p class="card-location">
+                        <span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+                            <span itemprop="addressLocality">Dragoon</span>,
+                            <span itemprop="addressRegion">Arizona</span>
+                            <meta itemprop="addressCountry" content="US">
+                        </span>
                         <a href="/arizona-attractions/" class="state-link">Dragoon, Arizona</a>
                     </p>
-                    <p class="card-description">A mysterious roadside attraction heavily advertised on billboards along I-10, culminating in a...</p>
+                    <p class="card-description" itemprop="description">A mysterious roadside attraction heavily advertised on billboards along I-10, culminating in a...</p>
+
+                    <!-- Add geo coordinates -->
+                    <meta itemprop="latitude" content="32.0810279">
+                    <meta itemprop="longitude" content="-110.0506928">
                     <div class="card-links">
-                        <a href="/the-thing/" class="card-link">Learn More</a>
+                        <a href="/the-thing/" class="card-link" itemprop="url">Learn More</a>
                         <span class="card-categories">
                             
                         </span>
@@ -126,7 +158,7 @@
         <script>
             // Define attractions data globally
             
-                window.attractionsData = [{"name":"The Thing?","locationCity":"Dragoon","state":"Arizona","streetAddress":"2631 N Johnson Rd","zipCode":"85609","lat":32.0810279,"lon":-110.0506928,"description":"A mysterious roadside attraction heavily advertised on billboards along I-10, culminating in a bizarre exhibit.","categories":[],"imageUrl":"https://upload.wikimedia.org/wikipedia/commons/9/92/The_Thing_1982_publicity_still.jpg?v=1744227955012","imageAlt":"The Thing 1982 publicity still.jpg","websiteLink":null,"slug":"the-thing"}];
+                window.attractionsData = [{"name":"The Thing?","locationCity":"Dragoon","state":"Arizona","streetAddress":"2631 N Johnson Rd","zipCode":"85609","lat":32.0810279,"lon":-110.0506928,"description":"A mysterious roadside attraction heavily advertised on billboards along I-10, culminating in a bizarre exhibit.","categories":[],"imageUrl":"https://upload.wikimedia.org/wikipedia/commons/9/92/The_Thing_1982_publicity_still.jpg?v=1744230888227","imageAlt":"The Thing 1982 publicity still.jpg","websiteLink":null,"slug":"the-thing"}];
                 console.log("State data prepared:", window.attractionsData.length, "attractions");
             
         </script>

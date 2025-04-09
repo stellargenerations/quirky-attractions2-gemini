@@ -10,26 +10,37 @@ eleventyComputed:
     title: "{{ attraction.name }}"
 ---
 
-<article class="attraction-detail container">
-    <h2>{{ attraction.name }}</h2>
+<article class="attraction-detail container" itemscope itemtype="https://schema.org/TouristAttraction">
+    <h2 itemprop="name">{{ attraction.name }}</h2>
 
     <div class="attraction-meta">
-        {% if attraction.streetAddress %}
-            <span class="address">Address: {{ attraction.streetAddress }}</span>
-        {% endif %}
-        <span class="location">Location: {{ attraction.locationCity }}, {{ attraction.state }} {% if attraction.zipCode %}{{ attraction.zipCode }}{% endif %}</span>
+        <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+            {% if attraction.streetAddress %}
+                <span class="address" itemprop="streetAddress">Address: {{ attraction.streetAddress }}</span>
+            {% endif %}
+            <span class="location">
+                Location:
+                <span itemprop="addressLocality">{{ attraction.locationCity }}</span>,
+                <span itemprop="addressRegion">{{ attraction.state }}</span>
+                {% if attraction.zipCode %}<span itemprop="postalCode">{{ attraction.zipCode }}</span>{% endif %}
+            </span>
+        </div>
     </div>
 
     <figure class="attraction-image">
-        <img src="{{ attraction.imageUrl }}" alt="{{ attraction.imageAlt }}" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <img itemprop="image" src="{{ attraction.imageUrl }}" alt="{{ attraction.imageAlt }}" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
         <figcaption style="display: none;">Image failed to load.</figcaption>
     </figure>
 
+    <!-- Add geo coordinates -->
+    <meta itemprop="latitude" content="{{ attraction.lat }}">
+    <meta itemprop="longitude" content="{{ attraction.lon }}">
+
 {% set articleContent = collections.attractionArticles | getArticleForSlug(attraction.slug) %}
 {% if articleContent %}
-<div class="attraction-article">
-  <h3>{{ articleContent.data.title }}</h3>
-  <div class="article-content">
+<div class="attraction-article" itemprop="additionalProperty" itemscope itemtype="https://schema.org/PropertyValue">
+  <h3 itemprop="name">{{ articleContent.data.title }}</h3>
+  <div class="article-content" itemprop="value">
     {{ articleContent.content | safe }}
   </div>
 </div>
@@ -37,12 +48,15 @@ eleventyComputed:
 
  <div class="attraction-description">
         <h3>About This Attraction</h3>
-        <p>{{ attraction.description }}</p>
+        <p itemprop="description">{{ attraction.description }}</p>
     </div>
 
     {% if attraction.websiteLink %}
         <div class="attraction-website">
-            <a href="{{ attraction.websiteLink }}" target="_blank" rel="noopener noreferrer">Visit Website</a>
+            <a itemprop="url" href="{{ attraction.websiteLink }}" target="_blank" rel="noopener noreferrer">Visit Website</a>
         </div>
     {% endif %}
+
+    <!-- Add country information -->
+    <meta itemprop="addressCountry" content="US">
 </article>

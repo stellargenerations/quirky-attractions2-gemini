@@ -42,30 +42,44 @@
     
     <main id="main-content">
         
-<article class="attraction-detail container">
-    <h2>Mackinac Bridge</h2>
+<article class="attraction-detail container" itemscope itemtype="https://schema.org/TouristAttraction">
+    <h2 itemprop="name">Mackinac Bridge</h2>
 
     <div class="attraction-meta">
-        
-            <span class="address">Address: I 75</span>
-        
-        <span class="location">Location: N/A, Michigan 49781</span>
+        <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+            
+                <span class="address" itemprop="streetAddress">Address: I 75</span>
+            
+            <span class="location">
+                Location:
+                <span itemprop="addressLocality">N/A</span>,
+                <span itemprop="addressRegion">Michigan</span>
+                <span itemprop="postalCode">49781</span>
+            </span>
+        </div>
     </div>
 
     <figure class="attraction-image">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/7/73/1995_Mackinac_Bridge.jpg?v=1744227955016" alt="1995 Mackinac Bridge.jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <img itemprop="image" src="https://upload.wikimedia.org/wikipedia/commons/7/73/1995_Mackinac_Bridge.jpg?v=1744230888231" alt="1995 Mackinac Bridge.jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
         <figcaption style="display: none;">Image failed to load.</figcaption>
     </figure>
+
+    <!-- Add geo coordinates -->
+    <meta itemprop="latitude" content="45.8153178">
+    <meta itemprop="longitude" content="-84.72805216">
 
 
 
 
  <div class="attraction-description">
         <h3>About This Attraction</h3>
-        <p>The Mackinac Bridge ( MAK-ə-naw; also referred to as the Mighty Mac or Big Mac) is a suspension bridge that connects the Upper and Lower peninsulas of the U.S.</p>
+        <p itemprop="description">The Mackinac Bridge ( MAK-ə-naw; also referred to as the Mighty Mac or Big Mac) is a suspension bridge that connects the Upper and Lower peninsulas of the U.S.</p>
     </div>
 
     
+
+    <!-- Add country information -->
+    <meta itemprop="addressCountry" content="US">
 </article>
 
     </main>

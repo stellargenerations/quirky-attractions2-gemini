@@ -42,30 +42,44 @@
     
     <main id="main-content">
         
-<article class="attraction-detail container">
-    <h2>Museum of Pop Culture (MoPOP)</h2>
+<article class="attraction-detail container" itemscope itemtype="https://schema.org/TouristAttraction">
+    <h2 itemprop="name">Museum of Pop Culture (MoPOP)</h2>
 
     <div class="attraction-meta">
-        
-            <span class="address">Address: 325 5th Avenue North</span>
-        
-        <span class="location">Location: Seattle, Washington 98109</span>
+        <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+            
+                <span class="address" itemprop="streetAddress">Address: 325 5th Avenue North</span>
+            
+            <span class="location">
+                Location:
+                <span itemprop="addressLocality">Seattle</span>,
+                <span itemprop="addressRegion">Washington</span>
+                <span itemprop="postalCode">98109</span>
+            </span>
+        </div>
     </div>
 
     <figure class="attraction-image">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Seattle_%28WA%2C_USA%29%2C_Museum_of_Pop_Culture%2C_Fassade_--_2022_--_1588.jpg?v=1744227955016" alt="Seattle (WA, USA), Museum of Pop Culture, Fassade -- 2022 -- 1588.jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <img itemprop="image" src="https://upload.wikimedia.org/wikipedia/commons/3/30/Seattle_%28WA%2C_USA%29%2C_Museum_of_Pop_Culture%2C_Fassade_--_2022_--_1588.jpg?v=1744230888231" alt="Seattle (WA, USA), Museum of Pop Culture, Fassade -- 2022 -- 1588.jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
         <figcaption style="display: none;">Image failed to load.</figcaption>
     </figure>
+
+    <!-- Add geo coordinates -->
+    <meta itemprop="latitude" content="47.6214931">
+    <meta itemprop="longitude" content="-122.3482253">
 
 
 
 
  <div class="attraction-description">
         <h3>About This Attraction</h3>
-        <p>The Museum of Pop Culture (or MoPOP) is a nonprofit museum in Seattle, Washington, United States, dedicated to contemporary popular culture.</p>
+        <p itemprop="description">The Museum of Pop Culture (or MoPOP) is a nonprofit museum in Seattle, Washington, United States, dedicated to contemporary popular culture.</p>
     </div>
 
     
+
+    <!-- Add country information -->
+    <meta itemprop="addressCountry" content="US">
 </article>
 
     </main>

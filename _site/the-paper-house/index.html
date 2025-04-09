@@ -42,30 +42,44 @@
     
     <main id="main-content">
         
-<article class="attraction-detail container">
-    <h2>The Paper House</h2>
+<article class="attraction-detail container" itemscope itemtype="https://schema.org/TouristAttraction">
+    <h2 itemprop="name">The Paper House</h2>
 
     <div class="attraction-meta">
-        
-            <span class="address">Address: 52 Pigeon Hill St</span>
-        
-        <span class="location">Location: Rockport, Massachusetts 1966</span>
+        <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+            
+                <span class="address" itemprop="streetAddress">Address: 52 Pigeon Hill St</span>
+            
+            <span class="location">
+                Location:
+                <span itemprop="addressLocality">Rockport</span>,
+                <span itemprop="addressRegion">Massachusetts</span>
+                <span itemprop="postalCode">1966</span>
+            </span>
+        </div>
     </div>
 
     <figure class="attraction-image">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Paper_House%2C_Pigeon_Cove%2C_MA_-_pano.jpg?v=1744227955012" alt="Paper House, Pigeon Cove, MA - pano.jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <img itemprop="image" src="https://upload.wikimedia.org/wikipedia/commons/9/99/Paper_House%2C_Pigeon_Cove%2C_MA_-_pano.jpg?v=1744230888228" alt="Paper House, Pigeon Cove, MA - pano.jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
         <figcaption style="display: none;">Image failed to load.</figcaption>
     </figure>
+
+    <!-- Add geo coordinates -->
+    <meta itemprop="latitude" content="42.6729374">
+    <meta itemprop="longitude" content="-70.6348078">
 
 
 
 
  <div class="attraction-description">
         <h3>About This Attraction</h3>
-        <p>A house constructed almost entirely out of varnished newspapers, including furniture inside.</p>
+        <p itemprop="description">A house constructed almost entirely out of varnished newspapers, including furniture inside.</p>
     </div>
 
     
+
+    <!-- Add country information -->
+    <meta itemprop="addressCountry" content="US">
 </article>
 
     </main>

@@ -42,30 +42,44 @@
     
     <main id="main-content">
         
-<article class="attraction-detail container">
-    <h2>Ave Maria Grotto</h2>
+<article class="attraction-detail container" itemscope itemtype="https://schema.org/TouristAttraction">
+    <h2 itemprop="name">Ave Maria Grotto</h2>
 
     <div class="attraction-meta">
-        
-            <span class="address">Address: 1600 St Bernard Dr SE</span>
-        
-        <span class="location">Location: Cullman, Alabama 35055</span>
+        <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+            
+                <span class="address" itemprop="streetAddress">Address: 1600 St Bernard Dr SE</span>
+            
+            <span class="location">
+                Location:
+                <span itemprop="addressLocality">Cullman</span>,
+                <span itemprop="addressRegion">Alabama</span>
+                <span itemprop="postalCode">35055</span>
+            </span>
+        </div>
     </div>
 
     <figure class="attraction-image">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/c/cc/St._Peters_Church_in_Rome%2C_Ave_Maria_Grotto%2C_Cullman_%28Cullman_County%2C_Alabama%29.jpg?v=1744227955012" alt="St. Peters Church in Rome, Ave Maria Grotto, Cullman (Cullman County, Alabama).jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <img itemprop="image" src="https://upload.wikimedia.org/wikipedia/commons/c/cc/St._Peters_Church_in_Rome%2C_Ave_Maria_Grotto%2C_Cullman_%28Cullman_County%2C_Alabama%29.jpg?v=1744230888228" alt="St. Peters Church in Rome, Ave Maria Grotto, Cullman (Cullman County, Alabama).jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
         <figcaption style="display: none;">Image failed to load.</figcaption>
     </figure>
+
+    <!-- Add geo coordinates -->
+    <meta itemprop="latitude" content="34.1771806">
+    <meta itemprop="longitude" content="-86.8180331">
 
 
 
 
  <div class="attraction-description">
         <h3>About This Attraction</h3>
-        <p>Features 125 miniature reproductions of famous religious structures and buildings, crafted over decades by a monk.</p>
+        <p itemprop="description">Features 125 miniature reproductions of famous religious structures and buildings, crafted over decades by a monk.</p>
     </div>
 
     
+
+    <!-- Add country information -->
+    <meta itemprop="addressCountry" content="US">
 </article>
 
     </main>

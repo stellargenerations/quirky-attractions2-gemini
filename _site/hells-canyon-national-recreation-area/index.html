@@ -42,28 +42,42 @@
     
     <main id="main-content">
         
-<article class="attraction-detail container">
-    <h2>Hell&#39;s Canyon National Recreation Area</h2>
+<article class="attraction-detail container" itemscope itemtype="https://schema.org/TouristAttraction">
+    <h2 itemprop="name">Hell&#39;s Canyon National Recreation Area</h2>
 
     <div class="attraction-meta">
-        
-        <span class="location">Location: Riggins, Oregon 83549</span>
+        <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+            
+            <span class="location">
+                Location:
+                <span itemprop="addressLocality">Riggins</span>,
+                <span itemprop="addressRegion">Oregon</span>
+                <span itemprop="postalCode">83549</span>
+            </span>
+        </div>
     </div>
 
     <figure class="attraction-image">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/Imnaha_River%2C_Hells_Canyon_National_Recreation_Area%2C_Oregon.jpg?v=1744227955014" alt="Imnaha River, Hells Canyon National Recreation Area, Oregon.jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <img itemprop="image" src="https://upload.wikimedia.org/wikipedia/commons/b/b5/Imnaha_River%2C_Hells_Canyon_National_Recreation_Area%2C_Oregon.jpg?v=1744230888230" alt="Imnaha River, Hells Canyon National Recreation Area, Oregon.jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
         <figcaption style="display: none;">Image failed to load.</figcaption>
     </figure>
+
+    <!-- Add geo coordinates -->
+    <meta itemprop="latitude" content="45.5157635">
+    <meta itemprop="longitude" content="-116.756677">
 
 
 
 
  <div class="attraction-description">
         <h3>About This Attraction</h3>
-        <p>Hells Canyon National Recreation Area is a United States national recreation area on the borders of the U.S.</p>
+        <p itemprop="description">Hells Canyon National Recreation Area is a United States national recreation area on the borders of the U.S.</p>
     </div>
 
     
+
+    <!-- Add country information -->
+    <meta itemprop="addressCountry" content="US">
 </article>
 
     </main>

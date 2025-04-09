@@ -42,28 +42,42 @@
     
     <main id="main-content">
         
-<article class="attraction-detail container">
-    <h2>Lake Coeur d&#39;Alene</h2>
+<article class="attraction-detail container" itemscope itemtype="https://schema.org/TouristAttraction">
+    <h2 itemprop="name">Lake Coeur d&#39;Alene</h2>
 
     <div class="attraction-meta">
-        
-        <span class="location">Location: N/A, Idaho </span>
+        <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+            
+            <span class="location">
+                Location:
+                <span itemprop="addressLocality">N/A</span>,
+                <span itemprop="addressRegion">Idaho</span>
+                
+            </span>
+        </div>
     </div>
 
     <figure class="attraction-image">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/1/1e/Coeur_d%27_Alene_ID_-_Beauty_Bay_of_Coeur_d%27_Alene_Lake_%28NBY_431855%29.jpg?v=1744227955015" alt="Coeur d&#39; Alene ID - Beauty Bay of Coeur d&#39; Alene Lake (NBY 431855).jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <img itemprop="image" src="https://upload.wikimedia.org/wikipedia/commons/1/1e/Coeur_d%27_Alene_ID_-_Beauty_Bay_of_Coeur_d%27_Alene_Lake_%28NBY_431855%29.jpg?v=1744230888230" alt="Coeur d&#39; Alene ID - Beauty Bay of Coeur d&#39; Alene Lake (NBY 431855).jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
         <figcaption style="display: none;">Image failed to load.</figcaption>
     </figure>
+
+    <!-- Add geo coordinates -->
+    <meta itemprop="latitude" content="47.6463795">
+    <meta itemprop="longitude" content="-116.7673751">
 
 
 
 
  <div class="attraction-description">
         <h3>About This Attraction</h3>
-        <p>Coeur d&#39;Alene Lake, officially Coeur d&#39;Alene Lake (  KOR də-LAYN), is a natural dam-controlled lake in North Idaho, located in the Pacific Northwes...</p>
+        <p itemprop="description">Coeur d&#39;Alene Lake, officially Coeur d&#39;Alene Lake (  KOR də-LAYN), is a natural dam-controlled lake in North Idaho, located in the Pacific Northwes...</p>
     </div>
 
     
+
+    <!-- Add country information -->
+    <meta itemprop="addressCountry" content="US">
 </article>
 
     </main>

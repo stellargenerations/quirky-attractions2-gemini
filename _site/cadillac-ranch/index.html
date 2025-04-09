@@ -42,26 +42,37 @@
     
     <main id="main-content">
         
-<article class="attraction-detail container">
-    <h2>Cadillac Ranch</h2>
+<article class="attraction-detail container" itemscope itemtype="https://schema.org/TouristAttraction">
+    <h2 itemprop="name">Cadillac Ranch</h2>
 
     <div class="attraction-meta">
-        
-            <span class="address">Address: 13651 I-40 Frontage Rd</span>
-        
-        <span class="location">Location: Amarillo, Texas 79124</span>
+        <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+            
+                <span class="address" itemprop="streetAddress">Address: 13651 I-40 Frontage Rd</span>
+            
+            <span class="location">
+                Location:
+                <span itemprop="addressLocality">Amarillo</span>,
+                <span itemprop="addressRegion">Texas</span>
+                <span itemprop="postalCode">79124</span>
+            </span>
+        </div>
     </div>
 
     <figure class="attraction-image">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Cadillac_Ranch_Entrance.jpg?v=1744227955008" alt="Cadillac Ranch Entrance.jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <img itemprop="image" src="https://upload.wikimedia.org/wikipedia/commons/2/20/Cadillac_Ranch_Entrance.jpg?v=1744230888225" alt="Cadillac Ranch Entrance.jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
         <figcaption style="display: none;">Image failed to load.</figcaption>
     </figure>
 
+    <!-- Add geo coordinates -->
+    <meta itemprop="latitude" content="35.1888997">
+    <meta itemprop="longitude" content="-101.9968997">
 
 
-<div class="attraction-article">
-  <h3>The Story of Cadillac Ranch</h3>
-  <div class="article-content">
+
+<div class="attraction-article" itemprop="additionalProperty" itemscope itemtype="https://schema.org/PropertyValue">
+  <h3 itemprop="name">The Story of Cadillac Ranch</h3>
+  <div class="article-content" itemprop="value">
     <p>Cadillac Ranch stands as one of America's most iconic roadside art installations, appearing in countless photographs, films, and road trip memories since its creation in 1974.</p>
 <h2>The Eccentric Origins</h2>
 <p>This unusual monument was created by the art collective Ant Farm, led by Chip Lord, Hudson Marquez, and Doug Michels. The installation was commissioned by eccentric helium millionaire Stanley Marsh 3, known for his love of unusual public art projects around his hometown of Amarillo.</p>
@@ -80,10 +91,13 @@
 
  <div class="attraction-description">
         <h3>About This Attraction</h3>
-        <p>An art installation featuring ten Cadillac cars half-buried nose-first in the ground, inviting graffiti.</p>
+        <p itemprop="description">An art installation featuring ten Cadillac cars half-buried nose-first in the ground, inviting graffiti.</p>
     </div>
 
     
+
+    <!-- Add country information -->
+    <meta itemprop="addressCountry" content="US">
 </article>
 
     </main>

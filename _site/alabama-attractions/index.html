@@ -42,8 +42,31 @@
     
     <main id="main-content">
         
+<script>
+// This script will run after the page loads
+window.addEventListener('DOMContentLoaded', function() {
+  // Set a flag that we're on a state page
+  window.isStatePage = true;
+  window.currentState = "Alabama";
+
+  // Check if the map and zoomToState function are available
+  function checkAndZoom() {
+    if (window.map && typeof window.zoomToState === 'function') {
+      console.log('Zooming to state: Alabama');
+      window.zoomToState("Alabama");
+    } else {
+      // If not available yet, try again in 100ms (reduced from 500ms)
+      setTimeout(checkAndZoom, 100);
+    }
+  }
+
+  // Start checking almost immediately (reduced from 1000ms)
+  setTimeout(checkAndZoom, 300);
+});
+</script>
+
 <div class="map-container">
-    <div id="map">
+    <div id="map" data-state="Alabama">
         <p class="map-loading">Loading Map...</p>
     </div>
     <button id="zoom-out-btn" title="Zoom out to show entire USA">Show All USA</button>
@@ -70,21 +93,30 @@
             
             
             
-            <div class="list-card" id="list-item-ave-maria-grotto" data-slug="ave-maria-grotto">
+            <div class="list-card" id="list-item-ave-maria-grotto" data-slug="ave-maria-grotto" itemscope itemtype="https://schema.org/TouristAttraction">
                 <div class="card-image">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/cc/St._Peters_Church_in_Rome%2C_Ave_Maria_Grotto%2C_Cullman_%28Cullman_County%2C_Alabama%29.jpg?v=1744227955012" alt="St. Peters Church in Rome, Ave Maria Grotto, Cullman (Cullman County, Alabama).jpg" 
+                    <img itemprop="image" src="https://upload.wikimedia.org/wikipedia/commons/c/cc/St._Peters_Church_in_Rome%2C_Ave_Maria_Grotto%2C_Cullman_%28Cullman_County%2C_Alabama%29.jpg?v=1744230888228" alt="St. Peters Church in Rome, Ave Maria Grotto, Cullman (Cullman County, Alabama).jpg"
                          loading="lazy" class="card-img"
                          onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                     <div class="image-error" style="display: none;">Image not available</div>
                 </div>
                 <div class="card-content">
-                    <h3 class="card-title">Ave Maria Grotto</h3>
+                    <h3 class="card-title" itemprop="name">Ave Maria Grotto</h3>
                     <p class="card-location">
+                        <span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+                            <span itemprop="addressLocality">Cullman</span>,
+                            <span itemprop="addressRegion">Alabama</span>
+                            <meta itemprop="addressCountry" content="US">
+                        </span>
                         <a href="/alabama-attractions/" class="state-link">Cullman, Alabama</a>
                     </p>
-                    <p class="card-description">Features 125 miniature reproductions of famous religious structures and buildings, crafted over...</p>
+                    <p class="card-description" itemprop="description">Features 125 miniature reproductions of famous religious structures and buildings, crafted over...</p>
+
+                    <!-- Add geo coordinates -->
+                    <meta itemprop="latitude" content="34.1771806">
+                    <meta itemprop="longitude" content="-86.8180331">
                     <div class="card-links">
-                        <a href="/ave-maria-grotto/" class="card-link">Learn More</a>
+                        <a href="/ave-maria-grotto/" class="card-link" itemprop="url">Learn More</a>
                         <span class="card-categories">
                             
                         </span>
@@ -92,21 +124,30 @@
                 </div>
             </div>
             
-            <div class="list-card" id="list-item-unclaimed-baggage-center" data-slug="unclaimed-baggage-center">
+            <div class="list-card" id="list-item-unclaimed-baggage-center" data-slug="unclaimed-baggage-center" itemscope itemtype="https://schema.org/TouristAttraction">
                 <div class="card-image">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/Unclaimed_Baggage_logo.png?v=1744227955012" alt="Unclaimed Baggage logo.png" 
+                    <img itemprop="image" src="https://upload.wikimedia.org/wikipedia/commons/b/b9/Unclaimed_Baggage_logo.png?v=1744230888228" alt="Unclaimed Baggage logo.png"
                          loading="lazy" class="card-img"
                          onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                     <div class="image-error" style="display: none;">Image not available</div>
                 </div>
                 <div class="card-content">
-                    <h3 class="card-title">Unclaimed Baggage Center</h3>
+                    <h3 class="card-title" itemprop="name">Unclaimed Baggage Center</h3>
                     <p class="card-location">
+                        <span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+                            <span itemprop="addressLocality">Scottsboro</span>,
+                            <span itemprop="addressRegion">Alabama</span>
+                            <meta itemprop="addressCountry" content="US">
+                        </span>
                         <a href="/alabama-attractions/" class="state-link">Scottsboro, Alabama</a>
                     </p>
-                    <p class="card-description">A unique retail store selling items recovered from lost or unclaimed airline luggage.</p>
+                    <p class="card-description" itemprop="description">A unique retail store selling items recovered from lost or unclaimed airline luggage.</p>
+
+                    <!-- Add geo coordinates -->
+                    <meta itemprop="latitude" content="34.6731766">
+                    <meta itemprop="longitude" content="-86.0443568">
                     <div class="card-links">
-                        <a href="/unclaimed-baggage-center/" class="card-link">Learn More</a>
+                        <a href="/unclaimed-baggage-center/" class="card-link" itemprop="url">Learn More</a>
                         <span class="card-categories">
                             
                         </span>
@@ -148,7 +189,7 @@
         <script>
             // Define attractions data globally
             
-                window.attractionsData = [{"name":"Ave Maria Grotto","locationCity":"Cullman","state":"Alabama","streetAddress":"1600 St Bernard Dr SE","zipCode":"35055","lat":34.1771806,"lon":-86.8180331,"description":"Features 125 miniature reproductions of famous religious structures and buildings, crafted over decades by a monk.","categories":[],"imageUrl":"https://upload.wikimedia.org/wikipedia/commons/c/cc/St._Peters_Church_in_Rome%2C_Ave_Maria_Grotto%2C_Cullman_%28Cullman_County%2C_Alabama%29.jpg?v=1744227955012","imageAlt":"St. Peters Church in Rome, Ave Maria Grotto, Cullman (Cullman County, Alabama).jpg","websiteLink":null,"slug":"ave-maria-grotto"},{"name":"Unclaimed Baggage Center","locationCity":"Scottsboro","state":"Alabama","streetAddress":"509 W Willow St","zipCode":"35768","lat":34.6731766,"lon":-86.0443568,"description":"A unique retail store selling items recovered from lost or unclaimed airline luggage.","categories":[],"imageUrl":"https://upload.wikimedia.org/wikipedia/commons/b/b9/Unclaimed_Baggage_logo.png?v=1744227955012","imageAlt":"Unclaimed Baggage logo.png","websiteLink":null,"slug":"unclaimed-baggage-center"}];
+                window.attractionsData = [{"name":"Ave Maria Grotto","locationCity":"Cullman","state":"Alabama","streetAddress":"1600 St Bernard Dr SE","zipCode":"35055","lat":34.1771806,"lon":-86.8180331,"description":"Features 125 miniature reproductions of famous religious structures and buildings, crafted over decades by a monk.","categories":[],"imageUrl":"https://upload.wikimedia.org/wikipedia/commons/c/cc/St._Peters_Church_in_Rome%2C_Ave_Maria_Grotto%2C_Cullman_%28Cullman_County%2C_Alabama%29.jpg?v=1744230888228","imageAlt":"St. Peters Church in Rome, Ave Maria Grotto, Cullman (Cullman County, Alabama).jpg","websiteLink":null,"slug":"ave-maria-grotto"},{"name":"Unclaimed Baggage Center","locationCity":"Scottsboro","state":"Alabama","streetAddress":"509 W Willow St","zipCode":"35768","lat":34.6731766,"lon":-86.0443568,"description":"A unique retail store selling items recovered from lost or unclaimed airline luggage.","categories":[],"imageUrl":"https://upload.wikimedia.org/wikipedia/commons/b/b9/Unclaimed_Baggage_logo.png?v=1744230888228","imageAlt":"Unclaimed Baggage logo.png","websiteLink":null,"slug":"unclaimed-baggage-center"}];
                 console.log("State data prepared:", window.attractionsData.length, "attractions");
             
         </script>

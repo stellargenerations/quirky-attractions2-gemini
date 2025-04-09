@@ -42,30 +42,44 @@
     
     <main id="main-content">
         
-<article class="attraction-detail container">
-    <h2>Carhenge</h2>
+<article class="attraction-detail container" itemscope itemtype="https://schema.org/TouristAttraction">
+    <h2 itemprop="name">Carhenge</h2>
 
     <div class="attraction-meta">
-        
-            <span class="address">Address: 2151 Co Rd 59</span>
-        
-        <span class="location">Location: Alliance, Nebraska 69301</span>
+        <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+            
+                <span class="address" itemprop="streetAddress">Address: 2151 Co Rd 59</span>
+            
+            <span class="location">
+                Location:
+                <span itemprop="addressLocality">Alliance</span>,
+                <span itemprop="addressRegion">Nebraska</span>
+                <span itemprop="postalCode">69301</span>
+            </span>
+        </div>
     </div>
 
     <figure class="attraction-image">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Carhenge%2C_Alliance%2C_NE%2C_Yellow_Car.jpg?v=1744227955009" alt="Carhenge, Alliance, NE, Yellow Car.jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <img itemprop="image" src="https://upload.wikimedia.org/wikipedia/commons/5/55/Carhenge%2C_Alliance%2C_NE%2C_Yellow_Car.jpg?v=1744230888225" alt="Carhenge, Alliance, NE, Yellow Car.jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
         <figcaption style="display: none;">Image failed to load.</figcaption>
     </figure>
+
+    <!-- Add geo coordinates -->
+    <meta itemprop="latitude" content="42.142493">
+    <meta itemprop="longitude" content="-102.857942">
 
 
 
 
  <div class="attraction-description">
         <h3>About This Attraction</h3>
-        <p>A replica of England&#39;s Stonehenge constructed entirely from vintage American automobiles painted gray.</p>
+        <p itemprop="description">A replica of England&#39;s Stonehenge constructed entirely from vintage American automobiles painted gray.</p>
     </div>
 
     
+
+    <!-- Add country information -->
+    <meta itemprop="addressCountry" content="US">
 </article>
 
     </main>

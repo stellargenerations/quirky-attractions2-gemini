@@ -42,30 +42,44 @@
     
     <main id="main-content">
         
-<article class="attraction-detail container">
-    <h2>Haines Shoe House</h2>
+<article class="attraction-detail container" itemscope itemtype="https://schema.org/TouristAttraction">
+    <h2 itemprop="name">Haines Shoe House</h2>
 
     <div class="attraction-meta">
-        
-            <span class="address">Address: 197 Shoe House Rd</span>
-        
-        <span class="location">Location: Hallam, Pennsylvania 17406</span>
+        <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+            
+                <span class="address" itemprop="streetAddress">Address: 197 Shoe House Rd</span>
+            
+            <span class="location">
+                Location:
+                <span itemprop="addressLocality">Hallam</span>,
+                <span itemprop="addressRegion">Pennsylvania</span>
+                <span itemprop="postalCode">17406</span>
+            </span>
+        </div>
     </div>
 
     <figure class="attraction-image">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/0/0f/Haines_Shoe_House%2C_York_Pa.jpg?v=1744227955013" alt="Haines Shoe House, York Pa.jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <img itemprop="image" src="https://upload.wikimedia.org/wikipedia/commons/0/0f/Haines_Shoe_House%2C_York_Pa.jpg?v=1744230888228" alt="Haines Shoe House, York Pa.jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
         <figcaption style="display: none;">Image failed to load.</figcaption>
     </figure>
+
+    <!-- Add geo coordinates -->
+    <meta itemprop="latitude" content="39.9990093">
+    <meta itemprop="longitude" content="-76.6371457">
 
 
 
 
  <div class="attraction-description">
         <h3>About This Attraction</h3>
-        <p>A house built in the shape of a work boot in 1948 by shoe salesman Mahlon Haines.</p>
+        <p itemprop="description">A house built in the shape of a work boot in 1948 by shoe salesman Mahlon Haines.</p>
     </div>
 
     
+
+    <!-- Add country information -->
+    <meta itemprop="addressCountry" content="US">
 </article>
 
     </main>

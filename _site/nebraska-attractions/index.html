@@ -42,8 +42,31 @@
     
     <main id="main-content">
         
+<script>
+// This script will run after the page loads
+window.addEventListener('DOMContentLoaded', function() {
+  // Set a flag that we're on a state page
+  window.isStatePage = true;
+  window.currentState = "Nebraska";
+
+  // Check if the map and zoomToState function are available
+  function checkAndZoom() {
+    if (window.map && typeof window.zoomToState === 'function') {
+      console.log('Zooming to state: Nebraska');
+      window.zoomToState("Nebraska");
+    } else {
+      // If not available yet, try again in 100ms (reduced from 500ms)
+      setTimeout(checkAndZoom, 100);
+    }
+  }
+
+  // Start checking almost immediately (reduced from 1000ms)
+  setTimeout(checkAndZoom, 300);
+});
+</script>
+
 <div class="map-container">
-    <div id="map">
+    <div id="map" data-state="Nebraska">
         <p class="map-loading">Loading Map...</p>
     </div>
     <button id="zoom-out-btn" title="Zoom out to show entire USA">Show All USA</button>
@@ -70,21 +93,30 @@
             
             
             
-            <div class="list-card" id="list-item-carhenge" data-slug="carhenge">
+            <div class="list-card" id="list-item-carhenge" data-slug="carhenge" itemscope itemtype="https://schema.org/TouristAttraction">
                 <div class="card-image">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Carhenge%2C_Alliance%2C_NE%2C_Yellow_Car.jpg?v=1744227955009" alt="Carhenge, Alliance, NE, Yellow Car.jpg" 
+                    <img itemprop="image" src="https://upload.wikimedia.org/wikipedia/commons/5/55/Carhenge%2C_Alliance%2C_NE%2C_Yellow_Car.jpg?v=1744230888225" alt="Carhenge, Alliance, NE, Yellow Car.jpg"
                          loading="lazy" class="card-img"
                          onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                     <div class="image-error" style="display: none;">Image not available</div>
                 </div>
                 <div class="card-content">
-                    <h3 class="card-title">Carhenge</h3>
+                    <h3 class="card-title" itemprop="name">Carhenge</h3>
                     <p class="card-location">
+                        <span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+                            <span itemprop="addressLocality">Alliance</span>,
+                            <span itemprop="addressRegion">Nebraska</span>
+                            <meta itemprop="addressCountry" content="US">
+                        </span>
                         <a href="/nebraska-attractions/" class="state-link">Alliance, Nebraska</a>
                     </p>
-                    <p class="card-description">A replica of England&#39;s Stonehenge constructed entirely from vintage American automobiles painted...</p>
+                    <p class="card-description" itemprop="description">A replica of England&#39;s Stonehenge constructed entirely from vintage American automobiles painted...</p>
+
+                    <!-- Add geo coordinates -->
+                    <meta itemprop="latitude" content="42.142493">
+                    <meta itemprop="longitude" content="-102.857942">
                     <div class="card-links">
-                        <a href="/carhenge/" class="card-link">Learn More</a>
+                        <a href="/carhenge/" class="card-link" itemprop="url">Learn More</a>
                         <span class="card-categories">
                             
                         </span>
@@ -126,7 +158,7 @@
         <script>
             // Define attractions data globally
             
-                window.attractionsData = [{"name":"Carhenge","locationCity":"Alliance","state":"Nebraska","streetAddress":"2151 Co Rd 59","zipCode":"69301","lat":42.142493,"lon":-102.857942,"description":"A replica of England's Stonehenge constructed entirely from vintage American automobiles painted gray.","categories":[],"imageUrl":"https://upload.wikimedia.org/wikipedia/commons/5/55/Carhenge%2C_Alliance%2C_NE%2C_Yellow_Car.jpg?v=1744227955009","imageAlt":"Carhenge, Alliance, NE, Yellow Car.jpg","websiteLink":null,"slug":"carhenge"}];
+                window.attractionsData = [{"name":"Carhenge","locationCity":"Alliance","state":"Nebraska","streetAddress":"2151 Co Rd 59","zipCode":"69301","lat":42.142493,"lon":-102.857942,"description":"A replica of England's Stonehenge constructed entirely from vintage American automobiles painted gray.","categories":[],"imageUrl":"https://upload.wikimedia.org/wikipedia/commons/5/55/Carhenge%2C_Alliance%2C_NE%2C_Yellow_Car.jpg?v=1744230888225","imageAlt":"Carhenge, Alliance, NE, Yellow Car.jpg","websiteLink":null,"slug":"carhenge"}];
                 console.log("State data prepared:", window.attractionsData.length, "attractions");
             
         </script>

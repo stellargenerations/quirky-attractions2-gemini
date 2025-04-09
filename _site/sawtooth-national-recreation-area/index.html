@@ -42,30 +42,44 @@
     
     <main id="main-content">
         
-<article class="attraction-detail container">
-    <h2>Sawtooth National Recreation Area</h2>
+<article class="attraction-detail container" itemscope itemtype="https://schema.org/TouristAttraction">
+    <h2 itemprop="name">Sawtooth National Recreation Area</h2>
 
     <div class="attraction-meta">
-        
-            <span class="address">Address: 5 North Fork Canyon Road</span>
-        
-        <span class="location">Location: Ketchum, Idaho 83340</span>
+        <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+            
+                <span class="address" itemprop="streetAddress">Address: 5 North Fork Canyon Road</span>
+            
+            <span class="location">
+                Location:
+                <span itemprop="addressLocality">Ketchum</span>,
+                <span itemprop="addressRegion">Idaho</span>
+                <span itemprop="postalCode">83340</span>
+            </span>
+        </div>
     </div>
 
     <figure class="attraction-image">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Sawtooth_Valley_ID1.jpg?v=1744227955014" alt="Sawtooth Valley ID1.jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <img itemprop="image" src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Sawtooth_Valley_ID1.jpg?v=1744230888229" alt="Sawtooth Valley ID1.jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
         <figcaption style="display: none;">Image failed to load.</figcaption>
     </figure>
+
+    <!-- Add geo coordinates -->
+    <meta itemprop="latitude" content="43.7873341">
+    <meta itemprop="longitude" content="-114.4211382">
 
 
 
 
  <div class="attraction-description">
         <h3>About This Attraction</h3>
-        <p>The Sawtooth National Recreation Area (SNRA) is a national recreation area in central Idaho, United States that is managed as part of Sawtooth Nati...</p>
+        <p itemprop="description">The Sawtooth National Recreation Area (SNRA) is a national recreation area in central Idaho, United States that is managed as part of Sawtooth Nati...</p>
     </div>
 
     
+
+    <!-- Add country information -->
+    <meta itemprop="addressCountry" content="US">
 </article>
 
     </main>

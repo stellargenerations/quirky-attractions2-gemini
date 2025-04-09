@@ -42,30 +42,44 @@
     
     <main id="main-content">
         
-<article class="attraction-detail container">
-    <h2>World&#39;s Largest Ball of Twine</h2>
+<article class="attraction-detail container" itemscope itemtype="https://schema.org/TouristAttraction">
+    <h2 itemprop="name">World&#39;s Largest Ball of Twine</h2>
 
     <div class="attraction-meta">
-        
-            <span class="address">Address: 719 Wisconsin St</span>
-        
-        <span class="location">Location: Cawker City, Kansas 67430</span>
+        <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+            
+                <span class="address" itemprop="streetAddress">Address: 719 Wisconsin St</span>
+            
+            <span class="location">
+                Location:
+                <span itemprop="addressLocality">Cawker City</span>,
+                <span itemprop="addressRegion">Kansas</span>
+                <span itemprop="postalCode">67430</span>
+            </span>
+        </div>
     </div>
 
     <figure class="attraction-image">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e9/World%27s_Largest_Twine_Ball%2C_Darwin%2C_Minnesota_2021-07-22.jpg?v=1744227955009" alt="World&#39;s Largest Twine Ball, Darwin, Minnesota 2021-07-22.jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <img itemprop="image" src="https://upload.wikimedia.org/wikipedia/commons/e/e9/World%27s_Largest_Twine_Ball%2C_Darwin%2C_Minnesota_2021-07-22.jpg?v=1744230888225" alt="World&#39;s Largest Twine Ball, Darwin, Minnesota 2021-07-22.jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
         <figcaption style="display: none;">Image failed to load.</figcaption>
     </figure>
+
+    <!-- Add geo coordinates -->
+    <meta itemprop="latitude" content="39.5097423">
+    <meta itemprop="longitude" content="-98.4325166">
 
 
 
 
  <div class="attraction-description">
         <h3>About This Attraction</h3>
-        <p>One of several contenders for the title, this massive ball of sisal twine is constantly growing.</p>
+        <p itemprop="description">One of several contenders for the title, this massive ball of sisal twine is constantly growing.</p>
     </div>
 
     
+
+    <!-- Add country information -->
+    <meta itemprop="addressCountry" content="US">
 </article>
 
     </main>

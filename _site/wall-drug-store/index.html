@@ -42,30 +42,44 @@
     
     <main id="main-content">
         
-<article class="attraction-detail container">
-    <h2>Wall Drug Store</h2>
+<article class="attraction-detail container" itemscope itemtype="https://schema.org/TouristAttraction">
+    <h2 itemprop="name">Wall Drug Store</h2>
 
     <div class="attraction-meta">
-        
-            <span class="address">Address: 510 Main St</span>
-        
-        <span class="location">Location: Wall, South Dakota 57790</span>
+        <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+            
+                <span class="address" itemprop="streetAddress">Address: 510 Main St</span>
+            
+            <span class="location">
+                Location:
+                <span itemprop="addressLocality">Wall</span>,
+                <span itemprop="addressRegion">South Dakota</span>
+                <span itemprop="postalCode">57790</span>
+            </span>
+        </div>
     </div>
 
     <figure class="attraction-image">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Wall_Drug.JPG?v=1744227955010" alt="Wall Drug.JPG" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <img itemprop="image" src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Wall_Drug.JPG?v=1744230888226" alt="Wall Drug.JPG" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
         <figcaption style="display: none;">Image failed to load.</figcaption>
     </figure>
+
+    <!-- Add geo coordinates -->
+    <meta itemprop="latitude" content="43.9929792">
+    <meta itemprop="longitude" content="-102.2413814">
 
 
 
 
  <div class="attraction-description">
         <h3>About This Attraction</h3>
-        <p>Famous for offering free ice water, now a sprawling tourist complex with shops, eateries, and quirky attractions.</p>
+        <p itemprop="description">Famous for offering free ice water, now a sprawling tourist complex with shops, eateries, and quirky attractions.</p>
     </div>
 
     
+
+    <!-- Add country information -->
+    <meta itemprop="addressCountry" content="US">
 </article>
 
     </main>

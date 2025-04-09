@@ -42,28 +42,42 @@
     
     <main id="main-content">
         
-<article class="attraction-detail container">
-    <h2>Boise River Greenbelt</h2>
+<article class="attraction-detail container" itemscope itemtype="https://schema.org/TouristAttraction">
+    <h2 itemprop="name">Boise River Greenbelt</h2>
 
     <div class="attraction-meta">
-        
-        <span class="location">Location: N/A, Idaho </span>
+        <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+            
+            <span class="location">
+                Location:
+                <span itemprop="addressLocality">N/A</span>,
+                <span itemprop="addressRegion">Idaho</span>
+                
+            </span>
+        </div>
     </div>
 
     <figure class="attraction-image">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Boise_River_-_Greenbelt_of_Boise.jpg?v=1744227955015" alt="Boise River - Greenbelt of Boise.jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <img itemprop="image" src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Boise_River_-_Greenbelt_of_Boise.jpg?v=1744230888230" alt="Boise River - Greenbelt of Boise.jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
         <figcaption style="display: none;">Image failed to load.</figcaption>
     </figure>
+
+    <!-- Add geo coordinates -->
+    <meta itemprop="latitude" content="43.6005381">
+    <meta itemprop="longitude" content="-116.1849386">
 
 
 
 
  <div class="attraction-description">
         <h3>About This Attraction</h3>
-        <p>The Boise River Greenbelt is a recreational and alternate transportation trail along the banks of the Boise River through Boise, Idaho, United States.</p>
+        <p itemprop="description">The Boise River Greenbelt is a recreational and alternate transportation trail along the banks of the Boise River through Boise, Idaho, United States.</p>
     </div>
 
     
+
+    <!-- Add country information -->
+    <meta itemprop="addressCountry" content="US">
 </article>
 
     </main>
