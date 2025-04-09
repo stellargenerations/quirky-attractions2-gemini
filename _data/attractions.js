@@ -633,15 +633,9 @@ const FALLBACK_ATTRACTIONS = [
 module.exports = async function() {
     console.log("Fetching data from Google Sheet Published URL...");
 
-    // Check if we're in a Netlify environment or if the sheet URL is missing
-    const isNetlify = process.env.NETLIFY === 'true';
-
-    if (isNetlify || !SHEET_URL) {
-        if (isNetlify) {
-            console.log("Netlify environment detected. Using fallback attractions data for reliability.");
-        } else {
-            console.error("ERROR: GOOGLE_SHEET_PUBLISH_URL is missing in your .env file. Using fallback data.");
-        }
+    // Check if the sheet URL is missing
+    if (!SHEET_URL) {
+        console.error("ERROR: GOOGLE_SHEET_PUBLISH_URL is missing in your .env file. Using fallback data.");
         return FALLBACK_ATTRACTIONS;
     }
 
