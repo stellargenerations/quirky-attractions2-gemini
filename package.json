@@ -5,6 +5,7 @@
   "scripts": {
     "start": "eleventy --serve",
     "build": "eleventy",
+    "build:netlify": "NETLIFY=true eleventy && node netlify-postbuild.js && node netlify-debug.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
