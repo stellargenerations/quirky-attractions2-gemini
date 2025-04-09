@@ -4,6 +4,7 @@
 
 [build.environment]
   NODE_VERSION = "18"
+  GOOGLE_SHEET_PUBLISH_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQcrExOdmNWQbpkckNmBd9--axnuoDa9KxDQB8vayVHJL_P3a36mNQZPfb1wrOL0Xiv0e-PkKg1wA-x/pub?gid=0&single=true&output=tsv"
 
 # Handle redirects for SPA
 [[redirects]]
