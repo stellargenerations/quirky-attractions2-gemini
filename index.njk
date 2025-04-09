@@ -41,7 +41,7 @@ description: Discover and filter quirky roadside attractions across the United S
             {% for attraction in attractions %}
             <div class="list-card" id="list-item-{{ attraction.slug }}" data-slug="{{ attraction.slug }}">
                 <div class="card-image">
-                    <img src="{{ attraction.imageUrl }}" alt="{{ attraction.imageAlt or attraction.name }}" 
+                    <img src="{{ attraction.imageUrl }}" alt="{{ attraction.imageAlt or attraction.name }}"
                          loading="lazy" class="card-img"
                          onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                     <div class="image-error" style="display: none;">Image not available</div>
@@ -82,11 +82,7 @@ description: Discover and filter quirky roadside attractions across the United S
         <h1>About This Site</h1>
         <p>Welcome to Quirky Roadside Attractions USA! This site is dedicated to showcasing the unusual, the wonderful, and the downright weird places you can find just off the highways and byways of America. From giant balls of twine to mysterious houses and unique art installations, we aim to inspire your next road trip adventure.</p>
         <p>Use the interactive map and filters above to explore attractions by category or state. Click on a map marker or list item to learn more about each fascinating location.</p>
-    <div>
-          <article>
-             {% include "articles/Uncover Roadside America Your Ultimate US Map Resource.html" %}
-          </article>
-        </div> 
+
     </article>
 </div>
 
@@ -96,13 +92,13 @@ description: Discover and filter quirky roadside attractions across the United S
   // Debugging script to check if data is properly loading
   document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM fully loaded');
-    
+
     if (typeof attractionsData !== 'undefined') {
       console.log('Attractions data available:', attractionsData.length, 'items');
     } else {
       console.error('Attractions data is not defined!');
     }
-    
+
     // Check if Leaflet initialized properly
     setTimeout(function() {
       if (document.querySelector('.leaflet-container')) {

@@ -636,13 +636,7 @@ module.exports = async function() {
     // Check if we're in a Netlify environment or if the sheet URL is missing
     const isNetlify = process.env.NETLIFY === 'true';
 
-    console.log("Environment check:");
-    console.log("- NETLIFY env var:", process.env.NETLIFY);
-    console.log("- isNetlify:", isNetlify);
-    console.log("- SHEET_URL:", SHEET_URL ? "[exists]" : "[missing]");
-
-    // For debugging only - always use real data
-    if (false && (isNetlify || !SHEET_URL)) {
+    if (isNetlify || !SHEET_URL) {
         if (isNetlify) {
             console.log("Netlify environment detected. Using fallback attractions data for reliability.");
         } else {

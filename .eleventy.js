@@ -24,7 +24,7 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addGlobalData("currentYear", new Date().getFullYear());
 
-  // Debug the build process
+  // Build process initialization
   console.log("Starting Eleventy build process...");
 
   // Add JSON filter for outputting data to JavaScript
@@ -104,7 +104,7 @@ module.exports = function(eleventyConfig) {
       return [];
     }
 
-    console.log(`Filtering ${attractions.length} attractions by category: ${categoryName}`);
+    // Filter attractions by category
     return attractions.filter(attr =>
       attr.categories && attr.categories.includes(categoryName)
     );
@@ -116,14 +116,8 @@ module.exports = function(eleventyConfig) {
       return [];
     }
 
-    console.log(`Filtering ${attractions.length} attractions by state: ${stateName}`);
+    // Filter attractions by state
     return attractions.filter(attr => attr.state === stateName);
-  });
-
-  // Debug filter to help diagnose data issues
-  eleventyConfig.addFilter("debugData", function(data) {
-    console.log("DEBUG DATA:", JSON.stringify(data).substring(0, 100) + "...");
-    return data;
   });
 
   // Add collection for attraction articles
@@ -163,7 +157,7 @@ module.exports = function(eleventyConfig) {
   // Generate categories data for pagination
   eleventyConfig.addCollection("categoryData", async function() {
     const attractions = await getAttractionsData();
-    console.log(`Found ${attractions.length} attractions for category pages`);
+    // Process attractions for category pages
 
     if (!attractions || !Array.isArray(attractions) || attractions.length === 0) {
       console.warn("No attractions data found for category pages");
@@ -207,7 +201,7 @@ module.exports = function(eleventyConfig) {
   // Generate states data for pagination
   eleventyConfig.addCollection("stateData", async function() {
     const attractions = await getAttractionsData();
-    console.log(`Found ${attractions.length} attractions for state pages`);
+    // Process attractions for state pages
 
     if (!attractions || !Array.isArray(attractions) || attractions.length === 0) {
       console.warn("No attractions data found for state pages");
@@ -221,7 +215,7 @@ module.exports = function(eleventyConfig) {
     });
 
     const states = Array.from(statesSet).sort();
-    console.log(`Found ${states.length} states:`, states);
+    // Process unique states
 
     // Return state data for pagination
     return states.map(state => {
