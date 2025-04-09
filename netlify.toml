@@ -1,19 +1,9 @@
 [build]
   publish = "_site"
-  command = "npm run build:netlify"
+  command = "npm run build"
 
 [build.environment]
   NODE_VERSION = "18"
-  NETLIFY = "true"
-
-[dev]
-  command = "npm run start"
-  port = 8080
-  publish = "_site"
-
-# Force clear cache on each build
-[[plugins]]
-  package = "@netlify/plugin-cachebuster"
 
 # Handle redirects for SPA
 [[redirects]]
