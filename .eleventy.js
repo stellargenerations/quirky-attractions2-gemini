@@ -11,17 +11,22 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("img");
   eleventyConfig.addPassthroughCopy("fonts");
   eleventyConfig.addPassthroughCopy("favicon.ico");
-  
+
   // Add .htaccess for fallback routing if the file exists
   if (fs.existsSync(".htaccess")) {
     eleventyConfig.addPassthroughCopy(".htaccess");
   }
-  
+
+  // Add _redirects file for Netlify
+  if (fs.existsSync("_redirects")) {
+    eleventyConfig.addPassthroughCopy("_redirects");
+  }
+
   eleventyConfig.addGlobalData("currentYear", new Date().getFullYear());
 
   // Debug the build process
   console.log("Starting Eleventy build process...");
-  
+
   // Add JSON filter for outputting data to JavaScript
   eleventyConfig.addFilter("json", function(value) {
     return JSON.stringify(value);
@@ -31,11 +36,11 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addFilter("readableDate", dateObj => {
     return DateTime.fromJSDate(dateObj, {zone: 'utc'}).toFormat("LLL dd, yyyy");
   });
-  
+
   eleventyConfig.addFilter("isoDate", dateObj => {
     return DateTime.fromJSDate(dateObj, {zone: 'utc'}).toFormat("yyyy-LL-dd");
   });
-  
+
   eleventyConfig.addFilter("yearDashMonth", dateObj => {
     return DateTime.fromJSDate(dateObj, {zone: 'utc'}).toFormat("yyyy-LL");
   });
@@ -46,7 +51,7 @@ module.exports = function(eleventyConfig) {
   // Enhanced slugify filter with special character handling
   eleventyConfig.addFilter("slugify", function(str) {
     if (!str) return "";
-    
+
     // Replace common special characters before slugifying
     let result = str.toString()
       .replace(/&/g, "-and-")        // Replace & with "and"
@@ -57,18 +62,18 @@ module.exports = function(eleventyConfig) {
       .replace(/--+/g, '-')          // Replace multiple hyphens with single hyphen
       .replace(/^-+/, '')            // Trim hyphens from start
       .replace(/-+$/, '');           // Trim hyphens from end
-    
+
     console.log(`Slugifying "${str}" to "${result}"`);
     return result;
   });
-  
+
   // Custom filters for attractions data
   eleventyConfig.addFilter("getAllCategories", function(attractions) {
     if (!attractions || !Array.isArray(attractions)) {
       console.warn("Warning: getAllCategories called with non-array:", attractions);
       return [];
     }
-    
+
     const categoriesSet = new Set();
     attractions.forEach(attraction => {
       if (attraction.categories && Array.isArray(attraction.categories)) {
@@ -85,7 +90,7 @@ module.exports = function(eleventyConfig) {
       console.warn("Warning: getAllStates called with non-array:", attractions);
       return [];
     }
-    
+
     const statesSet = new Set();
     attractions.forEach(attraction => {
       if (attraction.state) statesSet.add(attraction.state);
@@ -98,19 +103,19 @@ module.exports = function(eleventyConfig) {
       console.warn(`Warning: filterByCategory called with non-array:`, attractions);
       return [];
     }
-    
+
     console.log(`Filtering ${attractions.length} attractions by category: ${categoryName}`);
-    return attractions.filter(attr => 
+    return attractions.filter(attr =>
       attr.categories && attr.categories.includes(categoryName)
     );
   });
-  
+
   eleventyConfig.addFilter("filterByState", function(attractions, stateName) {
     if (!attractions || !Array.isArray(attractions)) {
       console.warn(`Warning: filterByState called with non-array:`, attractions);
       return [];
     }
-    
+
     console.log(`Filtering ${attractions.length} attractions by state: ${stateName}`);
     return attractions.filter(attr => attr.state === stateName);
   });
@@ -120,7 +125,7 @@ module.exports = function(eleventyConfig) {
     console.log("DEBUG DATA:", JSON.stringify(data).substring(0, 100) + "...");
     return data;
   });
-  
+
   // Add collection for attraction articles
   eleventyConfig.addCollection("attractionArticles", function(collectionApi) {
     return collectionApi.getFilteredByGlob("_attraction_articles/*.{md,html}");
@@ -133,12 +138,12 @@ module.exports = function(eleventyConfig) {
     }
     return articles.find(article => article.data.attraction_slug === slug);
   });
-  
+
   // Helper function to get attractions data asynchronously
   async function getAttractionsData() {
     try {
       const attractionsModule = require('./_data/attractions.js');
-      
+
       if (typeof attractionsModule === 'function') {
         console.log("Loading attractions from function...");
         return await attractionsModule();
@@ -154,17 +159,17 @@ module.exports = function(eleventyConfig) {
       return [];
     }
   }
-  
+
   // Generate categories data for pagination
   eleventyConfig.addCollection("categoryData", async function() {
     const attractions = await getAttractionsData();
     console.log(`Found ${attractions.length} attractions for category pages`);
-    
+
     if (!attractions || !Array.isArray(attractions) || attractions.length === 0) {
       console.warn("No attractions data found for category pages");
       return [];
     }
-    
+
     // Get unique categories from all attractions
     const categoriesSet = new Set();
     attractions.forEach(attraction => {
@@ -174,10 +179,10 @@ module.exports = function(eleventyConfig) {
         });
       }
     });
-    
+
     const categories = Array.from(categoriesSet).sort();
     console.log(`Found ${categories.length} categories:`, categories);
-    
+
     // Return category data for pagination with custom slug handling
     return categories.map(category => {
       // Create safe slugs for categories with special characters
@@ -189,9 +194,9 @@ module.exports = function(eleventyConfig) {
         .replace(/--+/g, '-')         // Replace multiple hyphens with single hyphen
         .replace(/^-+/, '')           // Trim hyphens from start
         .replace(/-+$/, '');          // Trim hyphens from end
-      
+
       console.log(`Custom slugify: "${category}" -> "${slug}"`);
-      
+
       return {
         category: category,
         slug: slug
@@ -203,21 +208,21 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addCollection("stateData", async function() {
     const attractions = await getAttractionsData();
     console.log(`Found ${attractions.length} attractions for state pages`);
-    
+
     if (!attractions || !Array.isArray(attractions) || attractions.length === 0) {
       console.warn("No attractions data found for state pages");
       return [];
     }
-    
+
     // Get unique states from all attractions
     const statesSet = new Set();
     attractions.forEach(attraction => {
       if (attraction.state) statesSet.add(attraction.state);
     });
-    
+
     const states = Array.from(statesSet).sort();
     console.log(`Found ${states.length} states:`, states);
-    
+
     // Return state data for pagination
     return states.map(state => {
       return {
@@ -226,8 +231,8 @@ module.exports = function(eleventyConfig) {
       };
     });
   });
-  
-  
+
+
   // Return the 11ty configuration object
   return {
     dir: {

@@ -55,7 +55,7 @@ const FALLBACK_ATTRACTIONS = [
         lon: -101.9871,
         description: "A public art installation featuring ten Cadillacs half-buried nose-first in the ground, covered in ever-changing graffiti.",
         categories: ["Art & Sculpture", "Unusual Buildings"],
-        imageUrl: "https://via.placeholder.com/400x300?text=Cadillac+Ranch",
+        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Cadillac_Ranch.jpg",
         imageAlt: "Colorfully painted Cadillacs buried nose-down in a field",
         websiteLink: null,
         slug: "cadillac-ranch"
@@ -68,18 +68,205 @@ const FALLBACK_ATTRACTIONS = [
         lon: -115.4727,
         description: "A colorful art installation made from local adobe clay and covered with biblical messages and quotes.",
         categories: ["Art & Sculpture", "Folk Art"],
-        imageUrl: "https://via.placeholder.com/400x300?text=Salvation+Mountain",
+        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/94/Salvation_Mountain%2C_Niland%2C_CA.jpg",
         imageAlt: "Colorful painted mountain in the desert with 'God is Love' painted on it",
         websiteLink: null,
         slug: "salvation-mountain"
+    },
+    {
+        name: "Carhenge",
+        locationCity: "Alliance",
+        state: "Nebraska",
+        streetAddress: "2151 Co Rd 59",
+        zipCode: "69301",
+        lat: 42.142493,
+        lon: -102.857942,
+        description: "A replica of England's Stonehenge constructed entirely from vintage American automobiles painted gray.",
+        categories: ["Art & Sculpture", "Roadside Oddities"],
+        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/5/55/Carhenge%2C_Alliance%2C_NE%2C_Yellow_Car.jpg",
+        imageAlt: "Carhenge, Alliance, NE, Yellow Car",
+        websiteLink: null,
+        slug: "carhenge"
+    },
+    {
+        name: "World's Largest Ball of Twine",
+        locationCity: "Cawker City",
+        state: "Kansas",
+        streetAddress: "719 Wisconsin St",
+        zipCode: "67430",
+        lat: 39.509167,
+        lon: -98.434722,
+        description: "A massive ball of sisal twine that has been growing since 1953, with visitors encouraged to add to it.",
+        categories: ["World's Largest", "Roadside Oddities"],
+        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/d/da/World%27s_Largest_Ball_of_Twine%2C_Cawker_City%2C_KS.jpg",
+        imageAlt: "World's Largest Ball of Twine in Cawker City, Kansas",
+        websiteLink: null,
+        slug: "worlds-largest-ball-of-twine"
+    },
+    {
+        name: "Wall Drug Store",
+        locationCity: "Wall",
+        state: "South Dakota",
+        streetAddress: "510 Main St",
+        zipCode: "57790",
+        lat: 43.992500,
+        lon: -102.241944,
+        description: "A sprawling roadside attraction known for its free ice water, 5-cent coffee, and eclectic collection of shops and displays.",
+        categories: ["Tourist Trap", "Shopping"],
+        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/c/c3/Wall_Drug_Store_-_Wall%2C_South_Dakota.jpg",
+        imageAlt: "Wall Drug Store in Wall, South Dakota",
+        websiteLink: "https://www.walldrug.com",
+        slug: "wall-drug-store"
+    },
+    {
+        name: "The Fremont Troll",
+        locationCity: "Seattle",
+        state: "Washington",
+        streetAddress: "N 36th St",
+        zipCode: "98103",
+        lat: 47.651039,
+        lon: -122.347390,
+        description: "A massive sculpture of a troll clutching a Volkswagen Beetle, lurking under the north end of the Aurora Bridge.",
+        categories: ["Art & Sculpture", "Urban Oddities"],
+        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a8/Fremont_troll.jpg",
+        imageAlt: "The Fremont Troll sculpture under a bridge in Seattle",
+        websiteLink: null,
+        slug: "the-fremont-troll"
+    },
+    {
+        name: "Mystery Spot",
+        locationCity: "Santa Cruz",
+        state: "California",
+        streetAddress: "465 Mystery Spot Rd",
+        zipCode: "95065",
+        lat: 37.017697,
+        lon: -122.001054,
+        description: "A tourist attraction claiming gravitational anomalies and optical illusions within its tilted environment.",
+        categories: ["Optical Illusions", "Tourist Trap"],
+        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/5/5b/The_Mystery_spot_entrance.jpg",
+        imageAlt: "The Mystery spot entrance",
+        websiteLink: "https://www.mysteryspot.com",
+        slug: "mystery-spot"
+    },
+    {
+        name: "Winchester Mystery House",
+        locationCity: "San Jose",
+        state: "California",
+        streetAddress: "525 S Winchester Blvd",
+        zipCode: "95128",
+        lat: 37.318333,
+        lon: -121.950833,
+        description: "A bizarre mansion built by Sarah Winchester with staircases to nowhere, doors opening to walls, and other architectural oddities.",
+        categories: ["Haunted Places", "Unusual Buildings"],
+        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/f/f8/Winchester_House_910px.jpg",
+        imageAlt: "Winchester Mystery House in San Jose, California",
+        websiteLink: "https://winchestermysteryhouse.com",
+        slug: "winchester-mystery-house"
+    },
+    {
+        name: "Cabazon Dinosaurs",
+        locationCity: "Cabazon",
+        state: "California",
+        streetAddress: "50770 Seminole Dr",
+        zipCode: "92230",
+        lat: 33.924167,
+        lon: -116.776944,
+        description: "Giant concrete dinosaurs, Dinny the Brontosaurus and Mr. Rex the Tyrannosaurus Rex, featured in Pee-wee's Big Adventure.",
+        categories: ["Roadside Giants", "Movie Locations"],
+        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/6/6f/Cabazon_Dinosaurs%2C_Ca_%285991906002%29.jpg",
+        imageAlt: "Cabazon Dinosaurs, Ca",
+        websiteLink: "https://www.cabazondinosaurs.com",
+        slug: "cabazon-dinosaurs"
+    },
+    {
+        name: "Antone's Nightclub",
+        locationCity: "Austin",
+        state: "Texas",
+        streetAddress: "305 East 5th Street",
+        zipCode: "78701",
+        lat: 30.26605585,
+        lon: -97.7403995,
+        description: "Historic blues venue that has hosted legends like B.B. King, Muddy Waters, and Stevie Ray Vaughan since 1975.",
+        categories: ["Music Venues", "Historic Sites"],
+        imageUrl: "https://via.placeholder.com/400x300?text=Antones+Nightclub",
+        imageAlt: "Antone's Nightclub in Austin, Texas",
+        websiteLink: "https://antonesnightclub.com",
+        slug: "antones-nightclub"
+    },
+    {
+        name: "Red Rocks Amphitheatre",
+        locationCity: "Morrison",
+        state: "Colorado",
+        streetAddress: "18300 W Alameda Pkwy",
+        zipCode: "80465",
+        lat: 39.665278,
+        lon: -105.205278,
+        description: "A spectacular natural amphitheater carved from massive red sandstone formations, known for its perfect acoustics and stunning views.",
+        categories: ["Natural Wonders", "Music Venues"],
+        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/3/3f/Red_Rocks_Amphitheatre%2C_Colorado.jpg",
+        imageAlt: "Red Rocks Amphitheatre in Colorado",
+        websiteLink: "https://www.redrocksonline.com",
+        slug: "red-rocks-amphitheatre"
+    },
+    {
+        name: "Neon Museum",
+        locationCity: "Las Vegas",
+        state: "Nevada",
+        streetAddress: "770 Las Vegas Blvd N",
+        zipCode: "89101",
+        lat: 36.176944,
+        lon: -115.135556,
+        description: "An outdoor museum dedicated to preserving and exhibiting iconic Las Vegas neon signs from the city's colorful past.",
+        categories: ["Museums", "Art & Design"],
+        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/d/d1/Neon_Museum_Las_Vegas.jpg",
+        imageAlt: "Neon Museum Las Vegas",
+        websiteLink: "https://www.neonmuseum.org",
+        slug: "neon-museum"
+    },
+    {
+        name: "Longwood Gardens",
+        locationCity: "Kennett Square",
+        state: "Pennsylvania",
+        streetAddress: "1001 Longwood Rd",
+        zipCode: "19348",
+        lat: 39.871111,
+        lon: -75.673889,
+        description: "One of the world's premier horticultural display gardens, spanning 1,100 acres with 20 indoor gardens, 20 outdoor gardens, and 11,000 different types of plants.",
+        categories: ["Gardens", "Historic Sites"],
+        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/8/8a/Longwood_Gardens_Conservatory.jpg",
+        imageAlt: "Longwood Gardens Conservatory",
+        websiteLink: "https://longwoodgardens.org",
+        slug: "longwood-gardens"
+    },
+    {
+        name: "Knoebels Amusement Resort",
+        locationCity: "Elysburg",
+        state: "Pennsylvania",
+        streetAddress: "391 Knoebels Blvd",
+        zipCode: "17824",
+        lat: 40.881389,
+        lon: -76.501389,
+        description: "America's largest free-admission amusement park, featuring classic wooden roller coasters, a historic carousel, and traditional amusement park foods.",
+        categories: ["Amusement Parks", "Family Attractions"],
+        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/e3/Knoebels_Amusement_Resort_-_panoramio.jpg",
+        imageAlt: "Knoebels Amusement Resort",
+        websiteLink: "https://www.knoebels.com",
+        slug: "knoebels-amusement-resort"
     }
 ];
 
 module.exports = async function() {
     console.log("Fetching data from Google Sheet Published URL...");
 
-    if (!SHEET_URL) {
-        console.error("ERROR: GOOGLE_SHEET_PUBLISH_URL is missing in your .env file. Using fallback data.");
+    // Check if we're in a Netlify environment or if the sheet URL is missing
+    const isNetlify = process.env.NETLIFY === 'true';
+
+    if (isNetlify || !SHEET_URL) {
+        if (isNetlify) {
+            console.log("Netlify environment detected. Using fallback attractions data for reliability.");
+        } else {
+            console.error("ERROR: GOOGLE_SHEET_PUBLISH_URL is missing in your .env file. Using fallback data.");
+        }
         return FALLBACK_ATTRACTIONS;
     }
 

@@ -1,0 +1,11 @@
+[build]
+  publish = "_site"
+  command = "npm run build"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+[dev]
+  command = "npm run start"
+  port = 8080
+  publish = "_site"
