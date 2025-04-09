@@ -11,11 +11,22 @@ title: Sun Valley Resort
     <span class="location">Location: Sun Valley, ID 83353</span>
   </div>
   <figure class="attraction-image">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Skier%27s_Perspective_at_Sun_Valley_Resort.jpg?v=1743956077378" alt="Skier's Perspective at Sun Valley Resort.jpg" loading="lazy">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Skier%27s_Perspective_at_Sun_Valley_Resort.jpg?v=1743964413072" alt="Skier's Perspective at Sun Valley Resort.jpg" loading="lazy">
   </figure>
   <div class="attraction-description">
     <h3>About Sun Valley Resort</h3>
     <p>Sun Valley is a resort city in the western United States, in Blaine County, Idaho, adjacent to the city of Ketchum in the Wood River valley.</p>
   </div>
+  
+  {% set articleContent = collections.attractionArticles | getArticleForSlug('sun-valley-resort') %}
+  {% if articleContent %}
+  <div class="attraction-article">
+    <h3>{{ articleContent.data.title }}</h3>
+    <div class="article-content">
+      {{ articleContent.content | safe }}
+    </div>
+  </div>
+  {% endif %}
+  
   
 </article>

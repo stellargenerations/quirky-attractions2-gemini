@@ -11,11 +11,22 @@ title: Republic of Molossia
     <span class="location">Location: Dayton, Nevada 89403</span>
   </div>
   <figure class="attraction-image">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Arms4.jpg?v=1743956077379" alt="Arms4.jpg" loading="lazy">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Arms4.jpg?v=1743964413073" alt="Arms4.jpg" loading="lazy">
   </figure>
   <div class="attraction-description">
     <h3>About Republic of Molossia</h3>
     <p>Molossia (), officially the Republic of Molossia, is a micronation claiming de facto sovereignty over 11.3 acres (4.6 ha; 46,000 m2) of land near D...</p>
   </div>
+  
+  {% set articleContent = collections.attractionArticles | getArticleForSlug('republic-of-molossia') %}
+  {% if articleContent %}
+  <div class="attraction-article">
+    <h3>{{ articleContent.data.title }}</h3>
+    <div class="article-content">
+      {{ articleContent.content | safe }}
+    </div>
+  </div>
+  {% endif %}
+  
   
 </article>

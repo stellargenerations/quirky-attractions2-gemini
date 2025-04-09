@@ -121,6 +121,19 @@ module.exports = function(eleventyConfig) {
     return data;
   });
   
+  // Add collection for attraction articles
+  eleventyConfig.addCollection("attractionArticles", function(collectionApi) {
+    return collectionApi.getFilteredByGlob("_attraction_articles/*.{md,html}");
+  });
+
+  // Add filter to get the article for a specific attraction by slug
+  eleventyConfig.addFilter("getArticleForSlug", function(articles, slug) {
+    if (!articles || !Array.isArray(articles)) {
+      return null;
+    }
+    return articles.find(article => article.data.attraction_slug === slug);
+  });
+  
   // Helper function to get attractions data asynchronously
   async function getAttractionsData() {
     try {
@@ -214,63 +227,6 @@ module.exports = function(eleventyConfig) {
     });
   });
   
-  // IMPORTANT: Direct method to manually create all attraction pages
-  // This writes actual files to disk that Eleventy will process
-  getAttractionsData().then(attractions => {
-    if (!attractions || attractions.length === 0) {
-      console.warn("No attractions found for direct file creation");
-      return;
-    }
-    
-    console.log(`Setting up direct template files for ${attractions.length} attractions`);
-    
-    try {
-      // Create directory if it doesn't exist
-      const dir = '_attraction_pages';
-      if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir, { recursive: true });
-      }
-      
-      // Write a template file for each attraction
-      attractions.forEach(attraction => {
-        const filePath = path.join(dir, `${attraction.slug}.md`);
-        const content = `---
-layout: layout.njk
-permalink: /${attraction.slug}/
-title: ${attraction.name}
----
-
-<article class="attraction-detail container">
-  <h2>${attraction.name}</h2>
-  <div class="attraction-meta">
-    ${attraction.streetAddress ? `<span class="address">Address: ${attraction.streetAddress}</span>` : ''}
-    <span class="location">Location: ${attraction.locationCity}, ${attraction.state} ${attraction.zipCode || ''}</span>
-  </div>
-  <figure class="attraction-image">
-    <img src="${attraction.imageUrl}" alt="${attraction.imageAlt}" loading="lazy">
-  </figure>
-  <div class="attraction-description">
-    <h3>About ${attraction.name}</h3>
-    <p>${attraction.description}</p>
-  </div>
-  ${attraction.websiteLink ? `<div class="attraction-website">
-    <a href="${attraction.websiteLink}" target="_blank" rel="noopener noreferrer">Visit Website</a>
-  </div>` : ''}
-</article>`;
-        
-        fs.writeFileSync(filePath, content);
-        console.log(`Created attraction template: ${filePath}`);
-      });
-    } catch (error) {
-      console.error("Error creating attraction template files:", error);
-    }
-  });
-  
-  // Development server configuration
-  eleventyConfig.setServerOptions({
-    port: 8080,
-    watch: ['css/**/*.css', 'js/**/*.js', 'img/**/*', '*.njk', '_attraction_pages/**/*.md']
-  });
   
   // Return the 11ty configuration object
   return {

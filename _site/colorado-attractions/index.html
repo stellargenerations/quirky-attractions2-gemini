@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colorado Roadside Attractions</title>
+    <meta name="description" content="Discover quirky roadside attractions in Colorado.">
+    
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+    
+    
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="/">Roadside Attractions USA</a></h1>
+        </div>
+    </header>
+    
+    
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <div class="container">
+            <ol class="breadcrumb-list">
+                <li class="breadcrumb-item">
+                    <a href="/">Map</a>
+                </li>
+                
+                
+                    
+                    <li class="breadcrumb-item current" aria-current="page">
+                        Colorado Attractions
+                    </li>
+                
+                
+            </ol>
+        </div>
+    </nav>
+    
+    <main id="main-content">
+        
+<div class="map-container">
+    <div id="map">
+        <p class="map-loading">Loading Map...</p>
+    </div>
+    <button id="zoom-out-btn" title="Zoom out to show entire USA">Show All USA</button>
+</div>
+
+<div class="container controls-list-container">
+    <section class="filters" aria-labelledby="filter-heading">
+        <h2 id="filter-heading">Filter Colorado Attractions</h2>
+        <div class="filter-controls">
+            <div class="filter-group">
+                <label for="category-filter">By Category:</label>
+                <select id="category-filter" name="category">
+                    <option value="">All Categories</option>
+                    
+                </select>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="list-view" aria-labelledby="list-heading">
+        <h2 id="list-heading">Colorado Attractions List</h2>
+        <div id="list-view-content" class="card-container">
+            
+            
+            
+            <div class="list-card" id="list-item-red-rocks-amphitheatre" data-slug="red-rocks-amphitheatre">
+                <div class="card-image">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Visitor_Center_and_Amphitheatre_sign%2C_Red_Rocks.jpg?v=1744165752819" alt="Visitor Center and Amphitheatre sign, Red Rocks.jpg" 
+                         loading="lazy" class="card-img"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div class="image-error" style="display: none;">Image not available</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Red Rocks Amphitheatre</h3>
+                    <p class="card-location">
+                        <a href="/colorado-attractions/" class="state-link">Morrison, Colorado</a>
+                    </p>
+                    <p class="card-description">Red Rocks Amphitheatre (also known colloquially as simply Red Rocks) is an open-air amphitheater in...</p>
+                    <div class="card-links">
+                        <a href="/red-rocks-amphitheatre/" class="card-link">Learn More</a>
+                        <span class="card-categories">
+                            
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+            <p class="list-loading">Loading attractions...</p>
+        </div>
+        <p id="no-results" class="no-results-message" style="display: none;">No attractions match the current filters.</p>
+    </section>
+
+    <article class="about-website">
+        <h2>About Colorado Attractions</h2>
+        <p>Welcome to our collection of roadside attractions in Colorado. These unique destinations showcase the quirky and fascinating sites that make Colorado road trips so memorable.</p>
+        <p>Use the interactive map above to explore these attractions by location. You can filter by category to find specific types of attractions. Click on a map marker or list item to learn more about each fascinating location.</p>
+    </article>
+</div>
+    </main>
+    
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2025 Roadside Attractions USA. All rights reserved.</p>
+            <p>Discover unique attractions for your next road trip adventure.</p>
+            
+            
+            
+                <div class="footer-categories">
+                    <strong>Browse by category:</strong> 
+                    
+                </div>
+            
+        </div>
+    </footer>
+    
+    
+    
+        <!-- First define the attractions data -->
+        <script>
+            // Define attractions data globally
+            
+                window.attractionsData = [{"name":"Red Rocks Amphitheatre","locationCity":"Morrison","state":"Colorado","streetAddress":"18300 West Alameda Parkway","zipCode":"80465","lat":39.6653917,"lon":-105.2057171,"description":"Red Rocks Amphitheatre (also known colloquially as simply Red Rocks) is an open-air amphitheater in the western United States near Morrison, Colora...","categories":[],"imageUrl":"https://upload.wikimedia.org/wikipedia/commons/0/0e/Visitor_Center_and_Amphitheatre_sign%2C_Red_Rocks.jpg?v=1744165752819","imageAlt":"Visitor Center and Amphitheatre sign, Red Rocks.jpg","websiteLink":null,"slug":"red-rocks-amphitheatre"}];
+                console.log("State data prepared:", window.attractionsData.length, "attractions");
+            
+        </script>
+        
+        <!-- Load Leaflet first -->
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+        
+        <!-- Then load our script -->
+        <script src="/js/main.js"></script>
+        
+        <!-- Add debugging script -->
+        <script>
+          document.addEventListener('DOMContentLoaded', function() {
+            console.log("DOM fully loaded - checking final status");
+            
+            // Check if Leaflet has loaded
+            if (typeof L === 'undefined') {
+              console.error("FINAL CHECK: Leaflet is not loaded - L is undefined");
+            } else {
+              console.log("FINAL CHECK: Leaflet is loaded successfully");
+            }
+            
+            // Check if map was initialized
+            if (document.querySelector('.leaflet-container')) {
+              console.log("FINAL CHECK: Map initialized successfully");
+            } else {
+              console.error("FINAL CHECK: Leaflet map did not initialize!");
+            }
+          });
+        </script>
+    
+</body>
+</html>

@@ -11,11 +11,22 @@ title: World's Largest Ball of Twine
     <span class="location">Location: Cawker City, KS 67430</span>
   </div>
   <figure class="attraction-image">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e9/World%27s_Largest_Twine_Ball%2C_Darwin%2C_Minnesota_2021-07-22.jpg?v=1743956077374" alt="World's Largest Twine Ball, Darwin, Minnesota 2021-07-22.jpg" loading="lazy">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e9/World%27s_Largest_Twine_Ball%2C_Darwin%2C_Minnesota_2021-07-22.jpg?v=1743964413063" alt="World's Largest Twine Ball, Darwin, Minnesota 2021-07-22.jpg" loading="lazy">
   </figure>
   <div class="attraction-description">
     <h3>About World's Largest Ball of Twine</h3>
     <p>One of several contenders for the title, this massive ball of sisal twine is constantly growing.</p>
   </div>
+  
+  {% set articleContent = collections.attractionArticles | getArticleForSlug('worlds-largest-ball-of-twine') %}
+  {% if articleContent %}
+  <div class="attraction-article">
+    <h3>{{ articleContent.data.title }}</h3>
+    <div class="article-content">
+      {{ articleContent.content | safe }}
+    </div>
+  </div>
+  {% endif %}
+  
   
 </article>

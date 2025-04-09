@@ -842,3 +842,294 @@ a:hover {
         font-size: 1.1rem;
     }
 }
+
+/* Attraction Experience Cards */
+.attraction-experiences,
+.attraction-articles {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 5px;
+}
+
+.attraction-experiences h3,
+.attraction-articles h3 {
+    margin-bottom: 1rem;
+    color: #343a40;
+    font-size: 1.4rem;
+}
+
+.experience-cards,
+.article-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.experience-card,
+.article-card {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 1.5rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.experience-card:hover,
+.article-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.experience-content p {
+    font-style: italic;
+    margin-bottom: 1rem;
+    color: #333;
+    position: relative;
+}
+
+.experience-content p::before {
+    content: """;
+    font-size: 3rem;
+    color: #e9ecef;
+    position: absolute;
+    left: -1rem;
+    top: -1rem;
+    z-index: 0;
+    font-family: serif;
+}
+
+.experience-content p::after {
+    content: """;
+    font-size: 3rem;
+    color: #e9ecef;
+    position: absolute;
+    right: -1rem;
+    bottom: -2rem;
+    z-index: 0;
+    font-family: serif;
+}
+
+.experience-meta,
+.article-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: #6c757d;
+}
+
+.experience-author {
+    font-weight: 600;
+    color: #495057;
+}
+
+.experience-date,
+.experience-source,
+.article-source,
+.article-date {
+    color: #6c757d;
+}
+
+.article-title {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+}
+
+.article-title a {
+    color: #0056b3;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.article-title a:hover {
+    color: #003d7a;
+    text-decoration: underline;
+}
+
+.article-excerpt {
+    color: #495057;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.article-loading,
+.no-articles {
+    text-align: center;
+    padding: 2rem 0;
+    font-style: italic;
+    color: #6c757d;
+}
+
+/* Enhanced attraction detail page */
+.attraction-detail {
+    background-color: #fff;
+    padding: 2rem;
+    margin: 2rem auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    max-width: 1000px;
+}
+
+.attraction-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    color: #6c757d;
+}
+
+.attraction-meta span {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.attraction-meta .categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.attraction-meta .category-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background-color: #f0f8ff;
+    color: #0056b3;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    text-decoration: none;
+    border: 1px solid #d1e6fa;
+    transition: all 0.2s ease;
+}
+
+.attraction-meta .category-badge:hover {
+    background-color: #d1e6fa;
+    text-decoration: none;
+}
+
+.attraction-image {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.attraction-image img {
+    max-width: 100%;
+    height: auto;
+    max-height: 500px;
+    border-radius: 5px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+}
+
+.attraction-description {
+    margin-bottom: 2rem;
+}
+
+.attraction-description h3 {
+    color: #343a40;
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+}
+
+.attraction-website {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.attraction-website a {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: #28a745;
+    color: white;
+    border-radius: 4px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.attraction-website a:hover {
+    background-color: #218838;
+    text-decoration: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .experience-cards,
+    .article-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .attraction-detail {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+    
+    .attraction-meta {
+        flex-direction: column;
+    }
+    
+    .experience-content p::before,
+    .experience-content p::after {
+        font-size: 2rem;
+    }
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+/* Article styling */
+.attraction-article {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #eee;
+}
+
+.attraction-article h3 {
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.article-content {
+    line-height: 1.7;
+}
+
+.article-content p {
+    margin-bottom: 1rem;
+}
+
+.article-content h2 {
+    margin: 1.5rem 0 0.5rem;
+    color: #333;
+    font-size: 1.4rem;
+}
+
+.article-content blockquote {
+    margin: 1.5rem 0;
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    border-left: 3px solid #0066cc;
+    font-style: italic;
+    color: #555;
+    background-color: #f8f9fa;
+}

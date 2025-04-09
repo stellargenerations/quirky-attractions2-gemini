@@ -11,11 +11,22 @@ title: Mystery Spot
     <span class="location">Location: Santa Cruz, CA 95065</span>
   </div>
   <figure class="attraction-image">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5b/The_Mystery_spot_entrance.jpg?v=1743956077375" alt="The Mystery spot entrance.jpg" loading="lazy">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5b/The_Mystery_spot_entrance.jpg?v=1743964413064" alt="The Mystery spot entrance.jpg" loading="lazy">
   </figure>
   <div class="attraction-description">
     <h3>About Mystery Spot</h3>
     <p>A tourist attraction claiming gravitational anomalies and optical illusions within its tilted environment.</p>
   </div>
+  
+  {% set articleContent = collections.attractionArticles | getArticleForSlug('mystery-spot') %}
+  {% if articleContent %}
+  <div class="attraction-article">
+    <h3>{{ articleContent.data.title }}</h3>
+    <div class="article-content">
+      {{ articleContent.content | safe }}
+    </div>
+  </div>
+  {% endif %}
+  
   
 </article>

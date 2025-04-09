@@ -11,11 +11,22 @@ title: International UFO Museum and Research Center
     <span class="location">Location: Roswell, NM 88203</span>
   </div>
   <figure class="attraction-image">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/d/dc/International_UFO_Museum_and_Research_Center_%284512474350%29.jpg?v=1743956077377" alt="International UFO Museum and Research Center (4512474350).jpg" loading="lazy">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/d/dc/International_UFO_Museum_and_Research_Center_%284512474350%29.jpg?v=1743964413069" alt="International UFO Museum and Research Center (4512474350).jpg" loading="lazy">
   </figure>
   <div class="attraction-description">
     <h3>About International UFO Museum and Research Center</h3>
     <p>Museum dedicated to the 1947 Roswell UFO incident and other UFO phenomena.</p>
   </div>
+  
+  {% set articleContent = collections.attractionArticles | getArticleForSlug('international-ufo-museum-and-research-center') %}
+  {% if articleContent %}
+  <div class="attraction-article">
+    <h3>{{ articleContent.data.title }}</h3>
+    <div class="article-content">
+      {{ articleContent.content | safe }}
+    </div>
+  </div>
+  {% endif %}
+  
   
 </article>

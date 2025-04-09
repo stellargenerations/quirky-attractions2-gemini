@@ -11,11 +11,22 @@ title: The Thing?
     <span class="location">Location: Dragoon, AZ 85609</span>
   </div>
   <figure class="attraction-image">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/9/92/The_Thing_1982_publicity_still.jpg?v=1743956077375" alt="The Thing 1982 publicity still.jpg" loading="lazy">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/92/The_Thing_1982_publicity_still.jpg?v=1743964413065" alt="The Thing 1982 publicity still.jpg" loading="lazy">
   </figure>
   <div class="attraction-description">
     <h3>About The Thing?</h3>
     <p>A mysterious roadside attraction heavily advertised on billboards along I-10, culminating in a bizarre exhibit.</p>
   </div>
+  
+  {% set articleContent = collections.attractionArticles | getArticleForSlug('the-thing') %}
+  {% if articleContent %}
+  <div class="attraction-article">
+    <h3>{{ articleContent.data.title }}</h3>
+    <div class="article-content">
+      {{ articleContent.content | safe }}
+    </div>
+  </div>
+  {% endif %}
+  
   
 </article>

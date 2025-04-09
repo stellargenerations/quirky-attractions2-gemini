@@ -11,11 +11,22 @@ title: The Fremont Troll
     <span class="location">Location: Seattle, WA 98103</span>
   </div>
   <figure class="attraction-image">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Troll_Ave_Fremont_Seattle_USA.jpg?v=1743956077374" alt="Troll Ave Fremont Seattle USA.jpg" loading="lazy">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Troll_Ave_Fremont_Seattle_USA.jpg?v=1743964413064" alt="Troll Ave Fremont Seattle USA.jpg" loading="lazy">
   </figure>
   <div class="attraction-description">
     <h3>About The Fremont Troll</h3>
     <p>A colossal concrete sculpture of a troll crushing a Volkswagen Beetle under the George Washington Memorial Bridge.</p>
   </div>
+  
+  {% set articleContent = collections.attractionArticles | getArticleForSlug('the-fremont-troll') %}
+  {% if articleContent %}
+  <div class="attraction-article">
+    <h3>{{ articleContent.data.title }}</h3>
+    <div class="article-content">
+      {{ articleContent.content | safe }}
+    </div>
+  </div>
+  {% endif %}
+  
   
 </article>

@@ -11,11 +11,22 @@ title: Jolly Green Giant Statue
     <span class="location">Location: Blue Earth, MN 56013</span>
   </div>
   <figure class="attraction-image">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Jolly_Green_Giant%2C_backside-Green_Giant_Statue_Park%2C_Blue_Earth%2C_MN.jpg?v=1743956077376" alt="Jolly Green Giant, backside-Green Giant Statue Park, Blue Earth, MN.jpg" loading="lazy">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Jolly_Green_Giant%2C_backside-Green_Giant_Statue_Park%2C_Blue_Earth%2C_MN.jpg?v=1743964413066" alt="Jolly Green Giant, backside-Green Giant Statue Park, Blue Earth, MN.jpg" loading="lazy">
   </figure>
   <div class="attraction-description">
     <h3>About Jolly Green Giant Statue</h3>
     <p>A 55.5-foot tall statue of the Jolly Green Giant, mascot of the Green Giant vegetable company.</p>
   </div>
+  
+  {% set articleContent = collections.attractionArticles | getArticleForSlug('jolly-green-giant-statue') %}
+  {% if articleContent %}
+  <div class="attraction-article">
+    <h3>{{ articleContent.data.title }}</h3>
+    <div class="article-content">
+      {{ articleContent.content | safe }}
+    </div>
+  </div>
+  {% endif %}
+  
   
 </article>

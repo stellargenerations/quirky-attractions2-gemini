@@ -11,11 +11,22 @@ title: Craters of the Moon National Monument & Preserve
     <span class="location">Location: Arco, ID 83213</span>
   </div>
   <figure class="attraction-image">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/a/ae/Craters_of_the_Moon_National_Monument_and_Preserve_%2849094192902%29.jpg?v=1743956077377" alt="Craters of the Moon National Monument and Preserve (49094192902).jpg" loading="lazy">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/ae/Craters_of_the_Moon_National_Monument_and_Preserve_%2849094192902%29.jpg?v=1743964413069" alt="Craters of the Moon National Monument and Preserve (49094192902).jpg" loading="lazy">
   </figure>
   <div class="attraction-description">
     <h3>About Craters of the Moon National Monument & Preserve</h3>
     <p>A vast volcanic landscape featuring lava fields, cinder cones, and lava tubes that resembles the surface of the moon.</p>
   </div>
+  
+  {% set articleContent = collections.attractionArticles | getArticleForSlug('craters-of-the-moon-national-monument-preserve') %}
+  {% if articleContent %}
+  <div class="attraction-article">
+    <h3>{{ articleContent.data.title }}</h3>
+    <div class="article-content">
+      {{ articleContent.content | safe }}
+    </div>
+  </div>
+  {% endif %}
+  
   
 </article>

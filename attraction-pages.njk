@@ -1,0 +1,48 @@
+---
+layout: layout.njk
+pagination:
+    data: attractions
+    size: 1
+    alias: attraction
+    addAllPagesToCollections: true
+permalink: "/{{ attraction.slug }}/"
+eleventyComputed:
+    title: "{{ attraction.name }}"
+---
+
+<article class="attraction-detail container">
+    <h2>{{ attraction.name }}</h2>
+
+    <div class="attraction-meta">
+        {% if attraction.streetAddress %}
+            <span class="address">Address: {{ attraction.streetAddress }}</span>
+        {% endif %}
+        <span class="location">Location: {{ attraction.locationCity }}, {{ attraction.state }} {% if attraction.zipCode %}{{ attraction.zipCode }}{% endif %}</span>
+    </div>
+
+    <figure class="attraction-image">
+        <img src="{{ attraction.imageUrl }}" alt="{{ attraction.imageAlt }}" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <figcaption style="display: none;">Image failed to load.</figcaption>
+    </figure>
+
+{% set articleContent = collections.attractionArticles | getArticleForSlug(attraction.slug) %}
+{% if articleContent %}
+<div class="attraction-article">
+  <h3>{{ articleContent.data.title }}</h3>
+  <div class="article-content">
+    {{ articleContent.content | safe }}
+  </div>
+</div>
+{% endif %}
+
+ <div class="attraction-description">
+        <h3>About This Attraction</h3>
+        <p>{{ attraction.description }}</p>
+    </div>
+
+    {% if attraction.websiteLink %}
+        <div class="attraction-website">
+            <a href="{{ attraction.websiteLink }}" target="_blank" rel="noopener noreferrer">Visit Website</a>
+        </div>
+    {% endif %}
+</article>

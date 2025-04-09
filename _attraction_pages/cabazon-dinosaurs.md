@@ -11,11 +11,22 @@ title: Cabazon Dinosaurs
     <span class="location">Location: Cabazon, CA 92230</span>
   </div>
   <figure class="attraction-image">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Cabazon_Dinosaurs%2C_Ca_%285991906002%29.jpg?v=1743956077375" alt="Cabazon Dinosaurs, Ca (5991906002).jpg" loading="lazy">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Cabazon_Dinosaurs%2C_Ca_%285991906002%29.jpg?v=1743964413065" alt="Cabazon Dinosaurs, Ca (5991906002).jpg" loading="lazy">
   </figure>
   <div class="attraction-description">
     <h3>About Cabazon Dinosaurs</h3>
     <p>Giant concrete dinosaurs, Dinny the Brontosaurus and Mr. Rex the Tyrannosaurus Rex, featured in Pee-wee's Big Adventure.</p>
   </div>
+  
+  {% set articleContent = collections.attractionArticles | getArticleForSlug('cabazon-dinosaurs') %}
+  {% if articleContent %}
+  <div class="attraction-article">
+    <h3>{{ articleContent.data.title }}</h3>
+    <div class="article-content">
+      {{ articleContent.content | safe }}
+    </div>
+  </div>
+  {% endif %}
+  
   
 </article>

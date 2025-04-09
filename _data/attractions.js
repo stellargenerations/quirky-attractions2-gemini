@@ -85,10 +85,10 @@ module.exports = async function() {
 
     try {
         // Add cache-busting parameter to URL to avoid potential caching issues
-        const fetchUrl = SHEET_URL.includes('?') 
-            ? `${SHEET_URL}&_cb=${Date.now()}` 
+        const fetchUrl = SHEET_URL.includes('?')
+            ? `${SHEET_URL}&_cb=${Date.now()}`
             : `${SHEET_URL}?_cb=${Date.now()}`;
-            
+
         const response = await fetch(fetchUrl, {
             headers: {
                 'Accept': 'text/csv, text/plain, application/json',
@@ -96,13 +96,13 @@ module.exports = async function() {
             },
             timeout: 15000 // 15 second timeout
         });
-        
+
         if (!response.ok) {
             throw new Error(`Failed to fetch sheet: ${response.status} ${response.statusText}`);
         }
-        
+
         const dataText = await response.text();
-        
+
         // Check if the response is empty or obviously not CSV/TSV data
         if (!dataText || dataText.trim().length < 10) {
             throw new Error("Empty or invalid response from Google Sheets");
@@ -119,14 +119,14 @@ module.exports = async function() {
             // Try to auto-detect delimiter
             const firstLine = dataText.split('\n')[0];
             let delimiter = '\t'; // Default to tab
-            
+
             if (firstLine.includes(',') && !firstLine.includes('\t')) {
                 delimiter = ','; // Switch to comma if that seems more likely
                 console.log("Auto-detected CSV format (comma-separated)");
             } else {
                 console.log("Using TSV format (tab-separated)");
             }
-            
+
             // Configure the parser
             parse(dataText, {
                 delimiter: delimiter,
@@ -152,7 +152,7 @@ module.exports = async function() {
         if (records.length > 0) {
             console.log("First row headers:", Object.keys(records[0]).join(', '));
             console.log("Categories in first row:", records[0].Categories || records[0].categories || "NOT FOUND");
-            
+
             // Check a few more rows if available
             if (records.length > 1) {
                 console.log("Categories in second row:", records[1].Categories || records[1].categories || "NOT FOUND");
@@ -169,13 +169,13 @@ module.exports = async function() {
             if (index === 0) {
                 const actualHeaders = Object.keys(row);
                 console.log("Actual headers found:", actualHeaders.join(', '));
-                
+
                 // Less strict header check - just make sure we have the essential ones
                 const essentialHeaders = ['Name', 'State', 'Latitude', 'Longitude', 'ImageURL'];
-                const missingHeaders = essentialHeaders.filter(header => 
+                const missingHeaders = essentialHeaders.filter(header =>
                     !actualHeaders.includes(header) && !actualHeaders.includes(header.toLowerCase())
                 );
-                
+
                 if (missingHeaders.length > 0) {
                     console.warn(`Warning: Missing essential headers: ${missingHeaders.join(', ')}`);
                 }
@@ -188,19 +188,28 @@ module.exports = async function() {
             const latStr = row.Latitude || row.latitude || '';
             const lonStr = row.Longitude || row.longitude || '';
             const imageUrl = row.ImageURL || row.imageUrl || row.imageURL || '';
-            
+
             const lat = parseFloat(latStr);
             const lon = parseFloat(lonStr);
 
             // Skip row if essential data is missing or invalid
-            if (!name || !state || isNaN(lat) || isNaN(lon) || !imageUrl) {
-                console.warn(`Skipping row ${index + 1} due to missing/invalid essential data: Name='${name || 'N/A'}', State='${state || 'N/A'}', Lat='${latStr}', Lon='${lonStr}', ImageURL='${imageUrl || 'N/A'}'`);
+            if (!name || !state || isNaN(lat) || isNaN(lon)) {
+                console.warn(`Skipping row ${index + 1} due to missing/invalid essential data: Name='${name || 'N/A'}', State='${state || 'N/A'}', Lat='${latStr}', Lon='${lonStr}'`);
                 return null; // Mark for filtering out later
             }
 
-            // Fix Google Drive image URLs
+            // Use a placeholder image if no image URL is provided
+            if (!imageUrl) {
+                console.warn(`Row ${index + 1} (${name}) is missing an image URL. Using placeholder image.`);
+            }
+
+            // Fix Google Drive image URLs or use placeholder
             let fixedImageUrl = imageUrl;
-            if (fixedImageUrl.includes('drive.google.com/file/d/')) {
+
+            if (!fixedImageUrl) {
+                // Use a placeholder image if no image URL is provided
+                fixedImageUrl = `https://via.placeholder.com/400x300?text=${encodeURIComponent(name)}`;
+            } else if (fixedImageUrl.includes('drive.google.com/file/d/')) {
                 const fileIdMatch = fixedImageUrl.match(/\/d\/([^\/]+)/);
                 if (fileIdMatch && fileIdMatch[1]) {
                     const fileId = fileIdMatch[1];
@@ -208,7 +217,7 @@ module.exports = async function() {
                     console.log(`Fixed Google Drive URL for "${name}"`);
                 }
             }
-            
+
             // Add cache-busting to image URL
             if (!fixedImageUrl.includes('?')) {
                 fixedImageUrl += '?v=' + Date.now();
@@ -220,14 +229,33 @@ module.exports = async function() {
             const processedCategories = (() => {
                 // Get the raw categories value, defaulting to empty string if not present
                 const catsRaw = row.Categories || row.categories || '';
-                
-                // Only try to split if it's a non-empty string
-                const cats = typeof catsRaw === 'string' && catsRaw.trim() !== '' 
-                    ? catsRaw.split(',').map(cat => cat.trim()).filter(Boolean)
-                    : [];
-                    
+
+                // Handle different possible formats for categories
+                let cats = [];
+
+                if (typeof catsRaw === 'string') {
+                    if (catsRaw.trim() !== '') {
+                        // Try comma-separated format first
+                        if (catsRaw.includes(',')) {
+                            cats = catsRaw.split(',').map(cat => cat.trim()).filter(Boolean);
+                        }
+                        // Try semicolon-separated format
+                        else if (catsRaw.includes(';')) {
+                            cats = catsRaw.split(';').map(cat => cat.trim()).filter(Boolean);
+                        }
+                        // Try pipe-separated format
+                        else if (catsRaw.includes('|')) {
+                            cats = catsRaw.split('|').map(cat => cat.trim()).filter(Boolean);
+                        }
+                        // If no separators found but there's text, treat as a single category
+                        else {
+                            cats = [catsRaw.trim()];
+                        }
+                    }
+                }
+
                 console.log(`Categories for "${name}":`, cats);
-                
+
                 return cats; // Will be an empty array if no categories exist
             })();
 
@@ -250,12 +278,20 @@ module.exports = async function() {
         }).filter(attraction => attraction !== null); // Filter out skipped rows
 
         console.log(`Successfully processed ${attractions.length} attractions.`);
-        
+
         if (attractions.length === 0) {
             console.warn("WARNING: No valid attractions were processed from the sheet! Using fallback data.");
             return FALLBACK_ATTRACTIONS;
         }
-        
+         // Log all loaded attractions for debugging
+             console.log("===== ATTRACTIONS LOADING SUMMARY =====");
+             console.log(`Total attractions loaded: ${attractions.length}`);
+             console.log("Slugs generated for all attractions:");
+             attractions.forEach(attr => {
+               console.log(`- [${attr.slug}] ${attr.name} (${attr.state})`);
+             });
+         console.log("======================================");
+
         return attractions;
 
     } catch (error) {

@@ -11,11 +11,22 @@ title: The Paper House
     <span class="location">Location: Rockport, MA 1966</span>
   </div>
   <figure class="attraction-image">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Paper_House%2C_Pigeon_Cove%2C_MA_-_pano.jpg?v=1743956077376" alt="Paper House, Pigeon Cove, MA - pano.jpg" loading="lazy">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Paper_House%2C_Pigeon_Cove%2C_MA_-_pano.jpg?v=1743964413067" alt="Paper House, Pigeon Cove, MA - pano.jpg" loading="lazy">
   </figure>
   <div class="attraction-description">
     <h3>About The Paper House</h3>
     <p>A house constructed almost entirely out of varnished newspapers, including furniture inside.</p>
   </div>
+  
+  {% set articleContent = collections.attractionArticles | getArticleForSlug('the-paper-house') %}
+  {% if articleContent %}
+  <div class="attraction-article">
+    <h3>{{ articleContent.data.title }}</h3>
+    <div class="article-content">
+      {{ articleContent.content | safe }}
+    </div>
+  </div>
+  {% endif %}
+  
   
 </article>

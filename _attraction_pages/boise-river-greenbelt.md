@@ -11,11 +11,22 @@ title: Boise River Greenbelt
     <span class="location">Location: N/A, ID </span>
   </div>
   <figure class="attraction-image">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Boise_River_-_Greenbelt_of_Boise.jpg?v=1743956077378" alt="Boise River - Greenbelt of Boise.jpg" loading="lazy">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Boise_River_-_Greenbelt_of_Boise.jpg?v=1743964413072" alt="Boise River - Greenbelt of Boise.jpg" loading="lazy">
   </figure>
   <div class="attraction-description">
     <h3>About Boise River Greenbelt</h3>
     <p>The Boise River Greenbelt is a recreational and alternate transportation trail along the banks of the Boise River through Boise, Idaho, United States.</p>
   </div>
+  
+  {% set articleContent = collections.attractionArticles | getArticleForSlug('boise-river-greenbelt') %}
+  {% if articleContent %}
+  <div class="attraction-article">
+    <h3>{{ articleContent.data.title }}</h3>
+    <div class="article-content">
+      {{ articleContent.content | safe }}
+    </div>
+  </div>
+  {% endif %}
+  
   
 </article>
