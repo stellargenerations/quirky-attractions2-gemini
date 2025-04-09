@@ -58,7 +58,7 @@
     </div>
 
     <figure class="attraction-image">
-        <img itemprop="image" src="https://upload.wikimedia.org/wikipedia/commons/c/ca/%27Planets_and_Moons%27_--_Christmas_Lights_at_Longwood_Gardens_%28PA%29_December_2018.jpg?v=1744230888232" alt="Planets and Moons&#39; -- Christmas Lights at Longwood Gardens (PA) December 2018.jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <img itemprop="image" src="https://upload.wikimedia.org/wikipedia/commons/c/ca/%27Planets_and_Moons%27_--_Christmas_Lights_at_Longwood_Gardens_%28PA%29_December_2018.jpg?v=1744236088331" alt="Planets and Moons&#39; -- Christmas Lights at Longwood Gardens (PA) December 2018.jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
         <figcaption style="display: none;">Image failed to load.</figcaption>
     </figure>
 
@@ -68,12 +68,36 @@
 
 
 
-<div class="attraction-article" itemprop="additionalProperty" itemscope itemtype="https://schema.org/PropertyValue">
-  <h3 itemprop="name">Longwood Gardens</h3>
-  <div class="article-content" itemprop="value">
-    <p>Content about Red Rocks Amphitheatre goes here.</p>
+<div class="attraction-article">
+  <!-- Article schema markup -->
+  <article itemscope itemtype="https://schema.org/Article">
+    <meta itemprop="about" content="Longwood Gardens">
+    <meta itemprop="mainEntityOfPage" content="/longwood-gardens/">
 
-  </div>
+    <header>
+      <h3 itemprop="headline">Longwood Gardens</h3>
+    </header>
+
+    <div class="article-content" itemprop="articleBody">
+      <p>Content about Red Rocks Amphitheatre goes here.</p>
+
+    </div>
+
+    <!-- Article metadata -->
+    <meta itemprop="datePublished" content="2023-01-01">
+    <meta itemprop="dateModified" content="2023-06-01">
+
+    <!-- Publisher information -->
+    <div itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+      <meta itemprop="name" content="Roadside Attractions USA">
+      <meta itemprop="url" content="https://roadsideattractions.example.com">
+    </div>
+
+    <!-- Author information (can be updated with actual author data if available) -->
+    <div itemprop="author" itemscope itemtype="https://schema.org/Person">
+      <meta itemprop="name" content="Roadside Attractions Guide">
+    </div>
+  </article>
 </div>
 
 

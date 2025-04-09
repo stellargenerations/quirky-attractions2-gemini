@@ -191,6 +191,37 @@ a:hover {
     transition: opacity 0.2s linear;
 }
 
+/* Styling for popup tip */
+.leaflet-popup-tip-container {
+    width: 40px;
+    height: 20px;
+    position: absolute;
+    left: 50%;
+    margin-left: -20px;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.leaflet-popup-tip {
+    width: 17px;
+    height: 17px;
+    padding: 1px;
+    margin: -10px auto 0;
+    transform: rotate(45deg);
+    background: white;
+    box-shadow: 0 3px 14px rgba(0,0,0,0.2);
+}
+
+/* Custom styles for popups that appear below markers */
+.leaflet-popup.popup-below .leaflet-popup-tip-container {
+    top: 0;
+    margin-top: -20px;
+}
+
+.leaflet-popup.popup-below .leaflet-popup-tip {
+    margin: 11px auto 0;
+}
+
 /* Enhanced popup styles for mouseover */
 .leaflet-popup-content-wrapper {
     border-radius: 8px;
@@ -200,6 +231,13 @@ a:hover {
     box-shadow: 0 3px 14px rgba(0,0,0,0.2);
     border: 1px solid rgba(0,0,0,0.1);
     transition: all 0.2s ease;
+    cursor: default; /* Show default cursor to indicate interactive content */
+}
+
+/* Highlight popup when hovered to indicate interactivity */
+.leaflet-popup:hover .leaflet-popup-content-wrapper {
+    box-shadow: 0 5px 18px rgba(0,0,0,0.3);
+    border-color: rgba(0,0,0,0.2);
 }
 
 .leaflet-popup-content {
@@ -287,11 +325,16 @@ a:hover {
     border-radius: 4px;
     font-size: 0.9rem;
     text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 }
 
 .leaflet-popup-content a.learn-more-link:hover {
     background-color: #218838;
     text-decoration: none;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 5px rgba(0,0,0,0.3);
 }
 
 .leaflet-popup-content .card-categories {
@@ -311,11 +354,14 @@ a:hover {
     text-decoration: none;
     border: 1px solid #d1e6fa;
     transition: all 0.2s ease;
+    cursor: pointer;
 }
 
 .leaflet-popup-content .category-badge:hover {
     background-color: #d1e6fa;
     text-decoration: none;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .leaflet-popup-content .state-link {

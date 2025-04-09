@@ -60,7 +60,7 @@
     </div>
 
     <figure class="attraction-image">
-        <img itemprop="image" src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Arms4.jpg?v=1744230888231" alt="Arms4.jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <img itemprop="image" src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Arms4.jpg?v=1744236088327" alt="Arms4.jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
         <figcaption style="display: none;">Image failed to load.</figcaption>
     </figure>
 
@@ -70,10 +70,18 @@
 
 
 
-<div class="attraction-article" itemprop="additionalProperty" itemscope itemtype="https://schema.org/PropertyValue">
-  <h3 itemprop="name">Explore the Republic of Molossia: A Fascinating Micronation</h3>
-  <div class="article-content" itemprop="value">
-    
+<div class="attraction-article">
+  <!-- Article schema markup -->
+  <article itemscope itemtype="https://schema.org/Article">
+    <meta itemprop="about" content="Republic of Molossia">
+    <meta itemprop="mainEntityOfPage" content="/republic-of-molossia/">
+
+    <header>
+      <h3 itemprop="headline">Explore the Republic of Molossia: A Fascinating Micronation</h3>
+    </header>
+
+    <div class="article-content" itemprop="articleBody">
+      
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -327,7 +335,23 @@
     </div>
 </body>
 </html>
-  </div>
+    </div>
+
+    <!-- Article metadata -->
+    <meta itemprop="datePublished" content="2023-01-01">
+    <meta itemprop="dateModified" content="2023-06-01">
+
+    <!-- Publisher information -->
+    <div itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+      <meta itemprop="name" content="Roadside Attractions USA">
+      <meta itemprop="url" content="https://roadsideattractions.example.com">
+    </div>
+
+    <!-- Author information (can be updated with actual author data if available) -->
+    <div itemprop="author" itemscope itemtype="https://schema.org/Person">
+      <meta itemprop="name" content="Roadside Attractions Guide">
+    </div>
+  </article>
 </div>
 
 

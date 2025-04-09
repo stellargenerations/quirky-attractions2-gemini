@@ -17,8 +17,8 @@ if (attractionsData.length > 0) {
 window.map = null;
 let attractionsLayer;
 const markers = {};
-const initialCenter = [38.0283, -98.5795]; // Moved up from 39.8283 to 42.8283 (more northern)
-const initialZoom = 5;
+const initialCenter = [38.0283, -98.5795]; // Center of the continental US
+const initialZoom = 5; // Zoom level that shows most of the continental US
 
 // --- Get elements from the page ---
 const mapElement = document.getElementById('map');
@@ -40,6 +40,72 @@ document.addEventListener('DOMContentLoaded', () => {
         showLoadingError();
         return;
     }
+
+    // Create a custom popup class that positions popups based on their location on the map
+    const CustomPopup = L.Popup.extend({
+        _updatePosition: function() {
+            if (!this._map) { return; }
+
+            var pos = this._map.latLngToLayerPoint(this._latlng),
+                offset = L.point(this.options.offset),
+                anchor = this._getAnchor();
+
+            // Get map center and determine if we're in the top half
+            var mapCenter = this._map.getCenter();
+            var bounds = this._map.getBounds();
+            var isTopHalf = false;
+
+            if (bounds) {
+                var northBound = bounds.getNorth();
+                var southBound = bounds.getSouth();
+                var midPoint = southBound + ((northBound - southBound) / 2);
+                isTopHalf = this._latlng.lat > midPoint;
+
+                // Debug
+                console.log('Popup at:', this._latlng.lat, 'Map midpoint:', midPoint, 'Is top half:', isTopHalf);
+
+                // Adjust offset based on position
+                if (isTopHalf) {
+                    // If in top half, position popup below the marker
+                    offset.y = Math.abs(offset.y);
+                    this._container.classList.add('popup-below');
+                } else {
+                    // If in bottom half, position popup above the marker
+                    offset.y = -Math.abs(offset.y);
+                    this._container.classList.remove('popup-below');
+                }
+            }
+
+            // Position the popup
+            if (this._zoomAnimated) {
+                L.DomUtil.setPosition(this._container, pos.add(anchor).add(offset));
+            } else {
+                offset = offset.add(pos).add(anchor);
+            }
+
+            // Bottom position of popup when using standard offset
+            var bottom = this._containerBottom = -offset.y;
+
+            // Adjust if we're showing popup below
+            if (isTopHalf) {
+                bottom = -offset.y + this._container.offsetHeight;
+            }
+
+            // Set position
+            var left = this._containerLeft = -Math.round(this._containerWidth / 2) + offset.x;
+
+            // Position the triangle
+            if (this._container) {
+                this._container.style.bottom = bottom + 'px';
+                this._container.style.left = left + 'px';
+            }
+        }
+    });
+
+    // Replace the standard popup with our custom one
+    L.customPopup = function(options, source) {
+        return new CustomPopup(options, source);
+    };
 
     // Now we can safely define Leaflet-dependent variables
     // Define US bounds but we won't enforce them strictly
@@ -96,24 +162,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Map Functions ---
+
     function initMap() {
         try {
             console.log('Initializing map...');
 
-            // Define expanded bounds that give more room around the edges
-            const expandedBounds = L.latLngBounds(
-                L.latLng(20.0, -140.0),  // Much wider southwest corner
-                L.latLng(55.0, -50.0)    // Much wider northeast corner
+            // Define US bounds with some padding
+            const usBounds = L.latLngBounds(
+                L.latLng(24.396308, -125.000000), // Bottom left corner
+                L.latLng(49.384358, -66.934570)  // Top right corner
             );
 
             // Assign to both local and global variables
             window.map = map = L.map('map', {
                 center: initialCenter,
                 zoom: initialZoom,
-                minZoom: 5,
-                // Use expanded bounds with very low viscosity
-                maxBounds: expandedBounds,
-                maxBoundsViscosity: 0.05,  // Even more relaxed
+                minZoom: 4,
+                maxZoom: 9,
                 fadeAnimation: true,
                 zoomAnimation: true
             });
@@ -131,6 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log('Map fully loaded');
             });
 
+            // Our custom popup class will handle positioning automatically
             console.log('Map initialized successfully');
 
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -226,25 +292,79 @@ document.addEventListener('DOMContentLoaded', () => {
             keepInView: true,
             minWidth: 280,
             maxWidth: 320
+            // We'll set the offset when binding the popup
         };
 
         // Don't set fixed maxHeight to allow natural sizing
         // Let CSS handle scrolling if needed
 
-        marker.bindPopup(popupContent, popupOptions);
+        // Create a custom popup that will position itself based on its location on the map
+        const popup = L.customPopup(popupOptions)
+            .setContent(popupContent);
+
+        // Bind the popup to the marker
+        marker.bindPopup(popup);
 
         // Track if popup was opened by click (for mouseover/mouseout behavior)
         marker.wasClickOpened = false;
 
+        // Variable to store timeout for delayed popup closing
+        let popupCloseTimeout;
+
         // Show popup on mouseover
         marker.on('mouseover', function() {
+            // Clear any existing timeout to prevent popup from closing
+            if (popupCloseTimeout) {
+                clearTimeout(popupCloseTimeout);
+                popupCloseTimeout = null;
+            }
             this.openPopup();
         });
 
-        // Hide popup on mouseout unless it was opened by click
-        marker.on('mouseout', function() {
+        // Hide popup on mouseout unless it was opened by click or mouse is over popup
+        marker.on('mouseout', function(e) {
+            // Don't close immediately - set a timeout
             if (!this.wasClickOpened) {
-                this.closePopup();
+                popupCloseTimeout = setTimeout(() => {
+                    // Only close if we're not hovering over the popup
+                    if (!isMouseOverPopup()) {
+                        this.closePopup();
+                    }
+                }, 300); // 300ms delay gives time to move mouse to popup
+            }
+        });
+
+        // Function to check if mouse is over a popup
+        function isMouseOverPopup() {
+            const popups = document.querySelectorAll('.leaflet-popup');
+            for (let i = 0; i < popups.length; i++) {
+                if (popups[i].matches(':hover')) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // Add event listeners to the popup to keep it open when hovered
+        marker.on('popupopen', function(e) {
+            const popup = e.popup;
+            const container = popup._container;
+
+            if (container) {
+                // When mouse enters popup, clear the close timeout
+                container.addEventListener('mouseenter', function() {
+                    if (popupCloseTimeout) {
+                        clearTimeout(popupCloseTimeout);
+                        popupCloseTimeout = null;
+                    }
+                });
+
+                // When mouse leaves popup, close it if it wasn't clicked
+                container.addEventListener('mouseleave', function() {
+                    if (!marker.wasClickOpened) {
+                        marker.closePopup();
+                    }
+                });
             }
         });
 
@@ -413,9 +533,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (m) m.wasClickOpened = false;
             });
 
-            map.flyTo(initialCenter, initialZoom, {
+            // Simply reset to initial center and zoom
+            map.setView(initialCenter, initialZoom, {
                 animate: true,
-                duration: 0.75
+                duration: 0.5
             });
         }
     }

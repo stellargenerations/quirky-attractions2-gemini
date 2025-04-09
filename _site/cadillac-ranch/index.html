@@ -60,7 +60,7 @@
     </div>
 
     <figure class="attraction-image">
-        <img itemprop="image" src="https://upload.wikimedia.org/wikipedia/commons/2/20/Cadillac_Ranch_Entrance.jpg?v=1744230888225" alt="Cadillac Ranch Entrance.jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <img itemprop="image" src="https://upload.wikimedia.org/wikipedia/commons/2/20/Cadillac_Ranch_Entrance.jpg?v=1744236088316" alt="Cadillac Ranch Entrance.jpg" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
         <figcaption style="display: none;">Image failed to load.</figcaption>
     </figure>
 
@@ -70,10 +70,18 @@
 
 
 
-<div class="attraction-article" itemprop="additionalProperty" itemscope itemtype="https://schema.org/PropertyValue">
-  <h3 itemprop="name">The Story of Cadillac Ranch</h3>
-  <div class="article-content" itemprop="value">
-    <p>Cadillac Ranch stands as one of America's most iconic roadside art installations, appearing in countless photographs, films, and road trip memories since its creation in 1974.</p>
+<div class="attraction-article">
+  <!-- Article schema markup -->
+  <article itemscope itemtype="https://schema.org/Article">
+    <meta itemprop="about" content="Cadillac Ranch">
+    <meta itemprop="mainEntityOfPage" content="/cadillac-ranch/">
+
+    <header>
+      <h3 itemprop="headline">The Story of Cadillac Ranch</h3>
+    </header>
+
+    <div class="article-content" itemprop="articleBody">
+      <p>Cadillac Ranch stands as one of America's most iconic roadside art installations, appearing in countless photographs, films, and road trip memories since its creation in 1974.</p>
 <h2>The Eccentric Origins</h2>
 <p>This unusual monument was created by the art collective Ant Farm, led by Chip Lord, Hudson Marquez, and Doug Michels. The installation was commissioned by eccentric helium millionaire Stanley Marsh 3, known for his love of unusual public art projects around his hometown of Amarillo.</p>
 <h2>An Ever-Changing Canvas</h2>
@@ -85,7 +93,23 @@
 <p>The ten Cadillacs, ranging from 1949 to 1963 models, are buried nose-down in the Texas Panhandle soil at the same angle as the Great Pyramid of Giza. Since its installation, Cadillac Ranch has inspired countless other automobile art pieces across America and has been referenced in songs, films, and literature.</p>
 <p>Though Stanley Marsh 3 passed away in 2014 and the Ant Farm collective disbanded long ago, Cadillac Ranch continues to stand as a testament to American car culture, artistic expression, and the allure of the open road.</p>
 
-  </div>
+    </div>
+
+    <!-- Article metadata -->
+    <meta itemprop="datePublished" content="2023-01-01">
+    <meta itemprop="dateModified" content="2023-06-01">
+
+    <!-- Publisher information -->
+    <div itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+      <meta itemprop="name" content="Roadside Attractions USA">
+      <meta itemprop="url" content="https://roadsideattractions.example.com">
+    </div>
+
+    <!-- Author information (can be updated with actual author data if available) -->
+    <div itemprop="author" itemscope itemtype="https://schema.org/Person">
+      <meta itemprop="name" content="Roadside Attractions Guide">
+    </div>
+  </article>
 </div>
 
 
